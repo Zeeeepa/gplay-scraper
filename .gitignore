@@ -155,6 +155,10 @@ debug_limbo*.py
 limbo_ds5_raw.txt
 appbrain_scraper.py
 
+# Documentation folders (local use only)
+wiki/
+community/
+
 # Chrome extensions
 chrome-extension/
 chrome-extension-new/
