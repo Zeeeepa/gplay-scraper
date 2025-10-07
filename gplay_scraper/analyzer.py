@@ -60,7 +60,6 @@ class GPlayScraper:
             # Scrape raw data from Google Play Store
             ds5_data, ds11_data = self.scraper.scrape_play_store_data(app_id)
         except Exception as e:
-            logger.error(f"Failed to scrape data for {app_id}: {e}")
             raise
 
         # Clean and parse JSON data
@@ -68,9 +67,12 @@ class GPlayScraper:
         try:
             data = json.loads(json_str_cleaned)
         except json.JSONDecodeError as e:
-            logger.error(f"JSON parsing error for ds:5: {e}")
-            logger.debug(f"Cleaned JSON string causing error: {json_str_cleaned[:200]}")
-            raise ValueError(f"Failed to parse ds:5 JSON: {str(e)}")
+            # Try alternative cleaning for paid apps
+            try:
+                alternative_cleaned = self._alternative_json_clean(ds5_data)
+                data = json.loads(alternative_cleaned)
+            except Exception:
+                raise ValueError(f"Failed to parse ds:5 JSON: {str(e)}")
 
         # Extract app details using element specifications
         app_details = {}
@@ -107,6 +109,67 @@ class GPlayScraper:
         app_details['reviewsData'] = self.scraper.extract_reviews(ds11_data)
 
         return self._format_app_details(app_details)
+    
+    def _alternative_json_clean(self, json_str: str) -> str:
+        """Alternative JSON cleaning method for problematic paid app data."""
+        import re
+        import json
+        
+        # Try to extract the data array using bracket matching
+        data_start = json_str.find('data:')
+        if data_start != -1:
+            bracket_start = json_str.find('[', data_start)
+            if bracket_start != -1:
+                # Find matching closing bracket
+                bracket_count = 0
+                pos = bracket_start
+                
+                while pos < len(json_str):
+                    if json_str[pos] == '[':
+                        bracket_count += 1
+                    elif json_str[pos] == ']':
+                        bracket_count -= 1
+                        if bracket_count == 0:
+                            data_end = pos + 1
+                            break
+                    pos += 1
+                
+                if bracket_count == 0:
+                    # Extract the data array
+                    data_array = json_str[bracket_start:data_end]
+                    
+                    try:
+                        # Test if the array parses correctly
+                        parsed_array = json.loads(data_array)
+                        
+                        # Create proper JSON structure
+                        return json.dumps({
+                            "key": "ds:5",
+                            "hash": "13",
+                            "data": parsed_array
+                        })
+                    except json.JSONDecodeError:
+                        pass
+        
+        # Fallback: aggressive cleaning
+        json_str = re.sub(r',\s*sideChannel:\s*\{\}', '', json_str)
+        json_str = re.sub(r'\bfunction\s*\([^)]*\)\s*\{[^}]*\}', 'null', json_str)
+        json_str = re.sub(r'\bundefined\b', 'null', json_str)
+        json_str = re.sub(r'\bNaN\b', 'null', json_str)
+        
+        # Handle malformed objects with missing quotes
+        json_str = re.sub(r'([{,]\s*)([a-zA-Z_$][a-zA-Z0-9_$]*)\s*:', r'\1"\2":', json_str)
+        
+        # Fix price formatting issues
+        json_str = re.sub(r':\s*\$([0-9.,]+)', r': "$\1"', json_str)
+        
+        # Remove trailing commas
+        json_str = re.sub(r',\s*([}\]])', r'\1', json_str)
+        
+        # Fix multiple commas
+        json_str = re.sub(r',,+', ',', json_str)
+        
+        return json_str
 
     def _format_app_details(self, details: dict) -> dict:
         """Format and structure app details into final output format.
@@ -119,42 +182,99 @@ class GPlayScraper:
         """
         keyword_analysis = details.get("keywordAnalysis", {})
         
-        # Map internal field names to public API field names
-        field_mapping = {
-            "appId": "appId", "title": "title", "summary": "summary", "description": "description",
-            "appUrl": "url", "genre": "genre", "genreId": "genreId", "categories": "categories",
-            "available": "available", "released": "released", "appAgeDays": "appAge",
-            "lastUpdated": "lastUpdatedOn", "updatedTimestamp": "updated", "icon": "icon",
-            "headerImage": "headerImage", "screenshots": "screenshots", "video": "video",
-            "videoImage": "videoImage", "installs": "installs", "minInstalls": "minInstalls",
-            "realInstalls": "realInstalls", "dailyInstalls": "dailyInstalls",
-            "minDailyInstalls": "minDailyInstalls", "realDailyInstalls": "realDailyInstalls",
-            "monthlyInstalls": "monthlyInstalls", "minMonthlyInstalls": "minMonthlyInstalls",
-            "realMonthlyInstalls": "realMonthlyInstalls", "score": "score", "ratings": "ratings",
-            "reviews": "reviews", "histogram": "histogram", "reviewsData": "reviewsData",
-            "adSupported": "adSupported", "containsAds": "containsAds", "version": "version",
-            "androidVersion": "androidVersion", "maxAndroidApi": "maxandroidapi",
-            "minAndroidApi": "minandroidapi", "appBundle": "appBundle",
-            "contentRating": "contentRating", "contentRatingDescription": "contentRatingDescription",
-            "whatsNew": "whatsNew", "permissions": "permissions", "dataSafety": "dataSafety",
-            "price": "price", "currency": "currency", "free": "free", "offersIAP": "offersIAP",
-            "inAppProductPrice": "inAppProductPrice", "sale": "sale", "originalPrice": "originalPrice",
-            "developer": "developer", "developerId": "developerId", "developerEmail": "developerEmail",
-            "developerWebsite": "developerWebsite", "developerAddress": "developerAddress",
-            "developerPhone": "developerPhone", "privacyPolicy": "privacyPolicy"
-        }
+        # Build organized result dictionary
+        result = {}
         
-        # Build result dictionary with mapped field names
-        result = {out_key: details.get(in_key) for out_key, in_key in field_mapping.items()}
+        # Basic Information
+        result["appId"] = details.get("appId")
+        result["title"] = details.get("title")
+        result["summary"] = details.get("summary")
+        result["description"] = details.get("description")
+        result["appUrl"] = details.get("url")
         
-        # Add ASO keyword analysis fields
-        keyword_fields = {
-            "totalWords": "total_words", "uniqueKeywords": "unique_keywords",
-            "topKeywords": "top_keywords", "topBigrams": "top_bigrams",
-            "topTrigrams": "top_trigrams", "competitiveKeywords": "competitive_analysis",
-            "readability": "readability"
-        }
-        result.update({out_key: keyword_analysis.get(in_key) for out_key, in_key in keyword_fields.items()})
+        # Category & Genre
+        result["genre"] = details.get("genre")
+        result["genreId"] = details.get("genreId")
+        result["categories"] = details.get("categories")
+        result["available"] = details.get("available")
+        
+        # Release & Updates
+        result["released"] = details.get("released")
+        result["appAgeDays"] = details.get("appAge")
+        result["lastUpdated"] = details.get("lastUpdatedOn")
+        result["updatedTimestamp"] = details.get("updated")
+        
+        # Media Content
+        result["icon"] = details.get("icon")
+        result["headerImage"] = details.get("headerImage")
+        result["screenshots"] = details.get("screenshots")
+        result["video"] = details.get("video")
+        result["videoImage"] = details.get("videoImage")
+        
+        # Install Statistics
+        result["installs"] = details.get("installs")
+        result["minInstalls"] = details.get("minInstalls")
+        result["realInstalls"] = details.get("realInstalls")
+        result["dailyInstalls"] = details.get("dailyInstalls")
+        result["minDailyInstalls"] = details.get("minDailyInstalls")
+        result["realDailyInstalls"] = details.get("realDailyInstalls")
+        result["monthlyInstalls"] = details.get("monthlyInstalls")
+        result["minMonthlyInstalls"] = details.get("minMonthlyInstalls")
+        result["realMonthlyInstalls"] = details.get("realMonthlyInstalls")
+        
+        # Ratings & Reviews
+        result["score"] = details.get("score")
+        result["ratings"] = details.get("ratings")
+        result["reviews"] = details.get("reviews")
+        result["histogram"] = details.get("histogram")
+        result["reviewsData"] = details.get("reviewsData")
+        
+        # Advertising
+        result["adSupported"] = details.get("adSupported")
+        result["containsAds"] = details.get("containsAds")
+        
+        # Technical Details
+        result["version"] = details.get("version")
+        result["androidVersion"] = details.get("androidVersion")
+        result["maxAndroidApi"] = details.get("maxandroidapi")
+        result["minAndroidApi"] = details.get("minandroidapi")
+        result["appBundle"] = details.get("appBundle")
+        
+        # Content Rating
+        result["contentRating"] = details.get("contentRating")
+        result["contentRatingDescription"] = details.get("contentRatingDescription")
+        result["whatsNew"] = details.get("whatsNew")
+        
+        # Privacy & Security
+        result["permissions"] = details.get("permissions")
+        result["dataSafety"] = details.get("dataSafety")
+        
+        # Pricing & Monetization
+        result["price"] = details.get("price")
+        result["currency"] = details.get("currency")
+        result["free"] = details.get("free")
+        result["offersIAP"] = details.get("offersIAP")
+        result["inAppProductPrice"] = details.get("inAppProductPrice")
+        result["sale"] = details.get("sale")
+        result["originalPrice"] = details.get("originalPrice")
+        
+        # Developer Information
+        result["developer"] = details.get("developer")
+        result["developerId"] = details.get("developerId")
+        result["developerEmail"] = details.get("developerEmail")
+        result["developerWebsite"] = details.get("developerWebsite")
+        result["developerAddress"] = details.get("developerAddress")
+        result["developerPhone"] = details.get("developerPhone")
+        result["privacyPolicy"] = details.get("privacyPolicy")
+        
+        # ASO (App Store Optimization) Analysis
+        result["totalWords"] = keyword_analysis.get("total_words")
+        result["uniqueKeywords"] = keyword_analysis.get("unique_keywords")
+        result["topKeywords"] = keyword_analysis.get("top_keywords")
+        result["topBigrams"] = keyword_analysis.get("top_bigrams")
+        result["topTrigrams"] = keyword_analysis.get("top_trigrams")
+        result["competitiveKeywords"] = keyword_analysis.get("competitive_analysis")
+        result["readability"] = keyword_analysis.get("readability")
         
         return result
 

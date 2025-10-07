@@ -226,19 +226,30 @@ def clean_json_string(json_str: str) -> str:
     # Remove sideChannel objects that cause parsing issues
     json_str = re.sub(r',\s*sideChannel:\s*\{\}', '', json_str)
     
-    # Add quotes around unquoted object keys
-    json_str = re.sub(r'([{,]\s*)(\w+)(:)', r'\1"\2"\3', json_str)
+    # Fix unquoted object keys (the main issue with Play Store data)
+    json_str = re.sub(r'([{,]\s*)([a-zA-Z_$][a-zA-Z0-9_$]*)\s*:', r'\1"\2":', json_str)
+    
+    # Handle malformed function calls and undefined values
+    json_str = re.sub(r'\bfunction\s*\([^)]*\)\s*\{[^}]*\}', 'null', json_str)
+    json_str = re.sub(r'\bundefined\b', 'null', json_str)
     
     # Convert single quotes to double quotes for string values
     json_str = re.sub(r":\s*'([^']*)\'", r': "\1"', json_str)
     
-    # Remove trailing commas before closing brackets
+    # Handle malformed arrays with missing commas
+    json_str = re.sub(r'(\])\s*(\[)', r'\1,\2', json_str)
+    json_str = re.sub(r'(\})\s*(\{)', r'\1,\2', json_str)
+    
+    # Fix trailing commas before closing brackets
     json_str = re.sub(r',(\s*[}\]])', r'\1', json_str)
     
-    # Fix malformed arrays/objects by removing extra commas
+    # Fix multiple consecutive commas
     json_str = re.sub(r',,+', ',', json_str)
     
-    # Remove commas before closing brackets/braces
-    json_str = re.sub(r',\s*([}\]])', r'\1', json_str)
+    # Handle malformed price/currency data (common in paid apps)
+    json_str = re.sub(r':\s*\$([0-9.]+)', r': "$\1"', json_str)
+    
+    # Fix missing quotes around numeric strings that should be strings
+    json_str = re.sub(r'"version"\s*:\s*([0-9.]+)(?=\s*[,}])', r'"version": "\1"', json_str)
     
     return json_str

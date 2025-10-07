@@ -127,25 +127,49 @@ class PlayStoreScraper:
         if not ds11_data:
             return []
 
-        # Clean and parse the JSON data
-        cleaned = ds11_data
-        
         try:
-            data = json.loads(clean_json_string(cleaned))
+            data = json.loads(clean_json_string(ds11_data))
             data = data.get('data', data)
-        except Exception as e:
-            logger.error(f"Error parsing ds:11 JSON: {e}")
-            return []
+        except Exception:
+            # Try alternative parsing with bracket matching
+            try:
+                data_start = ds11_data.find('data:')
+                if data_start != -1:
+                    bracket_start = ds11_data.find('[', data_start)
+                    if bracket_start != -1:
+                        bracket_count = 0
+                        pos = bracket_start
+                        while pos < len(ds11_data):
+                            if ds11_data[pos] == '[':
+                                bracket_count += 1
+                            elif ds11_data[pos] == ']':
+                                bracket_count -= 1
+                                if bracket_count == 0:
+                                    data_end = pos + 1
+                                    break
+                            pos += 1
+                        if bracket_count == 0:
+                            data_array = ds11_data[bracket_start:data_end]
+                            parsed_array = json.loads(data_array)
+                            data = parsed_array
+                        else:
+                            return []
+                    else:
+                        return []
+                else:
+                    return []
+            except Exception:
+                return []
 
         # Extract individual review entries
         reviews = []
         try:
-            for entry in data[0]:
-                review = self._parse_review_entry(entry)
-                if review:
-                    reviews.append(review)
-        except Exception as e:
-            logger.error(f"Error processing reviews data: {e}")
+            if data and len(data) > 0 and data[0]:
+                for entry in data[0]:
+                    review = self._parse_review_entry(entry)
+                    if review:
+                        reviews.append(review)
+        except Exception:
             return []
 
         return reviews

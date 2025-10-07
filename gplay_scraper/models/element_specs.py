@@ -152,6 +152,7 @@ class ElementSpecs:
         "free": ElementSpec(None, [1, 2, 57, 0, 0, 0, 0, 1, 0, 0], lambda s: s == 0),
         "currency": ElementSpec(None, [1, 2, 57, 0, 0, 0, 0, 1, 0, 1]),
         "sale": ElementSpec(None, [1, 2, 57, 0, 0, 0, 0, 14, 0, 0], bool, False),
+        "originalPrice": ElementSpec(None, [1, 2, 57, 0, 0, 0, 0, 1, 1, 0], lambda price: (price / 1000000) if price else None),
         "offersIAP": ElementSpec(None, [1, 2, 19, 0], bool, False),
         "inAppProductPrice": ElementSpec(None, [1, 2, 19, 0]),
         "developer": ElementSpec(None, [1, 2, 68, 0]),
