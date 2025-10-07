@@ -1,0 +1,39 @@
+---
+name: Bug report
+about: Create a report to help us improve
+title: '[BUG] '
+labels: bug
+assignees: ''
+---
+
+**Describe the bug**
+A clear and concise description of what the bug is.
+
+**To Reproduce**
+Steps to reproduce the behavior:
+1. Use app ID '...'
+2. Call method '....'
+3. See error
+
+**Expected behavior**
+A clear and concise description of what you expected to happen.
+
+**Code Example**
+```python
+from gplay_scraper import GPlayScraper
+scraper = GPlayScraper()
+# Your code here
+```
+
+**Error Output**
+```
+Paste the full error message here
+```
+
+**Environment:**
+ - OS: [e.g. Windows 10, macOS, Linux]
+ - Python version: [e.g. 3.8.5]
+ - Library version: [e.g. 1.0.1]
+
+**Additional context**
+Add any other context about the problem here.
