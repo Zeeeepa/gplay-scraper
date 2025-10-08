@@ -1,0 +1,1054 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Reference &mdash; GPlay Scraper 1.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+    <link rel="canonical" href="https://mohammedcha.github.io/gplay-scraper/gplay_scraper.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=292eb321"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="prev" title="API Reference" href="api_reference.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            GPlay Scraper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-from-pypi">Install from PyPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#development-installation">Development Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#verify-installation">Verify Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#basic-usage">Basic Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#import-and-initialize">Import and Initialize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#get-single-field">Get Single Field</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#get-multiple-fields">Get Multiple Fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#complete-analysis">Complete Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#print-methods">Print Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#finding-app-package-names">Finding App Package Names</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#from-play-store-url">From Play Store URL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#common-examples">Common Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#available-data-fields">Available Data Fields</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#basic-information">Basic Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#category-genre">Category &amp; Genre</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#ratings-reviews">Ratings &amp; Reviews</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#install-statistics">Install Statistics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#technical-details">Technical Details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#release-updates">Release &amp; Updates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#media-content">Media Content</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#pricing-monetization">Pricing &amp; Monetization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#advertising">Advertising</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#content-rating">Content Rating</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#privacy-security">Privacy &amp; Security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#developer-information">Developer Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#aso-app-store-optimization-analysis">ASO (App Store Optimization) Analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gplayscraper">GPlayScraper</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.GPlayScraper"><code class="docutils literal notranslate"><span class="pre">GPlayScraper</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-gplay_scraper.exceptions">Exceptions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.exceptions.GPlayScraperError"><code class="docutils literal notranslate"><span class="pre">GPlayScraperError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.exceptions.InvalidAppIdError"><code class="docutils literal notranslate"><span class="pre">InvalidAppIdError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.exceptions.AppNotFoundError"><code class="docutils literal notranslate"><span class="pre">AppNotFoundError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.exceptions.RateLimitError"><code class="docutils literal notranslate"><span class="pre">RateLimitError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.exceptions.NetworkError"><code class="docutils literal notranslate"><span class="pre">NetworkError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.exceptions.DataParsingError"><code class="docutils literal notranslate"><span class="pre">DataParsingError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#core-modules">Core Modules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#playstorescraper">PlayStoreScraper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#asoanalyzer">AsoAnalyzer</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-gplay_scraper.utils.helpers">Utility Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.utils.helpers.nested_lookup"><code class="docutils literal notranslate"><span class="pre">nested_lookup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.utils.helpers.unescape_text"><code class="docutils literal notranslate"><span class="pre">unescape_text()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.utils.helpers.extract_categories"><code class="docutils literal notranslate"><span class="pre">extract_categories()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.utils.helpers.get_categories"><code class="docutils literal notranslate"><span class="pre">get_categories()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.utils.helpers.parse_release_date"><code class="docutils literal notranslate"><span class="pre">parse_release_date()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.utils.helpers.calculate_app_age"><code class="docutils literal notranslate"><span class="pre">calculate_app_age()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.utils.helpers.parse_installs_string"><code class="docutils literal notranslate"><span class="pre">parse_installs_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.utils.helpers.calculate_daily_installs"><code class="docutils literal notranslate"><span class="pre">calculate_daily_installs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.utils.helpers.calculate_monthly_installs"><code class="docutils literal notranslate"><span class="pre">calculate_monthly_installs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.utils.helpers.clean_json_string"><code class="docutils literal notranslate"><span class="pre">clean_json_string()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#basic-app-information">Basic App Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#competitive-analysis">Competitive Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#install-metrics-analysis">Install Metrics Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#aso-keyword-analysis">ASO Keyword Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#batch-processing">Batch Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#complete-app-report">Complete App Report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#error-handling">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#configuration-examples">Configuration Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#real-world-use-cases">Real-World Use Cases</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#default-settings">Default Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#network-configuration">Network Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#timeout-settings">Timeout Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#rate-limiting">Rate Limiting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#user-agent">User Agent</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#aso-configuration">ASO Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#keyword-analysis">Keyword Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#stop-words">Stop Words</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#caching-configuration">Caching Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#environment-variables">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#advanced-configuration">Advanced Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#custom-request-configuration">Custom Request Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#logging-configuration">Logging Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#gplayscraper">GPlayScraper</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gplay_scraper.GPlayScraper"><code class="docutils literal notranslate"><span class="pre">GPlayScraper</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.GPlayScraper.__init__"><code class="docutils literal notranslate"><span class="pre">GPlayScraper.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.GPlayScraper.analyze"><code class="docutils literal notranslate"><span class="pre">GPlayScraper.analyze()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.GPlayScraper.get_field"><code class="docutils literal notranslate"><span class="pre">GPlayScraper.get_field()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.GPlayScraper.get_fields"><code class="docutils literal notranslate"><span class="pre">GPlayScraper.get_fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.GPlayScraper.print_field"><code class="docutils literal notranslate"><span class="pre">GPlayScraper.print_field()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.GPlayScraper.print_fields"><code class="docutils literal notranslate"><span class="pre">GPlayScraper.print_fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.GPlayScraper.print_all"><code class="docutils literal notranslate"><span class="pre">GPlayScraper.print_all()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gplay_scraper.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.Config.DEFAULT_TIMEOUT"><code class="docutils literal notranslate"><span class="pre">Config.DEFAULT_TIMEOUT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.Config.DEFAULT_RETRIES"><code class="docutils literal notranslate"><span class="pre">Config.DEFAULT_RETRIES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.Config.RATE_LIMIT_DELAY"><code class="docutils literal notranslate"><span class="pre">Config.RATE_LIMIT_DELAY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.Config.DEFAULT_USER_AGENT"><code class="docutils literal notranslate"><span class="pre">Config.DEFAULT_USER_AGENT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.Config.ASO_TOP_KEYWORDS"><code class="docutils literal notranslate"><span class="pre">Config.ASO_TOP_KEYWORDS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.Config.ASO_MIN_WORD_LENGTH"><code class="docutils literal notranslate"><span class="pre">Config.ASO_MIN_WORD_LENGTH</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.Config.ENABLE_CACHING"><code class="docutils literal notranslate"><span class="pre">Config.ENABLE_CACHING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.Config.CACHE_MAX_SIZE"><code class="docutils literal notranslate"><span class="pre">Config.CACHE_MAX_SIZE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.Config.get_headers"><code class="docutils literal notranslate"><span class="pre">Config.get_headers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.Config.get_request_config"><code class="docutils literal notranslate"><span class="pre">Config.get_request_config()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-gplay_scraper.exceptions">Exceptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gplay_scraper.exceptions.GPlayScraperError"><code class="docutils literal notranslate"><span class="pre">GPlayScraperError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gplay_scraper.exceptions.InvalidAppIdError"><code class="docutils literal notranslate"><span class="pre">InvalidAppIdError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gplay_scraper.exceptions.AppNotFoundError"><code class="docutils literal notranslate"><span class="pre">AppNotFoundError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gplay_scraper.exceptions.RateLimitError"><code class="docutils literal notranslate"><span class="pre">RateLimitError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gplay_scraper.exceptions.NetworkError"><code class="docutils literal notranslate"><span class="pre">NetworkError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gplay_scraper.exceptions.DataParsingError"><code class="docutils literal notranslate"><span class="pre">DataParsingError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#core-modules">Core Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#playstorescraper">PlayStoreScraper</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.core.scraper.PlayStoreScraper"><code class="docutils literal notranslate"><span class="pre">PlayStoreScraper</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#asoanalyzer">AsoAnalyzer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gplay_scraper.core.aso_analyzer.AsoAnalyzer"><code class="docutils literal notranslate"><span class="pre">AsoAnalyzer</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-gplay_scraper.utils.helpers">Utility Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gplay_scraper.utils.helpers.nested_lookup"><code class="docutils literal notranslate"><span class="pre">nested_lookup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gplay_scraper.utils.helpers.unescape_text"><code class="docutils literal notranslate"><span class="pre">unescape_text()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gplay_scraper.utils.helpers.extract_categories"><code class="docutils literal notranslate"><span class="pre">extract_categories()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gplay_scraper.utils.helpers.get_categories"><code class="docutils literal notranslate"><span class="pre">get_categories()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gplay_scraper.utils.helpers.parse_release_date"><code class="docutils literal notranslate"><span class="pre">parse_release_date()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gplay_scraper.utils.helpers.calculate_app_age"><code class="docutils literal notranslate"><span class="pre">calculate_app_age()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gplay_scraper.utils.helpers.parse_installs_string"><code class="docutils literal notranslate"><span class="pre">parse_installs_string()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gplay_scraper.utils.helpers.calculate_daily_installs"><code class="docutils literal notranslate"><span class="pre">calculate_daily_installs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gplay_scraper.utils.helpers.calculate_monthly_installs"><code class="docutils literal notranslate"><span class="pre">calculate_monthly_installs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gplay_scraper.utils.helpers.clean_json_string"><code class="docutils literal notranslate"><span class="pre">clean_json_string()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#version-1-0-1-2025-10-07">Version 1.0.1 (2025-10-07)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#version-1-0-0-2025-10-06">Version 1.0.0 (2025-10-06)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#development-setup">Development Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#running-tests">Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#code-style">Code Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#submitting-changes">Submitting Changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#reporting-issues">Reporting Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#code-of-conduct">Code of Conduct</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="license.html#mit-license">MIT License</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GPlay Scraper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="api_reference.html">API Reference</a></li>
+      <li class="breadcrumb-item active">API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mohammedcha/gplay-scraper/blob/main/docs/gplay_scraper.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h1>
+<p>This section provides detailed API documentation for all classes and methods.</p>
+<section id="gplayscraper">
+<h2>GPlayScraper<a class="headerlink" href="#gplayscraper" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="gplay_scraper.GPlayScraper">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gplay_scraper.</span></span><span class="sig-name descname"><span class="pre">GPlayScraper</span></span><a class="reference internal" href="_modules/gplay_scraper/analyzer.html#GPlayScraper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.GPlayScraper" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Main Google Play Store scraper class.</p>
+<p>Provides methods to extract comprehensive app data from Google Play Store
+including ratings, installs, reviews, ASO metrics, and 65+ data fields.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">scraper</span> <span class="o">=</span> <span class="n">GPlayScraper</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">scraper</span><span class="o">.</span><span class="n">analyze</span><span class="p">(</span><span class="s2">&quot;com.hubolabs.hubo&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">title</span> <span class="o">=</span> <span class="n">scraper</span><span class="o">.</span><span class="n">get_field</span><span class="p">(</span><span class="s2">&quot;com.hubolabs.hubo&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="gplay_scraper.GPlayScraper.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gplay_scraper/analyzer.html#GPlayScraper.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.GPlayScraper.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the scraper with required components.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gplay_scraper.GPlayScraper.analyze">
+<span class="sig-name descname"><span class="pre">analyze</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><span class="pre">Dict</span></a></span></span><a class="reference internal" href="_modules/gplay_scraper/analyzer.html#GPlayScraper.analyze"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.GPlayScraper.analyze" title="Link to this definition"></a></dt>
+<dd><p>Analyze a Google Play Store app and return all available data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>app_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The app’s package name (e.g., “com.hubolabs.hubo”)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Complete app data with 65+ fields including ratings, installs,</dt><dd><p>reviews, ASO metrics, developer info, and technical details</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If app_id is invalid or empty</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.14)"><strong>Exception</strong></a> – If scraping or parsing fails</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">scraper</span> <span class="o">=</span> <span class="n">GPlayScraper</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">scraper</span><span class="o">.</span><span class="n">analyze</span><span class="p">(</span><span class="s2">&quot;com.hubolabs.hubo&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;App: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, Rating: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gplay_scraper.GPlayScraper.get_field">
+<span class="sig-name descname"><span class="pre">get_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></span><a class="reference internal" href="_modules/gplay_scraper/analyzer.html#GPlayScraper.get_field"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.GPlayScraper.get_field" title="Link to this definition"></a></dt>
+<dd><p>Get a specific field value from app analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>app_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – App package name (e.g., “com.hubolabs.hubo”)</p></li>
+<li><p><strong>field</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Field name to retrieve (e.g., “title”, “score”)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Field value or None if not found</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">scraper</span> <span class="o">=</span> <span class="n">GPlayScraper</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">title</span> <span class="o">=</span> <span class="n">scraper</span><span class="o">.</span><span class="n">get_field</span><span class="p">(</span><span class="s2">&quot;com.hubolabs.hubo&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gplay_scraper.GPlayScraper.get_fields">
+<span class="sig-name descname"><span class="pre">get_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/gplay_scraper/analyzer.html#GPlayScraper.get_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.GPlayScraper.get_fields" title="Link to this definition"></a></dt>
+<dd><p>Get multiple specific fields from app analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>app_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – App package name</p></li>
+<li><p><strong>fields</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – List of field names to retrieve</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary with requested fields and values</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, Any]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">scraper</span> <span class="o">=</span> <span class="n">GPlayScraper</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">scraper</span><span class="o">.</span><span class="n">get_fields</span><span class="p">(</span><span class="s2">&quot;com.hubolabs.hubo&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="s2">&quot;installs&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gplay_scraper.GPlayScraper.print_field">
+<span class="sig-name descname"><span class="pre">print_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/gplay_scraper/analyzer.html#GPlayScraper.print_field"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.GPlayScraper.print_field" title="Link to this definition"></a></dt>
+<dd><p>Print a specific field value to console.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>app_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – App package name</p></li>
+<li><p><strong>field</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Field name to print</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">scraper</span> <span class="o">=</span> <span class="n">GPlayScraper</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scraper</span><span class="o">.</span><span class="n">print_field</span><span class="p">(</span><span class="s2">&quot;com.hubolabs.hubo&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">)</span>
+<span class="go">title: purp - Make new friends</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gplay_scraper.GPlayScraper.print_fields">
+<span class="sig-name descname"><span class="pre">print_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/gplay_scraper/analyzer.html#GPlayScraper.print_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.GPlayScraper.print_fields" title="Link to this definition"></a></dt>
+<dd><p>Print multiple field values to console.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>app_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – App package name</p></li>
+<li><p><strong>fields</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – List of field names to print</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">scraper</span> <span class="o">=</span> <span class="n">GPlayScraper</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scraper</span><span class="o">.</span><span class="n">print_fields</span><span class="p">(</span><span class="s2">&quot;com.hubolabs.hubo&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="s2">&quot;developer&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gplay_scraper.GPlayScraper.print_all">
+<span class="sig-name descname"><span class="pre">print_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/gplay_scraper/analyzer.html#GPlayScraper.print_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.GPlayScraper.print_all" title="Link to this definition"></a></dt>
+<dd><p>Print all app data as formatted JSON.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>app_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – App package name</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">scraper</span> <span class="o">=</span> <span class="n">GPlayScraper</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scraper</span><span class="o">.</span><span class="n">print_all</span><span class="p">(</span><span class="s2">&quot;com.hubolabs.hubo&quot;</span><span class="p">)</span>
+<span class="go"># Outputs complete JSON with all 65+ fields</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="gplay_scraper.Config">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gplay_scraper.</span></span><span class="sig-name descname"><span class="pre">Config</span></span><a class="reference internal" href="_modules/gplay_scraper/config.html#Config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.Config" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Default configuration settings for the scraper.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gplay_scraper.Config.DEFAULT_TIMEOUT">
+<span class="sig-name descname"><span class="pre">DEFAULT_TIMEOUT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></em><a class="headerlink" href="#gplay_scraper.Config.DEFAULT_TIMEOUT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gplay_scraper.Config.DEFAULT_RETRIES">
+<span class="sig-name descname"><span class="pre">DEFAULT_RETRIES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#gplay_scraper.Config.DEFAULT_RETRIES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gplay_scraper.Config.RATE_LIMIT_DELAY">
+<span class="sig-name descname"><span class="pre">RATE_LIMIT_DELAY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.0</span></em><a class="headerlink" href="#gplay_scraper.Config.RATE_LIMIT_DELAY" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gplay_scraper.Config.DEFAULT_USER_AGENT">
+<span class="sig-name descname"><span class="pre">DEFAULT_USER_AGENT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Mozilla/5.0</span> <span class="pre">(Windows</span> <span class="pre">NT</span> <span class="pre">10.0;</span> <span class="pre">Win64;</span> <span class="pre">x64)</span> <span class="pre">AppleWebKit/537.36</span> <span class="pre">(KHTML,</span> <span class="pre">like</span> <span class="pre">Gecko)</span> <span class="pre">Chrome/139.0.0.0</span> <span class="pre">Safari/537.36'</span></em><a class="headerlink" href="#gplay_scraper.Config.DEFAULT_USER_AGENT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gplay_scraper.Config.ASO_TOP_KEYWORDS">
+<span class="sig-name descname"><span class="pre">ASO_TOP_KEYWORDS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#gplay_scraper.Config.ASO_TOP_KEYWORDS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gplay_scraper.Config.ASO_MIN_WORD_LENGTH">
+<span class="sig-name descname"><span class="pre">ASO_MIN_WORD_LENGTH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#gplay_scraper.Config.ASO_MIN_WORD_LENGTH" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gplay_scraper.Config.ENABLE_CACHING">
+<span class="sig-name descname"><span class="pre">ENABLE_CACHING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#gplay_scraper.Config.ENABLE_CACHING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gplay_scraper.Config.CACHE_MAX_SIZE">
+<span class="sig-name descname"><span class="pre">CACHE_MAX_SIZE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">100</span></em><a class="headerlink" href="#gplay_scraper.Config.CACHE_MAX_SIZE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gplay_scraper.Config.get_headers">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_headers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_agent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/gplay_scraper/config.html#Config.get_headers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.Config.get_headers" title="Link to this definition"></a></dt>
+<dd><p>Get HTTP headers for requests.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_agent</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Custom user agent string</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>HTTP headers dictionary</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gplay_scraper.Config.get_request_config">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_request_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/gplay_scraper/config.html#Config.get_request_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.Config.get_request_config" title="Link to this definition"></a></dt>
+<dd><p>Get request configuration settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Request configuration</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-gplay_scraper.exceptions">
+<span id="exceptions"></span><h2>Exceptions<a class="headerlink" href="#module-gplay_scraper.exceptions" title="Link to this heading"></a></h2>
+<p>Custom exceptions for GPlay Scraper.</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="gplay_scraper.exceptions.GPlayScraperError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gplay_scraper.exceptions.</span></span><span class="sig-name descname"><span class="pre">GPlayScraperError</span></span><a class="reference internal" href="_modules/gplay_scraper/exceptions.html#GPlayScraperError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.exceptions.GPlayScraperError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<p>Base exception for GPlay Scraper.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="gplay_scraper.exceptions.InvalidAppIdError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gplay_scraper.exceptions.</span></span><span class="sig-name descname"><span class="pre">InvalidAppIdError</span></span><a class="reference internal" href="_modules/gplay_scraper/exceptions.html#InvalidAppIdError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.exceptions.InvalidAppIdError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gplay_scraper.exceptions.GPlayScraperError" title="gplay_scraper.exceptions.GPlayScraperError"><code class="xref py py-class docutils literal notranslate"><span class="pre">GPlayScraperError</span></code></a></p>
+<p>Raised when an invalid app ID is provided.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="gplay_scraper.exceptions.AppNotFoundError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gplay_scraper.exceptions.</span></span><span class="sig-name descname"><span class="pre">AppNotFoundError</span></span><a class="reference internal" href="_modules/gplay_scraper/exceptions.html#AppNotFoundError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.exceptions.AppNotFoundError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gplay_scraper.exceptions.GPlayScraperError" title="gplay_scraper.exceptions.GPlayScraperError"><code class="xref py py-class docutils literal notranslate"><span class="pre">GPlayScraperError</span></code></a></p>
+<p>Raised when an app is not found on the Play Store.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="gplay_scraper.exceptions.RateLimitError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gplay_scraper.exceptions.</span></span><span class="sig-name descname"><span class="pre">RateLimitError</span></span><a class="reference internal" href="_modules/gplay_scraper/exceptions.html#RateLimitError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.exceptions.RateLimitError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gplay_scraper.exceptions.GPlayScraperError" title="gplay_scraper.exceptions.GPlayScraperError"><code class="xref py py-class docutils literal notranslate"><span class="pre">GPlayScraperError</span></code></a></p>
+<p>Raised when rate limit is exceeded.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="gplay_scraper.exceptions.NetworkError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gplay_scraper.exceptions.</span></span><span class="sig-name descname"><span class="pre">NetworkError</span></span><a class="reference internal" href="_modules/gplay_scraper/exceptions.html#NetworkError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.exceptions.NetworkError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gplay_scraper.exceptions.GPlayScraperError" title="gplay_scraper.exceptions.GPlayScraperError"><code class="xref py py-class docutils literal notranslate"><span class="pre">GPlayScraperError</span></code></a></p>
+<p>Raised when network-related errors occur.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="gplay_scraper.exceptions.DataParsingError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gplay_scraper.exceptions.</span></span><span class="sig-name descname"><span class="pre">DataParsingError</span></span><a class="reference internal" href="_modules/gplay_scraper/exceptions.html#DataParsingError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.exceptions.DataParsingError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gplay_scraper.exceptions.GPlayScraperError" title="gplay_scraper.exceptions.GPlayScraperError"><code class="xref py py-class docutils literal notranslate"><span class="pre">GPlayScraperError</span></code></a></p>
+<p>Raised when data parsing fails.</p>
+</dd></dl>
+
+</section>
+<section id="core-modules">
+<h2>Core Modules<a class="headerlink" href="#core-modules" title="Link to this heading"></a></h2>
+<section id="playstorescraper">
+<h3>PlayStoreScraper<a class="headerlink" href="#playstorescraper" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gplay_scraper.core.scraper.PlayStoreScraper">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gplay_scraper.core.scraper.</span></span><span class="sig-name descname"><span class="pre">PlayStoreScraper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rate_limit_delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gplay_scraper/core/scraper.html#PlayStoreScraper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.core.scraper.PlayStoreScraper" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Core scraper for Google Play Store web pages.</p>
+<p>Handles HTTP requests, HTML parsing, and data extraction from
+Google Play Store app pages.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gplay_scraper.core.scraper.PlayStoreScraper.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rate_limit_delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gplay_scraper/core/scraper.html#PlayStoreScraper.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.core.scraper.PlayStoreScraper.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize scraper with browser-like headers and rate limiting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>rate_limit_delay</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Minimum seconds between requests (uses Config default if None)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gplay_scraper.core.scraper.PlayStoreScraper.fetch_playstore_page">
+<span class="sig-name descname"><span class="pre">fetch_playstore_page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="_modules/gplay_scraper/core/scraper.html#PlayStoreScraper.fetch_playstore_page"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.core.scraper.PlayStoreScraper.fetch_playstore_page" title="Link to this definition"></a></dt>
+<dd><p>Fetch HTML content from Google Play Store app page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>app_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – App package name (e.g., “com.whatsapp”)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Raw HTML content of the app page</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If app_id is invalid or malformed</p></li>
+<li><p><a class="reference external" href="https://requests.readthedocs.io/en/latest/api/#requests.RequestException" title="(in Requests v2.32.5)"><strong>requests.RequestException</strong></a> – If HTTP request fails</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gplay_scraper.core.scraper.PlayStoreScraper.scrape_play_store_data">
+<span class="sig-name descname"><span class="pre">scrape_play_store_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/gplay_scraper/core/scraper.html#PlayStoreScraper.scrape_play_store_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.core.scraper.PlayStoreScraper.scrape_play_store_data" title="Link to this definition"></a></dt>
+<dd><p>Extract structured data from Google Play Store app page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>app_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – App package name</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(ds:5 data, ds:11 data) containing app info and reviews</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If required data sections are not found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gplay_scraper.core.scraper.PlayStoreScraper.extract_reviews">
+<span class="sig-name descname"><span class="pre">extract_reviews</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds11_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><span class="pre">Dict</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/gplay_scraper/core/scraper.html#PlayStoreScraper.extract_reviews"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.core.scraper.PlayStoreScraper.extract_reviews" title="Link to this definition"></a></dt>
+<dd><p>Extract and parse user reviews from ds:11 data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ds11_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Raw ds:11 JSON string containing reviews</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of review dictionaries with user, rating, text, etc.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="asoanalyzer">
+<h3>AsoAnalyzer<a class="headerlink" href="#asoanalyzer" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gplay_scraper.core.aso_analyzer.AsoAnalyzer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gplay_scraper.core.aso_analyzer.</span></span><span class="sig-name descname"><span class="pre">AsoAnalyzer</span></span><a class="reference internal" href="_modules/gplay_scraper/core/aso_analyzer.html#AsoAnalyzer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.core.aso_analyzer.AsoAnalyzer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>App Store Optimization (ASO) analyzer for keyword and text analysis.</p>
+<p>Analyzes app descriptions, titles, and summaries to extract keywords,
+calculate readability scores, and identify competitive keywords.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gplay_scraper.core.aso_analyzer.AsoAnalyzer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gplay_scraper/core/aso_analyzer.html#AsoAnalyzer.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.core.aso_analyzer.AsoAnalyzer.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize ASO analyzer with stop words and competitive keyword sets.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gplay_scraper.core.aso_analyzer.AsoAnalyzer.tokenize_text">
+<span class="sig-name descname"><span class="pre">tokenize_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_words</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.14)"><span class="pre">set</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/gplay_scraper/core/aso_analyzer.html#AsoAnalyzer.tokenize_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.core.aso_analyzer.AsoAnalyzer.tokenize_text" title="Link to this definition"></a></dt>
+<dd><p>Tokenize text into clean words for analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Input text to tokenize</p></li>
+<li><p><strong>min_length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Minimum word length to include</p></li>
+<li><p><strong>stop_words</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.14)"><em>set</em></a>) – Set of stop words to exclude</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of cleaned, filtered words</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gplay_scraper.core.aso_analyzer.AsoAnalyzer.extract_ngrams">
+<span class="sig-name descname"><span class="pre">extract_ngrams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">words</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/gplay_scraper/core/aso_analyzer.html#AsoAnalyzer.extract_ngrams"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.core.aso_analyzer.AsoAnalyzer.extract_ngrams" title="Link to this definition"></a></dt>
+<dd><p>Extract n-grams (phrases) from word list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>words</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – List of words</p></li>
+<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of words per phrase (2=bigrams, 3=trigrams)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of n-gram phrases</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gplay_scraper.core.aso_analyzer.AsoAnalyzer.keyword_frequency">
+<span class="sig-name descname"><span class="pre">keyword_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">words</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/gplay_scraper/core/aso_analyzer.html#AsoAnalyzer.keyword_frequency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.core.aso_analyzer.AsoAnalyzer.keyword_frequency" title="Link to this definition"></a></dt>
+<dd><p>Calculate frequency of words/phrases and return top results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>words</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – List of words or phrases</p></li>
+<li><p><strong>top_n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of top results to return</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of word/phrase frequencies</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gplay_scraper.core.aso_analyzer.AsoAnalyzer.analyze_competitive_keywords">
+<span class="sig-name descname"><span class="pre">analyze_competitive_keywords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/gplay_scraper/core/aso_analyzer.html#AsoAnalyzer.analyze_competitive_keywords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.core.aso_analyzer.AsoAnalyzer.analyze_competitive_keywords" title="Link to this definition"></a></dt>
+<dd><p>Identify competitive keywords by category in the text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Text to analyze for competitive keywords</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Categories with found competitive keywords</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gplay_scraper.core.aso_analyzer.AsoAnalyzer.keyword_density">
+<span class="sig-name descname"><span class="pre">keyword_density</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">words</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_words</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/gplay_scraper/core/aso_analyzer.html#AsoAnalyzer.keyword_density"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.core.aso_analyzer.AsoAnalyzer.keyword_density" title="Link to this definition"></a></dt>
+<dd><p>Calculate keyword density as percentage of total words.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>words</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – List of words to analyze</p></li>
+<li><p><strong>total_words</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Total word count for percentage calculation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Word densities as percentages</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gplay_scraper.core.aso_analyzer.AsoAnalyzer.calculate_readability">
+<span class="sig-name descname"><span class="pre">calculate_readability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/gplay_scraper/core/aso_analyzer.html#AsoAnalyzer.calculate_readability"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.core.aso_analyzer.AsoAnalyzer.calculate_readability" title="Link to this definition"></a></dt>
+<dd><p>Calculate Flesch readability score and reading level.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Text to analyze for readability</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Readability metrics including Flesch score and level</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gplay_scraper.core.aso_analyzer.AsoAnalyzer.count_syllables">
+<span class="sig-name descname"><span class="pre">count_syllables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">word</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="reference internal" href="_modules/gplay_scraper/core/aso_analyzer.html#AsoAnalyzer.count_syllables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.core.aso_analyzer.AsoAnalyzer.count_syllables" title="Link to this definition"></a></dt>
+<dd><p>Count syllables in a word using vowel patterns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>word</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Word to count syllables for</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Number of syllables (minimum 1)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gplay_scraper.core.aso_analyzer.AsoAnalyzer.analyze_app_text">
+<span class="sig-name descname"><span class="pre">analyze_app_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a></span></span><a class="reference internal" href="_modules/gplay_scraper/core/aso_analyzer.html#AsoAnalyzer.analyze_app_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.core.aso_analyzer.AsoAnalyzer.analyze_app_text" title="Link to this definition"></a></dt>
+<dd><p>Perform comprehensive ASO analysis on app text content.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>app_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – App data containing title, summary, description, etc.</p></li>
+<li><p><strong>top_n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of top keywords/phrases to return (uses Config default if None)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Complete ASO analysis with keywords, readability, competitive analysis</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="module-gplay_scraper.utils.helpers">
+<span id="utility-functions"></span><h2>Utility Functions<a class="headerlink" href="#module-gplay_scraper.utils.helpers" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="gplay_scraper.utils.helpers.nested_lookup">
+<span class="sig-prename descclassname"><span class="pre">gplay_scraper.utils.helpers.</span></span><span class="sig-name descname"><span class="pre">nested_lookup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></span><a class="reference internal" href="_modules/gplay_scraper/utils/helpers.html#nested_lookup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.utils.helpers.nested_lookup" title="Link to this definition"></a></dt>
+<dd><p>Safely navigate nested data structures using a list of keys/indices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<em>Any</em>) – The data structure to navigate</p></li>
+<li><p><strong>key_list</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em>) – List of keys/indices to traverse</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value at the nested location, or None if not found</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gplay_scraper.utils.helpers.unescape_text">
+<span class="sig-prename descclassname"><span class="pre">gplay_scraper.utils.helpers.</span></span><span class="sig-name descname"><span class="pre">unescape_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/gplay_scraper/utils/helpers.html#unescape_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.utils.helpers.unescape_text" title="Link to this definition"></a></dt>
+<dd><p>Unescape HTML entities and convert &lt;br&gt; tags to newlines.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>s</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – HTML string to unescape</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Cleaned text or None if input is None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gplay_scraper.utils.helpers.extract_categories">
+<span class="sig-prename descclassname"><span class="pre">gplay_scraper.utils.helpers.</span></span><span class="sig-name descname"><span class="pre">extract_categories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><span class="pre">Dict</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><span class="pre">Dict</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/gplay_scraper/utils/helpers.html#extract_categories"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.utils.helpers.extract_categories" title="Link to this definition"></a></dt>
+<dd><p>Recursively extract app categories from nested data structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>Any</em>) – Data structure containing category information</p></li>
+<li><p><strong>categories</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>Dict</em><em>]</em><em>]</em>) – Accumulator for found categories</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of category dictionaries with name and id</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gplay_scraper.utils.helpers.get_categories">
+<span class="sig-prename descclassname"><span class="pre">gplay_scraper.utils.helpers.</span></span><span class="sig-name descname"><span class="pre">get_categories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><span class="pre">Dict</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/gplay_scraper/utils/helpers.html#get_categories"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.utils.helpers.get_categories" title="Link to this definition"></a></dt>
+<dd><p>Get app categories from Play Store data structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>s</strong> (<em>Any</em>) – Play Store data structure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of app categories with fallback to primary category</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gplay_scraper.utils.helpers.parse_release_date">
+<span class="sig-prename descclassname"><span class="pre">gplay_scraper.utils.helpers.</span></span><span class="sig-name descname"><span class="pre">parse_release_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">release_date_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)"><span class="pre">datetime</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/gplay_scraper/utils/helpers.html#parse_release_date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.utils.helpers.parse_release_date" title="Link to this definition"></a></dt>
+<dd><p>Parse release date string into datetime object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>release_date_str</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – Date string in format “Mon DD, YYYY”</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Parsed datetime or None if parsing fails</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[datetime]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gplay_scraper.utils.helpers.calculate_app_age">
+<span class="sig-prename descclassname"><span class="pre">gplay_scraper.utils.helpers.</span></span><span class="sig-name descname"><span class="pre">calculate_app_age</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">release_date_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)"><span class="pre">datetime</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/gplay_scraper/utils/helpers.html#calculate_app_age"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.utils.helpers.calculate_app_age" title="Link to this definition"></a></dt>
+<dd><p>Calculate app age in days from release date to current date.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>release_date_str</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – Release date string</p></li>
+<li><p><strong>current_date</strong> (<em>datetime</em>) – Current date for calculation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Age in days or None if release date unavailable</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gplay_scraper.utils.helpers.parse_installs_string">
+<span class="sig-prename descclassname"><span class="pre">gplay_scraper.utils.helpers.</span></span><span class="sig-name descname"><span class="pre">parse_installs_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">installs_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/gplay_scraper/utils/helpers.html#parse_installs_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.utils.helpers.parse_installs_string" title="Link to this definition"></a></dt>
+<dd><p>Parse install count string into integer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>installs_str</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Install string like “1,000,000+”</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Parsed install count or None if parsing fails</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gplay_scraper.utils.helpers.calculate_daily_installs">
+<span class="sig-prename descclassname"><span class="pre">gplay_scraper.utils.helpers.</span></span><span class="sig-name descname"><span class="pre">calculate_daily_installs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">install_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">release_date_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)"><span class="pre">datetime</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/gplay_scraper/utils/helpers.html#calculate_daily_installs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.utils.helpers.calculate_daily_installs" title="Link to this definition"></a></dt>
+<dd><p>Calculate average daily installs since app release.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>install_count</strong> (<em>Any</em>) – Total install count (string or int)</p></li>
+<li><p><strong>release_date_str</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – App release date string</p></li>
+<li><p><strong>current_date</strong> (<em>datetime</em>) – Current date for calculation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Average daily installs or None if calculation impossible</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gplay_scraper.utils.helpers.calculate_monthly_installs">
+<span class="sig-prename descclassname"><span class="pre">gplay_scraper.utils.helpers.</span></span><span class="sig-name descname"><span class="pre">calculate_monthly_installs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">install_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">release_date_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)"><span class="pre">datetime</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/gplay_scraper/utils/helpers.html#calculate_monthly_installs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.utils.helpers.calculate_monthly_installs" title="Link to this definition"></a></dt>
+<dd><p>Calculate average monthly installs since app release.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>install_count</strong> (<em>Any</em>) – Total install count (string or int)</p></li>
+<li><p><strong>release_date_str</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – App release date string</p></li>
+<li><p><strong>current_date</strong> (<em>datetime</em>) – Current date for calculation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Average monthly installs or None if calculation impossible</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gplay_scraper.utils.helpers.clean_json_string">
+<span class="sig-prename descclassname"><span class="pre">gplay_scraper.utils.helpers.</span></span><span class="sig-name descname"><span class="pre">clean_json_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="_modules/gplay_scraper/utils/helpers.html#clean_json_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gplay_scraper.utils.helpers.clean_json_string" title="Link to this definition"></a></dt>
+<dd><p>Clean and normalize malformed JSON string for parsing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>json_str</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Raw JSON string that may have formatting issues</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Cleaned JSON string ready for parsing</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="api_reference.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Mohammed Cha.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

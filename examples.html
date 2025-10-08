@@ -1,0 +1,545 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Examples &mdash; GPlay Scraper 1.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+    <link rel="canonical" href="https://mohammedcha.github.io/gplay-scraper/examples.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=292eb321"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Configuration" href="configuration.html" />
+    <link rel="prev" title="API Reference" href="gplay_scraper.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            GPlay Scraper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-from-pypi">Install from PyPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#development-installation">Development Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#verify-installation">Verify Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#basic-usage">Basic Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#import-and-initialize">Import and Initialize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#get-single-field">Get Single Field</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#get-multiple-fields">Get Multiple Fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#complete-analysis">Complete Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#print-methods">Print Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#finding-app-package-names">Finding App Package Names</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#from-play-store-url">From Play Store URL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#common-examples">Common Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#available-data-fields">Available Data Fields</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#basic-information">Basic Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#category-genre">Category &amp; Genre</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#ratings-reviews">Ratings &amp; Reviews</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#install-statistics">Install Statistics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#technical-details">Technical Details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#release-updates">Release &amp; Updates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#media-content">Media Content</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#pricing-monetization">Pricing &amp; Monetization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#advertising">Advertising</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#content-rating">Content Rating</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#privacy-security">Privacy &amp; Security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#developer-information">Developer Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#aso-app-store-optimization-analysis">ASO (App Store Optimization) Analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gplay_scraper.html">API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#gplayscraper">GPlayScraper</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.GPlayScraper"><code class="docutils literal notranslate"><span class="pre">GPlayScraper</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#configuration">Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#module-gplay_scraper.exceptions">Exceptions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.exceptions.GPlayScraperError"><code class="docutils literal notranslate"><span class="pre">GPlayScraperError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.exceptions.InvalidAppIdError"><code class="docutils literal notranslate"><span class="pre">InvalidAppIdError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.exceptions.AppNotFoundError"><code class="docutils literal notranslate"><span class="pre">AppNotFoundError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.exceptions.RateLimitError"><code class="docutils literal notranslate"><span class="pre">RateLimitError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.exceptions.NetworkError"><code class="docutils literal notranslate"><span class="pre">NetworkError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.exceptions.DataParsingError"><code class="docutils literal notranslate"><span class="pre">DataParsingError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#core-modules">Core Modules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#playstorescraper">PlayStoreScraper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#asoanalyzer">AsoAnalyzer</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#module-gplay_scraper.utils.helpers">Utility Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.utils.helpers.nested_lookup"><code class="docutils literal notranslate"><span class="pre">nested_lookup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.utils.helpers.unescape_text"><code class="docutils literal notranslate"><span class="pre">unescape_text()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.utils.helpers.extract_categories"><code class="docutils literal notranslate"><span class="pre">extract_categories()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.utils.helpers.get_categories"><code class="docutils literal notranslate"><span class="pre">get_categories()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.utils.helpers.parse_release_date"><code class="docutils literal notranslate"><span class="pre">parse_release_date()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.utils.helpers.calculate_app_age"><code class="docutils literal notranslate"><span class="pre">calculate_app_age()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.utils.helpers.parse_installs_string"><code class="docutils literal notranslate"><span class="pre">parse_installs_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.utils.helpers.calculate_daily_installs"><code class="docutils literal notranslate"><span class="pre">calculate_daily_installs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.utils.helpers.calculate_monthly_installs"><code class="docutils literal notranslate"><span class="pre">calculate_monthly_installs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.utils.helpers.clean_json_string"><code class="docutils literal notranslate"><span class="pre">clean_json_string()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-app-information">Basic App Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#competitive-analysis">Competitive Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-metrics-analysis">Install Metrics Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aso-keyword-analysis">ASO Keyword Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#batch-processing">Batch Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#complete-app-report">Complete App Report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#error-handling">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-examples">Configuration Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#real-world-use-cases">Real-World Use Cases</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#default-settings">Default Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#network-configuration">Network Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#timeout-settings">Timeout Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#rate-limiting">Rate Limiting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#user-agent">User Agent</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#aso-configuration">ASO Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#keyword-analysis">Keyword Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#stop-words">Stop Words</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#caching-configuration">Caching Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#environment-variables">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#advanced-configuration">Advanced Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#custom-request-configuration">Custom Request Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#logging-configuration">Logging Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="gplay_scraper.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gplay_scraper.html#gplayscraper">GPlayScraper</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.GPlayScraper"><code class="docutils literal notranslate"><span class="pre">GPlayScraper</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.GPlayScraper.__init__"><code class="docutils literal notranslate"><span class="pre">GPlayScraper.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.GPlayScraper.analyze"><code class="docutils literal notranslate"><span class="pre">GPlayScraper.analyze()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.GPlayScraper.get_field"><code class="docutils literal notranslate"><span class="pre">GPlayScraper.get_field()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.GPlayScraper.get_fields"><code class="docutils literal notranslate"><span class="pre">GPlayScraper.get_fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.GPlayScraper.print_field"><code class="docutils literal notranslate"><span class="pre">GPlayScraper.print_field()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.GPlayScraper.print_fields"><code class="docutils literal notranslate"><span class="pre">GPlayScraper.print_fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.GPlayScraper.print_all"><code class="docutils literal notranslate"><span class="pre">GPlayScraper.print_all()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gplay_scraper.html#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.Config.DEFAULT_TIMEOUT"><code class="docutils literal notranslate"><span class="pre">Config.DEFAULT_TIMEOUT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.Config.DEFAULT_RETRIES"><code class="docutils literal notranslate"><span class="pre">Config.DEFAULT_RETRIES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.Config.RATE_LIMIT_DELAY"><code class="docutils literal notranslate"><span class="pre">Config.RATE_LIMIT_DELAY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.Config.DEFAULT_USER_AGENT"><code class="docutils literal notranslate"><span class="pre">Config.DEFAULT_USER_AGENT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.Config.ASO_TOP_KEYWORDS"><code class="docutils literal notranslate"><span class="pre">Config.ASO_TOP_KEYWORDS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.Config.ASO_MIN_WORD_LENGTH"><code class="docutils literal notranslate"><span class="pre">Config.ASO_MIN_WORD_LENGTH</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.Config.ENABLE_CACHING"><code class="docutils literal notranslate"><span class="pre">Config.ENABLE_CACHING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.Config.CACHE_MAX_SIZE"><code class="docutils literal notranslate"><span class="pre">Config.CACHE_MAX_SIZE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.Config.get_headers"><code class="docutils literal notranslate"><span class="pre">Config.get_headers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.Config.get_request_config"><code class="docutils literal notranslate"><span class="pre">Config.get_request_config()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gplay_scraper.html#module-gplay_scraper.exceptions">Exceptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.exceptions.GPlayScraperError"><code class="docutils literal notranslate"><span class="pre">GPlayScraperError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.exceptions.InvalidAppIdError"><code class="docutils literal notranslate"><span class="pre">InvalidAppIdError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.exceptions.AppNotFoundError"><code class="docutils literal notranslate"><span class="pre">AppNotFoundError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.exceptions.RateLimitError"><code class="docutils literal notranslate"><span class="pre">RateLimitError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.exceptions.NetworkError"><code class="docutils literal notranslate"><span class="pre">NetworkError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.exceptions.DataParsingError"><code class="docutils literal notranslate"><span class="pre">DataParsingError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gplay_scraper.html#core-modules">Core Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#playstorescraper">PlayStoreScraper</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.core.scraper.PlayStoreScraper"><code class="docutils literal notranslate"><span class="pre">PlayStoreScraper</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#asoanalyzer">AsoAnalyzer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.core.aso_analyzer.AsoAnalyzer"><code class="docutils literal notranslate"><span class="pre">AsoAnalyzer</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gplay_scraper.html#module-gplay_scraper.utils.helpers">Utility Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.utils.helpers.nested_lookup"><code class="docutils literal notranslate"><span class="pre">nested_lookup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.utils.helpers.unescape_text"><code class="docutils literal notranslate"><span class="pre">unescape_text()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.utils.helpers.extract_categories"><code class="docutils literal notranslate"><span class="pre">extract_categories()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.utils.helpers.get_categories"><code class="docutils literal notranslate"><span class="pre">get_categories()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.utils.helpers.parse_release_date"><code class="docutils literal notranslate"><span class="pre">parse_release_date()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.utils.helpers.calculate_app_age"><code class="docutils literal notranslate"><span class="pre">calculate_app_age()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.utils.helpers.parse_installs_string"><code class="docutils literal notranslate"><span class="pre">parse_installs_string()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.utils.helpers.calculate_daily_installs"><code class="docutils literal notranslate"><span class="pre">calculate_daily_installs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.utils.helpers.calculate_monthly_installs"><code class="docutils literal notranslate"><span class="pre">calculate_monthly_installs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gplay_scraper.html#gplay_scraper.utils.helpers.clean_json_string"><code class="docutils literal notranslate"><span class="pre">clean_json_string()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#version-1-0-1-2025-10-07">Version 1.0.1 (2025-10-07)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#version-1-0-0-2025-10-06">Version 1.0.0 (2025-10-06)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#development-setup">Development Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#running-tests">Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#code-style">Code Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#submitting-changes">Submitting Changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#reporting-issues">Reporting Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#code-of-conduct">Code of Conduct</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="license.html#mit-license">MIT License</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GPlay Scraper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Examples</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/mohammedcha/gplay-scraper/blob/main/docs/examples.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h1>
+<p>This section provides practical examples for common use cases.</p>
+<section id="basic-app-information">
+<h2>Basic App Information<a class="headerlink" href="#basic-app-information" title="Link to this heading"></a></h2>
+<p>Get essential app details:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gplay_scraper</span><span class="w"> </span><span class="kn">import</span> <span class="n">GPlayScraper</span>
+
+<span class="n">scraper</span> <span class="o">=</span> <span class="n">GPlayScraper</span><span class="p">()</span>
+<span class="n">app_id</span> <span class="o">=</span> <span class="s2">&quot;com.hubolabs.hubo&quot;</span>
+
+<span class="c1"># Get basic info</span>
+<span class="n">basic_info</span> <span class="o">=</span> <span class="n">scraper</span><span class="o">.</span><span class="n">get_fields</span><span class="p">(</span><span class="n">app_id</span><span class="p">,</span> <span class="p">[</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;developer&quot;</span><span class="p">,</span> <span class="s2">&quot;genre&quot;</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="s2">&quot;free&quot;</span>
+<span class="p">])</span>
+
+<span class="k">for</span> <span class="n">field</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">basic_info</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>title: purp - Make new friends
+developer: hubo Labs
+genre: Social
+score: 4.42
+free: True
+</pre></div>
+</div>
+</section>
+<section id="competitive-analysis">
+<h2>Competitive Analysis<a class="headerlink" href="#competitive-analysis" title="Link to this heading"></a></h2>
+<p>Compare multiple apps across key metrics:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gplay_scraper</span><span class="w"> </span><span class="kn">import</span> <span class="n">GPlayScraper</span>
+
+<span class="n">scraper</span> <span class="o">=</span> <span class="n">GPlayScraper</span><span class="p">()</span>
+
+<span class="c1"># Social media apps</span>
+<span class="n">apps</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;purp&quot;</span><span class="p">:</span> <span class="s2">&quot;com.hubolabs.hubo&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;InterPals&quot;</span><span class="p">:</span> <span class="s2">&quot;net.interpals&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;HelloTalk&quot;</span><span class="p">:</span> <span class="s2">&quot;com.hellotalk&quot;</span>
+<span class="p">}</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">app_id</span> <span class="ow">in</span> <span class="n">apps</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">scraper</span><span class="o">.</span><span class="n">get_fields</span><span class="p">(</span><span class="n">app_id</span><span class="p">,</span> <span class="p">[</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="s2">&quot;ratings&quot;</span><span class="p">,</span> <span class="s2">&quot;installs&quot;</span><span class="p">,</span> <span class="s2">&quot;realInstalls&quot;</span>
+        <span class="p">])</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error analyzing </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Sort by rating</span>
+<span class="n">results</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ranking by Rating:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">app</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">app</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;score&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;N/A&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> stars&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="install-metrics-analysis">
+<h2>Install Metrics Analysis<a class="headerlink" href="#install-metrics-analysis" title="Link to this heading"></a></h2>
+<p>Analyze app performance metrics:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gplay_scraper</span><span class="w"> </span><span class="kn">import</span> <span class="n">GPlayScraper</span>
+
+<span class="n">scraper</span> <span class="o">=</span> <span class="n">GPlayScraper</span><span class="p">()</span>
+<span class="n">app_id</span> <span class="o">=</span> <span class="s2">&quot;net.interpals&quot;</span>
+
+<span class="c1"># Get install metrics</span>
+<span class="n">install_metrics</span> <span class="o">=</span> <span class="n">scraper</span><span class="o">.</span><span class="n">get_fields</span><span class="p">(</span><span class="n">app_id</span><span class="p">,</span> <span class="p">[</span>
+    <span class="s2">&quot;installs&quot;</span><span class="p">,</span> <span class="s2">&quot;realInstalls&quot;</span><span class="p">,</span> <span class="s2">&quot;dailyInstalls&quot;</span><span class="p">,</span> <span class="s2">&quot;monthlyInstalls&quot;</span>
+<span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Install Performance:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">metric</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">install_metrics</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="aso-keyword-analysis">
+<h2>ASO Keyword Analysis<a class="headerlink" href="#aso-keyword-analysis" title="Link to this heading"></a></h2>
+<p>Analyze keywords for App Store Optimization:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gplay_scraper</span><span class="w"> </span><span class="kn">import</span> <span class="n">GPlayScraper</span>
+
+<span class="n">scraper</span> <span class="o">=</span> <span class="n">GPlayScraper</span><span class="p">()</span>
+<span class="n">app_id</span> <span class="o">=</span> <span class="s2">&quot;com.imback.yeetalk&quot;</span>
+
+<span class="c1"># Get ASO data</span>
+<span class="n">aso_data</span> <span class="o">=</span> <span class="n">scraper</span><span class="o">.</span><span class="n">get_fields</span><span class="p">(</span><span class="n">app_id</span><span class="p">,</span> <span class="p">[</span>
+    <span class="s2">&quot;topKeywords&quot;</span><span class="p">,</span> <span class="s2">&quot;uniqueKeywords&quot;</span><span class="p">,</span> <span class="s2">&quot;competitiveKeywords&quot;</span><span class="p">,</span> <span class="s2">&quot;readability&quot;</span>
+<span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ASO Analysis:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Unique Keywords: </span><span class="si">{</span><span class="n">aso_data</span><span class="p">[</span><span class="s1">&#39;uniqueKeywords&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Top Keywords: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">aso_data</span><span class="p">[</span><span class="s1">&#39;topKeywords&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())[:</span><span class="mi">5</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Readability: </span><span class="si">{</span><span class="n">aso_data</span><span class="p">[</span><span class="s1">&#39;readability&#39;</span><span class="p">][</span><span class="s1">&#39;flesch_level&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="batch-processing">
+<h2>Batch Processing<a class="headerlink" href="#batch-processing" title="Link to this heading"></a></h2>
+<p>Analyze multiple apps efficiently:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gplay_scraper</span><span class="w"> </span><span class="kn">import</span> <span class="n">GPlayScraper</span>
+
+<span class="n">scraper</span> <span class="o">=</span> <span class="n">GPlayScraper</span><span class="p">()</span>
+
+<span class="c1"># Apps to analyze</span>
+<span class="n">apps_to_analyze</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;com.hubolabs.hubo&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;net.interpals&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;com.hellotalk&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;de.tellonym.app&quot;</span>
+<span class="p">]</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">app_id</span> <span class="ow">in</span> <span class="n">apps_to_analyze</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">scraper</span><span class="o">.</span><span class="n">get_fields</span><span class="p">(</span><span class="n">app_id</span><span class="p">,</span> <span class="p">[</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="s2">&quot;ratings&quot;</span><span class="p">,</span> <span class="s2">&quot;installs&quot;</span><span class="p">,</span> <span class="s2">&quot;developer&quot;</span>
+        <span class="p">])</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ Analyzed </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✗ Error analyzing </span><span class="si">{</span><span class="n">app_id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Sort by rating</span>
+<span class="n">results</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Top Rated Apps:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">app</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">app</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">app</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> stars&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="complete-app-report">
+<h2>Complete App Report<a class="headerlink" href="#complete-app-report" title="Link to this heading"></a></h2>
+<p>Generate a comprehensive app analysis report:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gplay_scraper</span><span class="w"> </span><span class="kn">import</span> <span class="n">GPlayScraper</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_app_report</span><span class="p">(</span><span class="n">app_id</span><span class="p">):</span>
+    <span class="n">scraper</span> <span class="o">=</span> <span class="n">GPlayScraper</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">scraper</span><span class="o">.</span><span class="n">analyze</span><span class="p">(</span><span class="n">app_id</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;=== </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> ===&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Developer: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;developer&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Category: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;genre&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Rating: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;ratings&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> ratings)&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Installs: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;installs&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">price_text</span> <span class="o">=</span> <span class="s1">&#39;Free&#39;</span> <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;free&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;$</span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Price: </span><span class="si">{</span><span class="n">price_text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Last Updated: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;lastUpdated&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;App Age: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;appAgeDays&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> days&quot;</span><span class="p">)</span>
+
+    <span class="c1"># ASO insights</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">ASO Insights:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Keywords: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;uniqueKeywords&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Readability: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;readability&#39;</span><span class="p">][</span><span class="s1">&#39;flesch_level&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Generate report</span>
+<span class="n">generate_app_report</span><span class="p">(</span><span class="s2">&quot;com.narvii.amino.master&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="error-handling">
+<h2>Error Handling<a class="headerlink" href="#error-handling" title="Link to this heading"></a></h2>
+<p>Handle errors gracefully:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gplay_scraper</span><span class="w"> </span><span class="kn">import</span> <span class="n">GPlayScraper</span>
+
+<span class="n">scraper</span> <span class="o">=</span> <span class="n">GPlayScraper</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">safe_analyze</span><span class="p">(</span><span class="n">app_id</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">scraper</span><span class="o">.</span><span class="n">get_fields</span><span class="p">(</span><span class="n">app_id</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="s2">&quot;installs&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">data</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid app ID: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unexpected error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<span class="c1"># Test with valid app ID</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">safe_analyze</span><span class="p">(</span><span class="s2">&quot;com.hubolabs.hubo&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Analysis successful!&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Analysis failed.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="configuration-examples">
+<h2>Configuration Examples<a class="headerlink" href="#configuration-examples" title="Link to this heading"></a></h2>
+<p>Customize scraper behavior:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gplay_scraper</span><span class="w"> </span><span class="kn">import</span> <span class="n">GPlayScraper</span><span class="p">,</span> <span class="n">Config</span>
+
+<span class="c1"># View default settings</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Default timeout: </span><span class="si">{</span><span class="n">Config</span><span class="o">.</span><span class="n">DEFAULT_TIMEOUT</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Default rate limit: </span><span class="si">{</span><span class="n">Config</span><span class="o">.</span><span class="n">RATE_LIMIT_DELAY</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create scraper with custom rate limiting</span>
+<span class="n">scraper</span> <span class="o">=</span> <span class="n">GPlayScraper</span><span class="p">()</span>
+<span class="n">scraper</span><span class="o">.</span><span class="n">scraper</span><span class="o">.</span><span class="n">rate_limit_delay</span> <span class="o">=</span> <span class="mf">2.0</span>  <span class="c1"># 2 seconds between requests</span>
+
+<span class="c1"># Use custom configuration</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_headers</span><span class="p">(</span><span class="s2">&quot;Custom User Agent&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Custom headers: </span><span class="si">{</span><span class="n">headers</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="real-world-use-cases">
+<h2>Real-World Use Cases<a class="headerlink" href="#real-world-use-cases" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt><strong>Market Research</strong></dt><dd><p>Analyze competitor apps to understand market positioning and user satisfaction.</p>
+</dd>
+<dt><strong>ASO Optimization</strong></dt><dd><p>Extract keywords and readability scores to optimize your app’s store listing.</p>
+</dd>
+<dt><strong>App Monitoring</strong></dt><dd><p>Track your app’s performance metrics over time.</p>
+</dd>
+<dt><strong>Data Analysis</strong></dt><dd><p>Collect app data for research, reporting, or machine learning projects.</p>
+</dd>
+<dt><strong>Competitive Intelligence</strong></dt><dd><p>Monitor competitor updates, ratings, and user feedback.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="gplay_scraper.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="configuration.html" class="btn btn-neutral float-right" title="Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Mohammed Cha.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

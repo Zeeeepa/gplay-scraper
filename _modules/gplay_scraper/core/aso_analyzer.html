@@ -1,0 +1,585 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>gplay_scraper.core.aso_analyzer &mdash; GPlay Scraper 1.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+    <link rel="canonical" href="https://mohammedcha.github.io/gplay-scraper/_modules/gplay_scraper/core/aso_analyzer.html" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=292eb321"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            GPlay Scraper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#install-from-pypi">Install from PyPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#development-installation">Development Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#verify-installation">Verify Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#basic-usage">Basic Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#import-and-initialize">Import and Initialize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#get-single-field">Get Single Field</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#get-multiple-fields">Get Multiple Fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#complete-analysis">Complete Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#print-methods">Print Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#finding-app-package-names">Finding App Package Names</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#from-play-store-url">From Play Store URL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#common-examples">Common Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#available-data-fields">Available Data Fields</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#basic-information">Basic Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#category-genre">Category &amp; Genre</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#ratings-reviews">Ratings &amp; Reviews</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#install-statistics">Install Statistics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#technical-details">Technical Details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#release-updates">Release &amp; Updates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#media-content">Media Content</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#pricing-monetization">Pricing &amp; Monetization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#advertising">Advertising</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#content-rating">Content Rating</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#privacy-security">Privacy &amp; Security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#developer-information">Developer Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#aso-app-store-optimization-analysis">ASO (App Store Optimization) Analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../gplay_scraper.html">API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#gplayscraper">GPlayScraper</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.GPlayScraper"><code class="docutils literal notranslate"><span class="pre">GPlayScraper</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#configuration">Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#module-gplay_scraper.exceptions">Exceptions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.exceptions.GPlayScraperError"><code class="docutils literal notranslate"><span class="pre">GPlayScraperError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.exceptions.InvalidAppIdError"><code class="docutils literal notranslate"><span class="pre">InvalidAppIdError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.exceptions.AppNotFoundError"><code class="docutils literal notranslate"><span class="pre">AppNotFoundError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.exceptions.RateLimitError"><code class="docutils literal notranslate"><span class="pre">RateLimitError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.exceptions.NetworkError"><code class="docutils literal notranslate"><span class="pre">NetworkError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.exceptions.DataParsingError"><code class="docutils literal notranslate"><span class="pre">DataParsingError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#core-modules">Core Modules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#playstorescraper">PlayStoreScraper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#asoanalyzer">AsoAnalyzer</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#module-gplay_scraper.utils.helpers">Utility Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.utils.helpers.nested_lookup"><code class="docutils literal notranslate"><span class="pre">nested_lookup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.utils.helpers.unescape_text"><code class="docutils literal notranslate"><span class="pre">unescape_text()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.utils.helpers.extract_categories"><code class="docutils literal notranslate"><span class="pre">extract_categories()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.utils.helpers.get_categories"><code class="docutils literal notranslate"><span class="pre">get_categories()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.utils.helpers.parse_release_date"><code class="docutils literal notranslate"><span class="pre">parse_release_date()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.utils.helpers.calculate_app_age"><code class="docutils literal notranslate"><span class="pre">calculate_app_age()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.utils.helpers.parse_installs_string"><code class="docutils literal notranslate"><span class="pre">parse_installs_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.utils.helpers.calculate_daily_installs"><code class="docutils literal notranslate"><span class="pre">calculate_daily_installs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.utils.helpers.calculate_monthly_installs"><code class="docutils literal notranslate"><span class="pre">calculate_monthly_installs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.utils.helpers.clean_json_string"><code class="docutils literal notranslate"><span class="pre">clean_json_string()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#basic-app-information">Basic App Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#competitive-analysis">Competitive Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#install-metrics-analysis">Install Metrics Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#aso-keyword-analysis">ASO Keyword Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#batch-processing">Batch Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#complete-app-report">Complete App Report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#error-handling">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#configuration-examples">Configuration Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#real-world-use-cases">Real-World Use Cases</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration.html#default-settings">Default Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration.html#network-configuration">Network Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration.html#timeout-settings">Timeout Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration.html#rate-limiting">Rate Limiting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration.html#user-agent">User Agent</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration.html#aso-configuration">ASO Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration.html#keyword-analysis">Keyword Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration.html#stop-words">Stop Words</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration.html#caching-configuration">Caching Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration.html#environment-variables">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration.html#advanced-configuration">Advanced Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration.html#custom-request-configuration">Custom Request Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../configuration.html#logging-configuration">Logging Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../configuration.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../gplay_scraper.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../gplay_scraper.html#gplayscraper">GPlayScraper</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.GPlayScraper"><code class="docutils literal notranslate"><span class="pre">GPlayScraper</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.GPlayScraper.__init__"><code class="docutils literal notranslate"><span class="pre">GPlayScraper.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.GPlayScraper.analyze"><code class="docutils literal notranslate"><span class="pre">GPlayScraper.analyze()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.GPlayScraper.get_field"><code class="docutils literal notranslate"><span class="pre">GPlayScraper.get_field()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.GPlayScraper.get_fields"><code class="docutils literal notranslate"><span class="pre">GPlayScraper.get_fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.GPlayScraper.print_field"><code class="docutils literal notranslate"><span class="pre">GPlayScraper.print_field()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.GPlayScraper.print_fields"><code class="docutils literal notranslate"><span class="pre">GPlayScraper.print_fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.GPlayScraper.print_all"><code class="docutils literal notranslate"><span class="pre">GPlayScraper.print_all()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gplay_scraper.html#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.Config.DEFAULT_TIMEOUT"><code class="docutils literal notranslate"><span class="pre">Config.DEFAULT_TIMEOUT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.Config.DEFAULT_RETRIES"><code class="docutils literal notranslate"><span class="pre">Config.DEFAULT_RETRIES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.Config.RATE_LIMIT_DELAY"><code class="docutils literal notranslate"><span class="pre">Config.RATE_LIMIT_DELAY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.Config.DEFAULT_USER_AGENT"><code class="docutils literal notranslate"><span class="pre">Config.DEFAULT_USER_AGENT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.Config.ASO_TOP_KEYWORDS"><code class="docutils literal notranslate"><span class="pre">Config.ASO_TOP_KEYWORDS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.Config.ASO_MIN_WORD_LENGTH"><code class="docutils literal notranslate"><span class="pre">Config.ASO_MIN_WORD_LENGTH</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.Config.ENABLE_CACHING"><code class="docutils literal notranslate"><span class="pre">Config.ENABLE_CACHING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.Config.CACHE_MAX_SIZE"><code class="docutils literal notranslate"><span class="pre">Config.CACHE_MAX_SIZE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.Config.get_headers"><code class="docutils literal notranslate"><span class="pre">Config.get_headers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.Config.get_request_config"><code class="docutils literal notranslate"><span class="pre">Config.get_request_config()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gplay_scraper.html#module-gplay_scraper.exceptions">Exceptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.exceptions.GPlayScraperError"><code class="docutils literal notranslate"><span class="pre">GPlayScraperError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.exceptions.InvalidAppIdError"><code class="docutils literal notranslate"><span class="pre">InvalidAppIdError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.exceptions.AppNotFoundError"><code class="docutils literal notranslate"><span class="pre">AppNotFoundError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.exceptions.RateLimitError"><code class="docutils literal notranslate"><span class="pre">RateLimitError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.exceptions.NetworkError"><code class="docutils literal notranslate"><span class="pre">NetworkError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.exceptions.DataParsingError"><code class="docutils literal notranslate"><span class="pre">DataParsingError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gplay_scraper.html#core-modules">Core Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#playstorescraper">PlayStoreScraper</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.core.scraper.PlayStoreScraper"><code class="docutils literal notranslate"><span class="pre">PlayStoreScraper</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#asoanalyzer">AsoAnalyzer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.core.aso_analyzer.AsoAnalyzer"><code class="docutils literal notranslate"><span class="pre">AsoAnalyzer</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gplay_scraper.html#module-gplay_scraper.utils.helpers">Utility Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.utils.helpers.nested_lookup"><code class="docutils literal notranslate"><span class="pre">nested_lookup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.utils.helpers.unescape_text"><code class="docutils literal notranslate"><span class="pre">unescape_text()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.utils.helpers.extract_categories"><code class="docutils literal notranslate"><span class="pre">extract_categories()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.utils.helpers.get_categories"><code class="docutils literal notranslate"><span class="pre">get_categories()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.utils.helpers.parse_release_date"><code class="docutils literal notranslate"><span class="pre">parse_release_date()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.utils.helpers.calculate_app_age"><code class="docutils literal notranslate"><span class="pre">calculate_app_age()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.utils.helpers.parse_installs_string"><code class="docutils literal notranslate"><span class="pre">parse_installs_string()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.utils.helpers.calculate_daily_installs"><code class="docutils literal notranslate"><span class="pre">calculate_daily_installs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.utils.helpers.calculate_monthly_installs"><code class="docutils literal notranslate"><span class="pre">calculate_monthly_installs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gplay_scraper.html#gplay_scraper.utils.helpers.clean_json_string"><code class="docutils literal notranslate"><span class="pre">clean_json_string()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#version-1-0-1-2025-10-07">Version 1.0.1 (2025-10-07)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#version-1-0-0-2025-10-06">Version 1.0.0 (2025-10-06)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#development-setup">Development Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#running-tests">Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#code-style">Code Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#submitting-changes">Submitting Changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#reporting-issues">Reporting Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#code-of-conduct">Code of Conduct</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../license.html#mit-license">MIT License</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">GPlay Scraper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">gplay_scraper.core.aso_analyzer</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for gplay_scraper.core.aso_analyzer</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gplay_scraper.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">Config</span>
+
+
+<span class="n">DEFAULT_STOP_WORDS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;the&#39;</span><span class="p">,</span> <span class="s1">&#39;and&#39;</span><span class="p">,</span> <span class="s1">&#39;or&#39;</span><span class="p">,</span> <span class="s1">&#39;but&#39;</span><span class="p">,</span> <span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="s1">&#39;on&#39;</span><span class="p">,</span> <span class="s1">&#39;at&#39;</span><span class="p">,</span> <span class="s1">&#39;to&#39;</span><span class="p">,</span> <span class="s1">&#39;for&#39;</span><span class="p">,</span> <span class="s1">&#39;of&#39;</span><span class="p">,</span> <span class="s1">&#39;with&#39;</span><span class="p">,</span> <span class="s1">&#39;by&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;from&#39;</span><span class="p">,</span> <span class="s1">&#39;up&#39;</span><span class="p">,</span> <span class="s1">&#39;about&#39;</span><span class="p">,</span> <span class="s1">&#39;into&#39;</span><span class="p">,</span> <span class="s1">&#39;through&#39;</span><span class="p">,</span> <span class="s1">&#39;during&#39;</span><span class="p">,</span> <span class="s1">&#39;before&#39;</span><span class="p">,</span> <span class="s1">&#39;after&#39;</span><span class="p">,</span> <span class="s1">&#39;above&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;below&#39;</span><span class="p">,</span> <span class="s1">&#39;between&#39;</span><span class="p">,</span> <span class="s1">&#39;is&#39;</span><span class="p">,</span> <span class="s1">&#39;are&#39;</span><span class="p">,</span> <span class="s1">&#39;was&#39;</span><span class="p">,</span> <span class="s1">&#39;were&#39;</span><span class="p">,</span> <span class="s1">&#39;be&#39;</span><span class="p">,</span> <span class="s1">&#39;been&#39;</span><span class="p">,</span> <span class="s1">&#39;being&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;have&#39;</span><span class="p">,</span> <span class="s1">&#39;has&#39;</span><span class="p">,</span> <span class="s1">&#39;had&#39;</span><span class="p">,</span> <span class="s1">&#39;do&#39;</span><span class="p">,</span> <span class="s1">&#39;does&#39;</span><span class="p">,</span> <span class="s1">&#39;did&#39;</span><span class="p">,</span> <span class="s1">&#39;will&#39;</span><span class="p">,</span> <span class="s1">&#39;would&#39;</span><span class="p">,</span> <span class="s1">&#39;could&#39;</span><span class="p">,</span> <span class="s1">&#39;should&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;may&#39;</span><span class="p">,</span> <span class="s1">&#39;might&#39;</span><span class="p">,</span> <span class="s1">&#39;must&#39;</span><span class="p">,</span> <span class="s1">&#39;can&#39;</span><span class="p">,</span> <span class="s1">&#39;this&#39;</span><span class="p">,</span> <span class="s1">&#39;that&#39;</span><span class="p">,</span> <span class="s1">&#39;these&#39;</span><span class="p">,</span> <span class="s1">&#39;those&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;you&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;he&#39;</span><span class="p">,</span> <span class="s1">&#39;she&#39;</span><span class="p">,</span> <span class="s1">&#39;it&#39;</span><span class="p">,</span> <span class="s1">&#39;we&#39;</span><span class="p">,</span> <span class="s1">&#39;they&#39;</span><span class="p">,</span> <span class="s1">&#39;me&#39;</span><span class="p">,</span> <span class="s1">&#39;him&#39;</span><span class="p">,</span> <span class="s1">&#39;her&#39;</span><span class="p">,</span> <span class="s1">&#39;us&#39;</span><span class="p">,</span> <span class="s1">&#39;them&#39;</span><span class="p">,</span> <span class="s1">&#39;my&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;your&#39;</span><span class="p">,</span> <span class="s1">&#39;his&#39;</span><span class="p">,</span> <span class="s1">&#39;her&#39;</span><span class="p">,</span> <span class="s1">&#39;its&#39;</span><span class="p">,</span> <span class="s1">&#39;our&#39;</span><span class="p">,</span> <span class="s1">&#39;their&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;an&#39;</span><span class="p">,</span> <span class="s1">&#39;app&#39;</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="AsoAnalyzer">
+<a class="viewcode-back" href="../../../gplay_scraper.html#gplay_scraper.core.aso_analyzer.AsoAnalyzer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AsoAnalyzer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;App Store Optimization (ASO) analyzer for keyword and text analysis.</span>
+<span class="sd">    </span>
+<span class="sd">    Analyzes app descriptions, titles, and summaries to extract keywords,</span>
+<span class="sd">    calculate readability scores, and identify competitive keywords.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+<div class="viewcode-block" id="AsoAnalyzer.__init__">
+<a class="viewcode-back" href="../../../gplay_scraper.html#gplay_scraper.core.aso_analyzer.AsoAnalyzer.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize ASO analyzer with stop words and competitive keyword sets.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_stop_words</span> <span class="o">=</span> <span class="n">DEFAULT_STOP_WORDS</span>
+        <span class="c1"># Categorized competitive keywords for different app aspects</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">competitive_keywords</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;monetization&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;purchase&#39;</span><span class="p">,</span> <span class="s1">&#39;buy&#39;</span><span class="p">,</span> <span class="s1">&#39;subscription&#39;</span><span class="p">,</span> <span class="s1">&#39;premium&#39;</span><span class="p">,</span> <span class="s1">&#39;paid&#39;</span><span class="p">,</span> <span class="s1">&#39;upgrade&#39;</span><span class="p">,</span> <span class="s1">&#39;unlock&#39;</span><span class="p">,</span> <span class="s1">&#39;in-app purchase&#39;</span><span class="p">,</span> <span class="s1">&#39;offer&#39;</span><span class="p">,</span> <span class="s1">&#39;discount&#39;</span><span class="p">,</span> <span class="s1">&#39;free trial&#39;</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;engagement&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;interactive&#39;</span><span class="p">,</span> <span class="s1">&#39;personalized&#39;</span><span class="p">,</span> <span class="s1">&#39;challenge&#39;</span><span class="p">,</span> <span class="s1">&#39;task&#39;</span><span class="p">,</span> <span class="s1">&#39;daily reward&#39;</span><span class="p">,</span> <span class="s1">&#39;notification&#39;</span><span class="p">,</span> <span class="s1">&#39;reminder&#39;</span><span class="p">,</span> <span class="s1">&#39;streak&#39;</span><span class="p">,</span> <span class="s1">&#39;habit&#39;</span><span class="p">,</span> <span class="s1">&#39;goal&#39;</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;social&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;friends&#39;</span><span class="p">,</span> <span class="s1">&#39;share&#39;</span><span class="p">,</span> <span class="s1">&#39;invite&#39;</span><span class="p">,</span> <span class="s1">&#39;connect&#39;</span><span class="p">,</span> <span class="s1">&#39;community&#39;</span><span class="p">,</span> <span class="s1">&#39;chat&#39;</span><span class="p">,</span> <span class="s1">&#39;comment&#39;</span><span class="p">,</span> <span class="s1">&#39;like&#39;</span><span class="p">,</span> <span class="s1">&#39;follow&#39;</span><span class="p">,</span> <span class="s1">&#39;collaborate&#39;</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;progression&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;level&#39;</span><span class="p">,</span> <span class="s1">&#39;rank&#39;</span><span class="p">,</span> <span class="s1">&#39;badge&#39;</span><span class="p">,</span> <span class="s1">&#39;milestone&#39;</span><span class="p">,</span> <span class="s1">&#39;achievement&#39;</span><span class="p">,</span> <span class="s1">&#39;unlock&#39;</span><span class="p">,</span> <span class="s1">&#39;reward&#39;</span><span class="p">,</span> <span class="s1">&#39;track&#39;</span><span class="p">,</span> <span class="s1">&#39;progress&#39;</span><span class="p">,</span> <span class="s1">&#39;goal&#39;</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;usability&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;offline&#39;</span><span class="p">,</span> <span class="s1">&#39;fast&#39;</span><span class="p">,</span> <span class="s1">&#39;lightweight&#39;</span><span class="p">,</span> <span class="s1">&#39;easy&#39;</span><span class="p">,</span> <span class="s1">&#39;intuitive&#39;</span><span class="p">,</span> <span class="s1">&#39;responsive&#39;</span><span class="p">,</span> <span class="s1">&#39;secure&#39;</span><span class="p">,</span> <span class="s1">&#39;privacy&#39;</span><span class="p">,</span> <span class="s1">&#39;customizable&#39;</span><span class="p">,</span> <span class="s1">&#39;accessible&#39;</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;marketing&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;trending&#39;</span><span class="p">,</span> <span class="s1">&#39;popular&#39;</span><span class="p">,</span> <span class="s1">&#39;featured&#39;</span><span class="p">,</span> <span class="s1">&#39;top chart&#39;</span><span class="p">,</span> <span class="s1">&#39;recommended&#39;</span><span class="p">,</span> <span class="s1">&#39;exclusive&#39;</span><span class="p">,</span> <span class="s1">&#39;limited offer&#39;</span>
+            <span class="p">}</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="AsoAnalyzer.tokenize_text">
+<a class="viewcode-back" href="../../../gplay_scraper.html#gplay_scraper.core.aso_analyzer.AsoAnalyzer.tokenize_text">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">tokenize_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">min_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">stop_words</span><span class="p">:</span> <span class="nb">set</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Tokenize text into clean words for analysis.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            text (str): Input text to tokenize</span>
+<span class="sd">            min_length (int): Minimum word length to include</span>
+<span class="sd">            stop_words (set): Set of stop words to exclude</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            List[str]: List of cleaned, filtered words</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="n">stop_words</span> <span class="o">=</span> <span class="n">stop_words</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_stop_words</span>
+        <span class="c1"># Remove punctuation and convert to lowercase</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[^\w\s]&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+        <span class="n">words</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="c1"># Filter by length and remove stop words</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">min_length</span> <span class="ow">and</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stop_words</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="AsoAnalyzer.extract_ngrams">
+<a class="viewcode-back" href="../../../gplay_scraper.html#gplay_scraper.core.aso_analyzer.AsoAnalyzer.extract_ngrams">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">extract_ngrams</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">words</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract n-grams (phrases) from word list.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            words (List[str]): List of words</span>
+<span class="sd">            n (int): Number of words per phrase (2=bigrams, 3=trigrams)</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            List[str]: List of n-gram phrases</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">words</span> <span class="ow">or</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="c1"># Create sliding window of n words</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">words</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">n</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)</span><span class="o">-</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span></div>
+
+
+<div class="viewcode-block" id="AsoAnalyzer.keyword_frequency">
+<a class="viewcode-back" href="../../../gplay_scraper.html#gplay_scraper.core.aso_analyzer.AsoAnalyzer.keyword_frequency">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">keyword_frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">words</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">top_n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate frequency of words/phrases and return top results.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            words (List[str]): List of words or phrases</span>
+<span class="sd">            top_n (int): Number of top results to return</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, int]: Dictionary of word/phrase frequencies</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">words</span><span class="p">)</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="n">top_n</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="AsoAnalyzer.analyze_competitive_keywords">
+<a class="viewcode-back" href="../../../gplay_scraper.html#gplay_scraper.core.aso_analyzer.AsoAnalyzer.analyze_competitive_keywords">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">analyze_competitive_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Identify competitive keywords by category in the text.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            text (str): Text to analyze for competitive keywords</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, List[str]]: Categories with found competitive keywords</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">text_lower</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="c1"># Find intersection of text words with each keyword category</span>
+        <span class="n">found</span> <span class="o">=</span> <span class="p">{</span><span class="n">cat</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">kws</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">text_lower</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span> 
+                 <span class="k">for</span> <span class="n">cat</span><span class="p">,</span> <span class="n">kws</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">competitive_keywords</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="c1"># Return only categories that have matches</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">cat</span><span class="p">:</span> <span class="n">kws</span> <span class="k">for</span> <span class="n">cat</span><span class="p">,</span> <span class="n">kws</span> <span class="ow">in</span> <span class="n">found</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">kws</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="AsoAnalyzer.keyword_density">
+<a class="viewcode-back" href="../../../gplay_scraper.html#gplay_scraper.core.aso_analyzer.AsoAnalyzer.keyword_density">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">keyword_density</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">words</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">total_words</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate keyword density as percentage of total words.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            words (List[str]): List of words to analyze</span>
+<span class="sd">            total_words (int): Total word count for percentage calculation</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, float]: Word densities as percentages</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">total_words</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+        <span class="n">freq</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+        <span class="c1"># Calculate percentage density for each word</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">round</span><span class="p">((</span><span class="n">v</span> <span class="o">/</span> <span class="n">total_words</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">freq</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span></div>
+
+
+<div class="viewcode-block" id="AsoAnalyzer.calculate_readability">
+<a class="viewcode-back" href="../../../gplay_scraper.html#gplay_scraper.core.aso_analyzer.AsoAnalyzer.calculate_readability">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_readability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate Flesch readability score and reading level.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            text (str): Text to analyze for readability</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, float]: Readability metrics including Flesch score and level</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Split text into sentences</span>
+        <span class="n">sentences</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[.!?]+&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+        <span class="n">sentences</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sentences</span> <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+        <span class="n">words</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="n">word_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+        <span class="n">sentence_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentences</span><span class="p">)</span>
+        <span class="n">syllables</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">count_syllables</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">sentence_count</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">word_count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;flesch_score&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;flesch_level&#39;</span><span class="p">:</span> <span class="s1">&#39;Unknown&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_sentence_length&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+
+        <span class="c1"># Calculate Flesch Reading Ease score</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="mf">206.835</span> <span class="o">-</span> <span class="mf">1.015</span> <span class="o">*</span> <span class="p">(</span><span class="n">word_count</span> <span class="o">/</span> <span class="n">sentence_count</span><span class="p">)</span> <span class="o">-</span> <span class="mf">84.6</span> <span class="o">*</span> <span class="p">(</span><span class="n">syllables</span> <span class="o">/</span> <span class="n">word_count</span><span class="p">)</span>
+        
+        <span class="c1"># Determine reading level based on score</span>
+        <span class="k">if</span> <span class="n">score</span> <span class="o">&gt;=</span> <span class="mi">90</span><span class="p">:</span> <span class="n">level</span> <span class="o">=</span> <span class="s1">&#39;Very Easy&#39;</span>
+        <span class="k">elif</span> <span class="n">score</span> <span class="o">&gt;=</span> <span class="mi">80</span><span class="p">:</span> <span class="n">level</span> <span class="o">=</span> <span class="s1">&#39;Easy&#39;</span>
+        <span class="k">elif</span> <span class="n">score</span> <span class="o">&gt;=</span> <span class="mi">70</span><span class="p">:</span> <span class="n">level</span> <span class="o">=</span> <span class="s1">&#39;Fairly Easy&#39;</span>
+        <span class="k">elif</span> <span class="n">score</span> <span class="o">&gt;=</span> <span class="mi">60</span><span class="p">:</span> <span class="n">level</span> <span class="o">=</span> <span class="s1">&#39;Standard&#39;</span>
+        <span class="k">elif</span> <span class="n">score</span> <span class="o">&gt;=</span> <span class="mi">50</span><span class="p">:</span> <span class="n">level</span> <span class="o">=</span> <span class="s1">&#39;Fairly Difficult&#39;</span>
+        <span class="k">elif</span> <span class="n">score</span> <span class="o">&gt;=</span> <span class="mi">30</span><span class="p">:</span> <span class="n">level</span> <span class="o">=</span> <span class="s1">&#39;Difficult&#39;</span>
+        <span class="k">else</span><span class="p">:</span> <span class="n">level</span> <span class="o">=</span> <span class="s1">&#39;Very Difficult&#39;</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;flesch_score&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+            <span class="s1">&#39;flesch_level&#39;</span><span class="p">:</span> <span class="n">level</span><span class="p">,</span>
+            <span class="s1">&#39;avg_sentence_length&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">word_count</span> <span class="o">/</span> <span class="n">sentence_count</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="AsoAnalyzer.count_syllables">
+<a class="viewcode-back" href="../../../gplay_scraper.html#gplay_scraper.core.aso_analyzer.AsoAnalyzer.count_syllables">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">count_syllables</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">word</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Count syllables in a word using vowel patterns.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            word (str): Word to count syllables for</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            int: Number of syllables (minimum 1)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">word</span> <span class="o">=</span> <span class="n">word</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">vowels</span> <span class="o">=</span> <span class="s1">&#39;aeiouy&#39;</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">prev_vowel</span> <span class="o">=</span> <span class="kc">False</span>
+        
+        <span class="c1"># Count vowel groups (consecutive vowels = 1 syllable)</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">word</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">vowels</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">prev_vowel</span><span class="p">:</span>
+                    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">prev_vowel</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">prev_vowel</span> <span class="o">=</span> <span class="kc">False</span>
+        
+        <span class="c1"># Silent &#39;e&#39; at end doesn&#39;t count</span>
+        <span class="k">if</span> <span class="n">word</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;e&#39;</span><span class="p">):</span>
+            <span class="n">count</span> <span class="o">-=</span> <span class="mi">1</span>
+        
+        <span class="c1"># Every word has at least 1 syllable</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AsoAnalyzer.analyze_app_text">
+<a class="viewcode-back" href="../../../gplay_scraper.html#gplay_scraper.core.aso_analyzer.AsoAnalyzer.analyze_app_text">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">analyze_app_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">top_n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform comprehensive ASO analysis on app text content.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            app_data (dict): App data containing title, summary, description, etc.</span>
+<span class="sd">            top_n (int): Number of top keywords/phrases to return (uses Config default if None)</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Complete ASO analysis with keywords, readability, competitive analysis</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Use configuration default if not specified</span>
+        <span class="n">top_n</span> <span class="o">=</span> <span class="n">top_n</span> <span class="ow">or</span> <span class="n">Config</span><span class="o">.</span><span class="n">ASO_TOP_KEYWORDS</span>
+        <span class="c1"># Extract text fields with different importance weights</span>
+        <span class="n">text_fields</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="n">app_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s1">&#39;summary&#39;</span><span class="p">,</span> <span class="n">app_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;summary&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="n">app_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s1">&#39;recent_changes&#39;</span><span class="p">,</span> <span class="n">app_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recentChanges&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+        <span class="p">]</span>
+
+        <span class="c1"># Weight title and summary more heavily for keyword analysis</span>
+        <span class="n">TITLE_WEIGHT</span> <span class="o">=</span> <span class="mi">3</span>      <span class="c1"># Title is most important for ASO</span>
+        <span class="n">SUMMARY_WEIGHT</span> <span class="o">=</span> <span class="mi">2</span>    <span class="c1"># Summary is second most important</span>
+        
+        <span class="c1"># Create weighted text by repeating important sections</span>
+        <span class="n">weighted_text</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> 
+            <span class="p">[</span><span class="n">text_fields</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]]</span> <span class="o">*</span> <span class="n">TITLE_WEIGHT</span> <span class="o">+</span> 
+            <span class="p">[</span><span class="n">text_fields</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]]</span> <span class="o">*</span> <span class="n">SUMMARY_WEIGHT</span> <span class="o">+</span> 
+            <span class="p">[</span><span class="n">f</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">text_fields</span><span class="p">[</span><span class="mi">2</span><span class="p">:]]</span>
+        <span class="p">))</span>
+        
+        <span class="c1"># Tokenize and analyze the text</span>
+        <span class="n">words</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokenize_text</span><span class="p">(</span><span class="n">weighted_text</span><span class="p">)</span>
+        <span class="n">total_words</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+        <span class="n">unique_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">words</span><span class="p">))</span>
+        
+        <span class="c1"># Generate frequency analysis</span>
+        <span class="n">word_freq</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+        <span class="n">bigrams</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_ngrams</span><span class="p">(</span><span class="n">words</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>    <span class="c1"># 2-word phrases</span>
+        <span class="n">trigrams</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_ngrams</span><span class="p">(</span><span class="n">words</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>   <span class="c1"># 3-word phrases</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;total_words&#39;</span><span class="p">:</span> <span class="n">total_words</span><span class="p">,</span>
+            <span class="s1">&#39;unique_keywords&#39;</span><span class="p">:</span> <span class="n">unique_count</span><span class="p">,</span>
+            <span class="s1">&#39;top_keywords&#39;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">word_freq</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="n">top_n</span><span class="p">)),</span>
+            <span class="s1">&#39;top_bigrams&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">keyword_frequency</span><span class="p">(</span><span class="n">bigrams</span><span class="p">,</span> <span class="n">top_n</span><span class="p">),</span>
+            <span class="s1">&#39;top_trigrams&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">keyword_frequency</span><span class="p">(</span><span class="n">trigrams</span><span class="p">,</span> <span class="n">top_n</span><span class="p">),</span>
+            <span class="s1">&#39;keyword_density&#39;</span><span class="p">:</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">round</span><span class="p">((</span><span class="n">v</span> <span class="o">/</span> <span class="n">total_words</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">word_freq</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span> <span class="k">if</span> <span class="n">total_words</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">{},</span>
+            <span class="s1">&#39;competitive_analysis&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyze_competitive_keywords</span><span class="p">(</span><span class="n">weighted_text</span><span class="p">),</span>
+            <span class="s1">&#39;readability&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_readability</span><span class="p">(</span><span class="n">weighted_text</span><span class="p">)</span>
+        <span class="p">}</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Mohammed Cha.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
