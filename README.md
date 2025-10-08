@@ -1,5 +1,16 @@
 # Google Play Scraper - Python Library 📱
 
+[![PyPI version](https://badge.fury.io/py/gplay-scraper.svg)](https://badge.fury.io/py/gplay-scraper)
+[![Python](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Downloads](https://pepy.tech/badge/gplay-scraper)](https://pepy.tech/project/gplay-scraper)
+[![GitHub stars](https://img.shields.io/github/stars/Mohammedcha/gplay-scraper.svg)](https://github.com/Mohammedcha/gplay-scraper/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/Mohammedcha/gplay-scraper.svg)](https://github.com/Mohammedcha/gplay-scraper/issues)
+
+<div align="center">
+  <img src="assets/gplay-scraper.png" alt="GPlay Scraper">
+</div>
+
 **GPlay Scraper** is a powerful Python Google Play scraper library for extracting comprehensive app data from the Google Play Store. Scrape Google Play Store apps to get ratings, install counts, reviews, ASO metrics, developer information, and 65+ data fields with this easy-to-use Google Play Store scraper.
 
 ## 🆕 **What's New in v1.0.1** 
