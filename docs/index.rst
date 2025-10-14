@@ -1,7 +1,7 @@
 GPlay Scraper Documentation
 ===========================
 
-**GPlay Scraper** is a powerful Python Google Play scraper library for extracting comprehensive app data from the Google Play Store. Scrape Google Play Store apps to get ratings, install counts, reviews, ASO metrics, developer information, and 65+ data fields.
+**GPlay Scraper** is a powerful Python library for extracting comprehensive app data from the Google Play Store. Get ratings, install counts, reviews, developer information, and 65+ data fields with 7 method types and 42 functions.
 
 .. image:: https://img.shields.io/pypi/v/gplay-scraper.svg
    :target: https://pypi.org/project/gplay-scraper/
@@ -18,17 +18,17 @@ GPlay Scraper Documentation
 Key Features
 ------------
 
-✅ **Complete Google Play Store data extraction** - 65+ fields per app
+✅ **7 Method Types** - App, Search, Reviews, Developer, List, Similar, Suggest
 
-✅ **Google Play app analytics** - ratings, installs, reviews, ASO analysis
+✅ **42 Functions** - analyze(), get_field(), get_fields(), print_field(), print_fields(), print_all()
 
-✅ **Python Google Play scraper** - simple API for developers
+✅ **65+ Data Fields** - Complete app information extraction
 
-✅ **Google Play Store API alternative** - no API keys required
+✅ **7 HTTP Clients** - requests, curl_cffi, tls_client, httpx, urllib3, cloudscraper, aiohttp
 
-✅ **App store optimization (ASO) tools** - keyword analysis and readability scores
+✅ **Multi-language Support** - Get localized data for different countries and languages
 
-✅ **Bulk Google Play scraping** - analyze multiple apps efficiently
+✅ **No API Keys Required** - Direct scraping from Google Play Store
 
 Quick Start
 -----------
@@ -37,19 +37,29 @@ Quick Start
 
    from gplay_scraper import GPlayScraper
 
-   # Initialize the scraper
-   scraper = GPlayScraper()
+   # Initialize scraper (optional: specify HTTP client)
+   scraper = GPlayScraper(http_client="requests")  # or curl_cffi, tls_client, etc.
 
-   # Get app data
-   app_id = "com.hubolabs.hubo"
-   title = scraper.get_field(app_id, "title")
-   print(f"App Title: {title}")
-
-   # Get multiple fields
-   data = scraper.get_fields(app_id, ["title", "score", "installs"])
+   # App Methods - Extract 65+ fields from any app
+   scraper.app_print_all("com.whatsapp", lang="en", country="us")
    
-   # Complete analysis
-   all_data = scraper.analyze(app_id)
+   # Search Methods - Search for apps by keyword
+   scraper.search_print_all("social media", count=10, lang="en", country="us")
+   
+   # Reviews Methods - Get user reviews with ratings
+   scraper.reviews_print_all("com.whatsapp", count=50, sort="NEWEST", lang="en", country="us")
+   
+   # Developer Methods - Get all apps from a developer
+   scraper.developer_print_all("5700313618786177705", count=20, lang="en", country="us")
+   
+   # List Methods - Get top charts (TOP_FREE, TOP_PAID, TOP_GROSSING)
+   scraper.list_print_all("TOP_FREE", "GAME", count=20, lang="en", country="us")
+   
+   # Similar Methods - Find similar/competitor apps
+   scraper.similar_print_all("com.whatsapp", count=20, lang="en", country="us")
+   
+   # Suggest Methods - Get search suggestions/autocomplete
+   scraper.suggest_print_all("fitness", count=5, lang="en", country="us")
 
 Installation
 ------------
@@ -67,7 +77,8 @@ Table of Contents
 
    installation
    quickstart
-   api_reference
+   http_clients
+   fields_reference
    examples
    configuration
 

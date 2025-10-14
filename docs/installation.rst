@@ -5,8 +5,8 @@ Requirements
 ------------
 
 - Python 3.7+
-- requests
-- beautifulsoup4 (optional, for enhanced parsing)
+- requests (default HTTP client)
+- Optional: curl-cffi, tls-client, httpx, urllib3, cloudscraper, aiohttp
 
 Install from PyPI
 -----------------
@@ -37,9 +37,15 @@ Test your installation:
 
    from gplay_scraper import GPlayScraper
    
+   # Initialize scraper
    scraper = GPlayScraper()
-   title = scraper.get_field("com.hubolabs.hubo", "title")
-   print(f"Success! Retrieved: {title}")
+   
+   # Test with a simple app query
+   data = scraper.app_analyze("com.whatsapp")
+   print(f"Success! Retrieved: {data['title']}")
+   
+   # Or use print method
+   scraper.app_print_all("com.whatsapp")
 
 Troubleshooting
 ---------------
@@ -54,14 +60,34 @@ If you encounter encoding errors on Windows:
    if sys.platform == "win32":
        sys.stdout.reconfigure(encoding='utf-8')
 
-**Rate Limiting**
+**HTTP Client Selection**
 
-If requests fail, the library includes automatic rate limiting. You can customize it:
+The library supports 7 HTTP clients with automatic fallback:
 
 .. code-block:: python
 
    from gplay_scraper import GPlayScraper
    
-   # Custom rate limiting (2 seconds between requests)
+   # Default: uses requests with automatic fallback
    scraper = GPlayScraper()
-   scraper.scraper.rate_limit_delay = 2.0
+   
+   # Specify HTTP client (requests, curl_cffi, tls_client, httpx, urllib3, cloudscraper, aiohttp)
+   scraper = GPlayScraper(http_client="curl_cffi")
+   scraper = GPlayScraper(http_client="tls_client")
+   scraper = GPlayScraper(http_client="httpx")
+
+**Common Parameters**
+
+All methods support these parameters:
+
+- ``lang`` - Language code (default: "en")
+- ``country`` - Country code (default: "us")
+- ``count`` - Number of results to return
+
+.. code-block:: python
+
+   # Get app data in Spanish for Spain
+   scraper.app_print_all("com.whatsapp", lang="es", country="es")
+   
+   # Search with custom count
+   scraper.search_print_all("games", count=50, lang="en", country="us")

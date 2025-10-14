@@ -201,6 +201,87 @@ Configure logging for debugging:
    scraper = GPlayScraper()
    data = scraper.analyze("com.hubolabs.hubo")
 
+Error Handling
+--------------
+
+Handle errors gracefully:
+
+.. code-block:: python
+
+   from gplay_scraper import GPlayScraper, AppNotFoundError, NetworkError
+
+   scraper = GPlayScraper()
+
+   try:
+       data = scraper.app_analyze("com.whatsapp")
+   except AppNotFoundError:
+       print("App not found")
+   except NetworkError:
+       print("Network error occurred")
+   except Exception as e:
+       print(f"Unexpected error: {e}")
+
+When to Use Each Method
+-----------------------
+
+App Methods
+~~~~~~~~~~~
+
+- ``app_analyze()`` - Need all data for comprehensive analysis
+- ``app_get_field()`` - Need just one specific value
+- ``app_get_fields()`` - Need several specific fields (more efficient)
+- ``app_print_field()`` - Quick debugging/console output
+- ``app_print_fields()`` - Quick debugging of multiple values
+- ``app_print_all()`` - Explore available data structure
+
+Search Methods
+~~~~~~~~~~~~~~
+
+- ``search_analyze()`` - Need complete data for all search results
+- ``search_get_field()`` - Need just one field from all results
+- ``search_get_fields()`` - Need specific fields from all results
+- ``search_print_all()`` - Explore available data structure
+
+Reviews Methods
+~~~~~~~~~~~~~~~
+
+- ``reviews_analyze()`` - Need complete review data for analysis
+- ``reviews_get_field()`` - Need just one field (e.g., all scores)
+- ``reviews_get_fields()`` - Need specific fields (more efficient)
+- ``reviews_print_all()`` - Explore available data structure
+
+Developer Methods
+~~~~~~~~~~~~~~~~~
+
+- ``developer_analyze()`` - Need complete data for all apps
+- ``developer_get_field()`` - Need just one field from all apps
+- ``developer_get_fields()`` - Need specific fields from all apps
+- ``developer_print_all()`` - Explore available data structure
+
+List Methods
+~~~~~~~~~~~~
+
+- ``list_analyze()`` - Need complete data for all chart apps
+- ``list_get_field()`` - Need just one field from all apps
+- ``list_get_fields()`` - Need specific fields from all apps
+- ``list_print_all()`` - Explore available data structure
+
+Similar Methods
+~~~~~~~~~~~~~~~
+
+- ``similar_analyze()`` - Need complete data for similar apps
+- ``similar_get_field()`` - Need just one field from all apps
+- ``similar_get_fields()`` - Need specific fields from all apps
+- ``similar_print_all()`` - Explore available data structure
+
+Suggest Methods
+~~~~~~~~~~~~~~~
+
+- ``suggest_analyze()`` - Need list of suggestions
+- ``suggest_nested()`` - Need suggestions for suggestions
+- ``suggest_print_all()`` - Quick console output
+- ``suggest_print_nested()`` - Quick nested output
+
 Best Practices
 --------------
 
@@ -210,11 +291,17 @@ Best Practices
 **Error Handling**
   Always wrap scraper calls in try-catch blocks for production use.
 
-**Caching**
-  Take advantage of built-in caching for better performance when analyzing the same apps multiple times.
+**HTTP Client Selection**
+  Start with default (requests), install 2-3 backup clients for reliability.
+
+**Method Selection**
+  Use get_fields() instead of multiple get_field() calls for better performance.
 
 **Timeouts**
   Adjust timeouts based on your network conditions and requirements.
 
 **Logging**
   Enable logging in development to understand what's happening under the hood.
+
+**Multi-Region**
+  Use lang and country parameters to get localized data for different markets.

@@ -13,12 +13,12 @@ Get essential app details:
    from gplay_scraper import GPlayScraper
 
    scraper = GPlayScraper()
-   app_id = "com.hubolabs.hubo"
+   app_id = "com.whatsapp"
 
-   # Get basic info
-   basic_info = scraper.get_fields(app_id, [
+   # Get basic info using app_get_fields
+   basic_info = scraper.app_get_fields(app_id, [
        "title", "developer", "genre", "score", "free"
-   ])
+   ], lang="en", country="us")
 
    for field, value in basic_info.items():
        print(f"{field}: {value}")
@@ -27,10 +27,10 @@ Get essential app details:
 
 .. code-block:: text
 
-   title: purp - Make new friends
-   developer: hubo Labs
-   genre: Social
-   score: 4.42
+   title: WhatsApp Messenger
+   developer: WhatsApp LLC
+   genre: Communication
+   score: 4.3
    free: True
 
 Competitive Analysis
@@ -44,19 +44,20 @@ Compare multiple apps across key metrics:
 
    scraper = GPlayScraper()
 
-   # Social media apps
+   # Messaging apps
    apps = {
-       "purp": "com.hubolabs.hubo",
-       "InterPals": "net.interpals", 
-       "HelloTalk": "com.hellotalk"
+       "WhatsApp": "com.whatsapp",
+       "Telegram": "org.telegram.messenger", 
+       "Signal": "org.thoughtcrime.securesms"
    }
 
    results = []
    for name, app_id in apps.items():
        try:
-           data = scraper.get_fields(app_id, [
-               "title", "score", "ratings", "installs", "realInstalls"
-           ])
+           # Use app_get_fields with parameters
+           data = scraper.app_get_fields(app_id, [
+               "title", "score", "ratings", "installs"
+           ], lang="en", country="us")
            data["name"] = name
            results.append(data)
        except Exception as e:
@@ -69,170 +70,190 @@ Compare multiple apps across key metrics:
    for i, app in enumerate(results, 1):
        print(f"{i}. {app['name']}: {app.get('score', 'N/A')} stars")
 
-Install Metrics Analysis
-------------------------
-
-Analyze app performance metrics:
-
-.. code-block:: python
-
-   from gplay_scraper import GPlayScraper
-
-   scraper = GPlayScraper()
-   app_id = "net.interpals"
-
-   # Get install metrics
-   install_metrics = scraper.get_fields(app_id, [
-       "installs", "realInstalls", "dailyInstalls", "monthlyInstalls"
-   ])
-
-   print("Install Performance:")
-   for metric, value in install_metrics.items():
-       if isinstance(value, int):
-           print(f"  {metric}: {value:,}")
-       else:
-           print(f"  {metric}: {value}")
-
-ASO Keyword Analysis
---------------------
-
-Analyze keywords for App Store Optimization:
-
-.. code-block:: python
-
-   from gplay_scraper import GPlayScraper
-
-   scraper = GPlayScraper()
-   app_id = "com.imback.yeetalk"
-
-   # Get ASO data
-   aso_data = scraper.get_fields(app_id, [
-       "topKeywords", "uniqueKeywords", "competitiveKeywords", "readability"
-   ])
-
-   print("ASO Analysis:")
-   print(f"  Unique Keywords: {aso_data['uniqueKeywords']}")
-   print(f"  Top Keywords: {list(aso_data['topKeywords'].keys())[:5]}")
-   print(f"  Readability: {aso_data['readability']['flesch_level']}")
-
-Batch Processing
-----------------
-
-Analyze multiple apps efficiently:
-
-.. code-block:: python
-
-   from gplay_scraper import GPlayScraper
-
-   scraper = GPlayScraper()
-
-   # Apps to analyze
-   apps_to_analyze = [
-       "com.hubolabs.hubo",
-       "net.interpals",
-       "com.hellotalk",
-       "de.tellonym.app"
-   ]
-
-   results = []
-   for app_id in apps_to_analyze:
-       try:
-           data = scraper.get_fields(app_id, [
-               "title", "score", "ratings", "installs", "developer"
-           ])
-           results.append(data)
-           print(f"✓ Analyzed {data['title']}")
-       except Exception as e:
-           print(f"✗ Error analyzing {app_id}: {e}")
-
-   # Sort by rating
-   results.sort(key=lambda x: x['score'], reverse=True)
-   
-   print("\nTop Rated Apps:")
-   for app in results:
-       print(f"{app['title']}: {app['score']} stars")
-
-Complete App Report
--------------------
-
-Generate a comprehensive app analysis report:
-
-.. code-block:: python
-
-   from gplay_scraper import GPlayScraper
-
-   def generate_app_report(app_id):
-       scraper = GPlayScraper()
-       data = scraper.analyze(app_id)
-       
-       print(f"=== {data['title']} ===")
-       print(f"Developer: {data['developer']}")
-       print(f"Category: {data['genre']}")
-       print(f"Rating: {data['score']} ({data['ratings']:,} ratings)")
-       print(f"Installs: {data['installs']}")
-       
-       price_text = 'Free' if data['free'] else f"${data['price']}"
-       print(f"Price: {price_text}")
-       print(f"Last Updated: {data['lastUpdated']}")
-       print(f"App Age: {data['appAgeDays']} days")
-       
-       # ASO insights
-       print(f"\nASO Insights:")
-       print(f"  Keywords: {data['uniqueKeywords']}")
-       print(f"  Readability: {data['readability']['flesch_level']}")
-
-   # Generate report
-   generate_app_report("com.narvii.amino.master")
-
-Error Handling
---------------
-
-Handle errors gracefully:
-
-.. code-block:: python
-
-   from gplay_scraper import GPlayScraper
-
-   scraper = GPlayScraper()
-
-   def safe_analyze(app_id):
-       try:
-           data = scraper.get_fields(app_id, ["title", "score", "installs"])
-           return data
-       except ValueError as e:
-           print(f"Invalid app ID: {e}")
-           return None
-       except Exception as e:
-           print(f"Unexpected error: {e}")
-           return None
-
-   # Test with valid app ID
-   result = safe_analyze("com.hubolabs.hubo")
-   if result:
-       print("Analysis successful!")
-   else:
-       print("Analysis failed.")
-
-Configuration Examples
+Search and Filter Apps
 ----------------------
 
-Customize scraper behavior:
+Search for apps and filter results:
 
 .. code-block:: python
 
-   from gplay_scraper import GPlayScraper, Config
+   from gplay_scraper import GPlayScraper
 
-   # View default settings
-   print(f"Default timeout: {Config.DEFAULT_TIMEOUT}s")
-   print(f"Default rate limit: {Config.RATE_LIMIT_DELAY}s")
-
-   # Create scraper with custom rate limiting
    scraper = GPlayScraper()
-   scraper.scraper.rate_limit_delay = 2.0  # 2 seconds between requests
 
-   # Use custom configuration
-   headers = Config.get_headers("Custom User Agent")
-   print(f"Custom headers: {headers}")
+   # Search for fitness apps
+   results = scraper.search_analyze("fitness tracker", count=50, lang="en", country="us")
+   
+   # Filter free apps with high ratings
+   top_free = [app for app in results if app.get('free') and app.get('score', 0) >= 4.5]
+   
+   print("Top Free Fitness Apps:")
+   for app in top_free[:10]:
+       print(f"{app['title']}: {app['score']} stars - {app['installs']}")
+
+Get Developer Portfolio
+-----------------------
+
+Analyze all apps from a developer:
+
+.. code-block:: python
+
+   from gplay_scraper import GPlayScraper
+
+   scraper = GPlayScraper()
+   
+   # WhatsApp Inc. developer ID
+   dev_id = "5700313618786177705"
+
+   # Get all developer apps
+   apps = scraper.developer_analyze(dev_id, count=50, lang="en", country="us")
+
+   print(f"Developer has {len(apps)} apps:")
+   for app in apps:
+       print(f"  {app['title']}: {app['score']} stars - {app['installs']}")
+
+Get Reviews with Sentiment Analysis
+------------------------------------
+
+Extract and analyze user reviews:
+
+.. code-block:: python
+
+   from gplay_scraper import GPlayScraper
+
+   scraper = GPlayScraper()
+   app_id = "com.whatsapp"
+
+   # Get recent reviews
+   reviews = scraper.reviews_analyze(app_id, count=100, sort="NEWEST", lang="en", country="us")
+
+   # Analyze ratings distribution
+   ratings = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
+   for review in reviews:
+       ratings[review['score']] += 1
+
+   print("Ratings Distribution:")
+   for stars, count in ratings.items():
+       print(f"  {stars} stars: {count} reviews")
+   
+   # Get positive reviews (4-5 stars)
+   positive = [r for r in reviews if r['score'] >= 4]
+   print(f"\nPositive reviews: {len(positive)}/{len(reviews)}")
+
+Get Top Charts by Category
+---------------------------
+
+Analyze top performing apps:
+
+.. code-block:: python
+
+   from gplay_scraper import GPlayScraper
+
+   scraper = GPlayScraper()
+
+   # Get top free games
+   top_games = scraper.list_analyze("TOP_FREE", "GAME", count=50, lang="en", country="us")
+   
+   print("Top 10 Free Games:")
+   for i, app in enumerate(top_games[:10], 1):
+       print(f"{i}. {app['title']} - {app['developer']}")
+       print(f"   Rating: {app['score']} | Installs: {app['installs']}")
+   
+   # Get top paid apps
+   top_paid = scraper.list_analyze("TOP_PAID", "APPLICATION", count=20, lang="en", country="us")
+   
+   print("\nTop 5 Paid Apps:")
+   for i, app in enumerate(top_paid[:5], 1):
+       print(f"{i}. {app['title']} - ${app['price']}")
+
+Find Similar Apps
+-----------------
+
+Discover competitor apps:
+
+.. code-block:: python
+
+   from gplay_scraper import GPlayScraper
+
+   scraper = GPlayScraper()
+   app_id = "com.whatsapp"
+
+   # Get similar apps
+   similar = scraper.similar_analyze(app_id, count=30, lang="en", country="us")
+   
+   print(f"Apps similar to WhatsApp:")
+   for app in similar[:10]:
+       print(f"  {app['title']} by {app['developer']}")
+       print(f"    Rating: {app['score']} | {app['installs']}")
+
+Get Search Suggestions
+----------------------
+
+Find popular search terms:
+
+.. code-block:: python
+
+   from gplay_scraper import GPlayScraper
+
+   scraper = GPlayScraper()
+
+   # Get suggestions for a term
+   suggestions = scraper.suggest_analyze("photo editor", count=10, lang="en", country="us")
+   
+   print("Popular searches:")
+   for suggestion in suggestions:
+       print(f"  - {suggestion}")
+   
+   # Get nested suggestions
+   nested = scraper.suggest_nested("fitness", count=5, lang="en", country="us")
+   for term, related in nested.items():
+       print(f"{term}: {related}")
+
+Multi-Language Support
+----------------------
+
+Get localized data:
+
+.. code-block:: python
+
+   from gplay_scraper import GPlayScraper
+
+   scraper = GPlayScraper()
+   app_id = "com.whatsapp"
+
+   # Get app data in different languages
+   languages = [
+       ("en", "us", "English"),
+       ("es", "es", "Spanish"),
+       ("fr", "fr", "French"),
+       ("de", "de", "German")
+   ]
+
+   for lang, country, name in languages:
+       data = scraper.app_get_fields(app_id, ["title", "description"], lang=lang, country=country)
+       print(f"\n{name}:")
+       print(f"  Title: {data['title']}")
+       print(f"  Description: {data['description'][:100]}...")
+
+HTTP Client Selection
+---------------------
+
+Choose different HTTP clients:
+
+.. code-block:: python
+
+   from gplay_scraper import GPlayScraper
+
+   # Try different HTTP clients
+   clients = ["requests", "curl_cffi", "tls_client", "httpx"]
+
+   for client in clients:
+       try:
+           scraper = GPlayScraper(http_client=client)
+           data = scraper.app_get_field("com.whatsapp", "title")
+           print(f"{client}: Success - {data}")
+       except Exception as e:
+           print(f"{client}: Failed - {e}")
 
 Real-World Use Cases
 --------------------
@@ -240,8 +261,8 @@ Real-World Use Cases
 **Market Research**
   Analyze competitor apps to understand market positioning and user satisfaction.
 
-**ASO Optimization**
-  Extract keywords and readability scores to optimize your app's store listing.
+**Keyword Research**
+  Use search suggestions to discover popular keywords for app optimization.
 
 **App Monitoring**
   Track your app's performance metrics over time.

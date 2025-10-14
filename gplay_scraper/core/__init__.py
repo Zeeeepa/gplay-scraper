@@ -1,4 +1,5 @@
-from .scraper import PlayStoreScraper
-from .aso_analyzer import AsoAnalyzer
+"""Core module containing all 7 method classes for Google Play Store scraping."""
 
-__all__ = ['PlayStoreScraper', 'AsoAnalyzer']
+from .gplay_methods import AppMethods, SearchMethods, ReviewsMethods, DeveloperMethods, SimilarMethods, ListMethods, SuggestMethods
+
+__all__ = ['AppMethods', 'SearchMethods', 'ReviewsMethods', 'DeveloperMethods', 'SimilarMethods', 'ListMethods', 'SuggestMethods']

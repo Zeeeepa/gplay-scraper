@@ -33,7 +33,7 @@ Paste the full error message here
 **Environment:**
  - OS: [e.g. Windows 10, macOS, Linux]
  - Python version: [e.g. 3.8.5]
- - Library version: [e.g. 1.0.1]
+ - Library version: [e.g. 1.0.2]
 
 **Additional context**
 Add any other context about the problem here.

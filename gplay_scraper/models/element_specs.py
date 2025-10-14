@@ -1,12 +1,42 @@
+"""Element specifications for data extraction from Google Play Store.
+
+This module defines ElementSpec class and ElementSpecs for all 7 method types.
+Each spec defines how to extract specific fields from raw JSON data.
+"""
+
 from typing import Any, Callable, List, Optional
 import html
-from ..utils.helpers import nested_lookup, unescape_text, get_categories
+from datetime import datetime
+from ..utils.helpers import unescape_text
+
+
+def nested_lookup(obj: Any, key_list: List[int]) -> Any:
+    """Safely navigate nested dictionary/list structure.
+    
+    Args:
+        obj: Object to navigate
+        key_list: List of keys/indices to follow
+        
+    Returns:
+        Value at the nested location or None
+    """
+    current = obj
+    for key in key_list:
+        try:
+            current = current[key]
+        except (IndexError, KeyError, TypeError):
+            return None
+    return current
 
 
 class ElementSpec:
-    """Specification for extracting data from Google Play Store response.
+    """Specification for extracting a single field from raw data.
     
-    Defines how to navigate nested data structures and process extracted values.
+    Attributes:
+        ds_num: Dataset number (not used, kept for compatibility)
+        data_map: List of keys/indices to navigate to the field
+        post_processor: Optional function to process extracted value
+        fallback_value: Value to return if extraction fails
     """
     
     def __init__(
@@ -16,44 +46,30 @@ class ElementSpec:
         post_processor: Callable = None,
         fallback_value: Any = None,
     ):
-        """Initialize element specification.
-        
-        Args:
-            ds_num (Optional[int]): Data section number (None for main data)
-            data_map (List[int]): Path of indices to navigate nested structure
-            post_processor (Callable): Function to process extracted value
-            fallback_value (Any): Default value if extraction fails
-        """
+        """Initialize ElementSpec with extraction parameters."""
         self.ds_num = ds_num
         self.data_map = data_map
         self.post_processor = post_processor
         self.fallback_value = fallback_value
 
     def extract_content(self, source: dict) -> Any:
-        """Extract and process content from source data.
+        """Extract content from source using data_map.
         
         Args:
-            source (dict): Source data structure from Play Store
+            source: Source dictionary/list
             
         Returns:
-            Any: Extracted and processed value or fallback value
+            Extracted and processed value
         """
         try:
-            # Navigate to the target data location
-            if self.ds_num is None:
-                result = nested_lookup(source.get("data", {}), self.data_map)
-            else:
-                result = nested_lookup(source, self.data_map)
+            result = nested_lookup(source, self.data_map)
             
-            # Apply post-processing if specified
             if self.post_processor is not None:
                 try:
                     result = self.post_processor(result)
                 except Exception:
-                    # If post-processing fails, return the raw result
                     pass
         except (KeyError, IndexError, TypeError, AttributeError):
-            # Handle extraction failures with fallback values
             if isinstance(self.fallback_value, ElementSpec):
                 result = self.fallback_value.extract_content(source)
             else:
@@ -61,81 +77,35 @@ class ElementSpec:
         return result
 
 
-def _process_description(s):
-    """Extract and clean app description text.
-    
-    Args:
-        s: Source data structure containing description
-        
-    Returns:
-        str: Cleaned description text or None if not found
-    """
-    # Try primary description location
-    desc_text = nested_lookup(s, [72, 0, 0])
-    if not desc_text:
-        # Try fallback description location
-        desc_text = nested_lookup(s, [72, 0, 1])
-    
-    if desc_text:
-        # Unescape HTML and remove line breaks
-        cleaned = unescape_text(desc_text)
-        return cleaned.replace('\n', '').replace('\r', '') if cleaned else None
-    return None
-
-
-def _process_permissions(perms):
-    """Process permissions data from Play Store response.
-    
-    Args:
-        perms: Raw permissions data structure
-        
-    Returns:
-        dict: Organized permissions by category with details
-    """
-    if not perms or len(perms) <= 2:
-        return {}
-    
-    permissions = {}
-    # Navigate through permission sections
-    for section in perms[2]:
-        if not section:
-            continue
-        
-        # Extract individual permissions
-        for perm in section:
-            if perm and perm[0]:
-                perm_name = perm[0]  # Permission category name
-                # Extract permission details/descriptions
-                perm_details = [detail[1] for detail in perm[2]] if perm[2] else []
-                permissions[perm_name] = perm_details
-    
-    return permissions
-
-
 class ElementSpecs:
-    """Collection of element specifications for extracting Play Store data.
+    """Collection of element specifications for all method types.
     
-    Contains mapping definitions for all supported app data fields including
-    basic info, ratings, technical details, media content, and developer info.
+    Contains specs for:
+    - App: 65+ fields for app details
+    - Search: Fields for search results
+    - Review: Fields for user reviews
+    - Developer: Fields for developer apps
+    - Similar: Fields for similar apps
+    - List: Fields for top chart apps
     """
-    
-    # Dictionary mapping field names to their extraction specifications
-    Detail = {
-        "title": ElementSpec(None, [1, 2, 0, 0]),
+    App = {
+        "title": ElementSpec("raw", [1, 2, 0, 0]),
         "description": ElementSpec(
-            None,
+            "raw",
             [1, 2],
-            lambda s: _process_description(s),
+            lambda s: (lambda desc_text: unescape_text(desc_text) if desc_text else None)(
+                nested_lookup(s, [72, 0, 0]) or nested_lookup(s, [72, 0, 1])
+            ),
         ),
-        "summary": ElementSpec(None, [1, 2, 73, 0, 1], unescape_text),
-        "installs": ElementSpec(None, [1, 2, 13, 0]),
-        "minInstalls": ElementSpec(None, [1, 2, 13, 1]),
-        "realInstalls": ElementSpec(None, [1, 2, 13, 2]),
-        "score": ElementSpec(None, [1, 2, 51, 0, 1]),
-        "ratings": ElementSpec(None, [1, 2, 51, 2, 1]),
-        "reviews": ElementSpec(None, [1, 2, 51, 3, 1]),
+        "summary": ElementSpec("raw", [1, 2, 73, 0, 1], unescape_text),
+        "installs": ElementSpec("raw", [1, 2, 13, 0]),
+        "minInstalls": ElementSpec("raw", [1, 2, 13, 1]),
+        "realInstalls": ElementSpec("raw", [1, 2, 13, 2]),
+        "score": ElementSpec("raw", [1, 2, 51, 0, 1]),
+        "ratings": ElementSpec("raw", [1, 2, 51, 2, 1]),
+        "reviews": ElementSpec("raw", [1, 2, 51, 3, 1]),
         "histogram": ElementSpec(
-            None,
+            "raw",
             [1, 2, 51, 1],
             lambda container: [
                 container[1][1],
@@ -147,49 +117,123 @@ class ElementSpecs:
             [0, 0, 0, 0, 0],
         ),
         "price": ElementSpec(
-            None, [1, 2, 57, 0, 0, 0, 0, 1, 0, 0], lambda price: (price / 1000000) or 0
+            "raw", [1, 2, 57, 0, 0, 0, 0, 1, 0, 0], lambda price: (price / 1000000) or 0
         ),
-        "free": ElementSpec(None, [1, 2, 57, 0, 0, 0, 0, 1, 0, 0], lambda s: s == 0),
-        "currency": ElementSpec(None, [1, 2, 57, 0, 0, 0, 0, 1, 0, 1]),
-        "sale": ElementSpec(None, [1, 2, 57, 0, 0, 0, 0, 14, 0, 0], bool, False),
-        "originalPrice": ElementSpec(None, [1, 2, 57, 0, 0, 0, 0, 1, 1, 0], lambda price: (price / 1000000) if price else None),
-        "offersIAP": ElementSpec(None, [1, 2, 19, 0], bool, False),
-        "inAppProductPrice": ElementSpec(None, [1, 2, 19, 0]),
-        "developer": ElementSpec(None, [1, 2, 68, 0]),
-        "developerId": ElementSpec(None, [1, 2, 68, 1, 4, 2], lambda s: s.split("id=")[1] if s and "id=" in s else None),
-        "developerEmail": ElementSpec(None, [1, 2, 69, 1, 0]),
-        "developerWebsite": ElementSpec(None, [1, 2, 69, 0, 5, 2]),
-        "developerAddress": ElementSpec(None, [1, 2, 69, 4, 2, 0]),
-        "developerPhone": ElementSpec(None, [1, 2, 69, 4, 3]),
-        "privacyPolicy": ElementSpec(None, [1, 2, 99, 0, 5, 2]),
-        "genre": ElementSpec(None, [1, 2, 79, 0, 0, 0]),
-        "genreId": ElementSpec(None, [1, 2, 79, 0, 0, 2]),
-        "categories": ElementSpec(None, [1, 2], lambda s: [cat['name'] for cat in get_categories(s) if cat['name']], []),
-        "icon": ElementSpec(None, [1, 2, 95, 0, 3, 2], lambda url: f"{url}=w9999" if url else None),
-        "headerImage": ElementSpec(None, [1, 2, 96, 0, 3, 2], lambda url: f"{url}=w9999" if url else None),
+        "free": ElementSpec("raw", [1, 2, 57, 0, 0, 0, 0, 1, 0, 0], lambda s: s == 0),
+        "currency": ElementSpec("raw", [1, 2, 57, 0, 0, 0, 0, 1, 0, 1]),
+        "sale": ElementSpec("raw", [1, 2, 57, 0, 0, 0, 0, 14, 0, 0], bool, False),
+        "originalPrice": ElementSpec("raw", [1, 2, 57, 0, 0, 0, 0, 1, 1, 0], lambda price: (price / 1000000) if price else None),
+        "offersIAP": ElementSpec("raw", [1, 2, 19, 0], bool, False),
+        "inAppProductPrice": ElementSpec("raw", [1, 2, 19, 0]),
+        "developer": ElementSpec("raw", [1, 2, 68, 0]),
+        "developerId": ElementSpec("raw", [1, 2, 68, 1, 4, 2], lambda s: s.split("id=")[1] if s and "id=" in s else None),
+        "developerEmail": ElementSpec("raw", [1, 2, 69, 1, 0]),
+        "developerWebsite": ElementSpec("raw", [1, 2, 69, 0, 5, 2]),
+        "developerAddress": ElementSpec("raw", [1, 2, 69, 4, 2, 0]),
+        "developerPhone": ElementSpec("raw", [1, 2, 69, 4, 3]),
+        "privacyPolicy": ElementSpec("raw", [1, 2, 99, 0, 5, 2]),
+        "genre": ElementSpec("raw", [1, 2, 79, 0, 0, 0]),
+        "genreId": ElementSpec("raw", [1, 2, 79, 0, 0, 2]),
+        "categories": ElementSpec("raw", [1, 2, 79, 0, 0, 0], lambda cat: [cat] if cat else [], []),
+        "icon": ElementSpec("raw", [1, 2, 95, 0, 3, 2], lambda url: f"{url}=w9999" if url else None),
+        "headerImage": ElementSpec("raw", [1, 2, 96, 0, 3, 2], lambda url: f"{url}=w9999" if url else None),
         "screenshots": ElementSpec(
-            None, [1, 2, 78, 0], lambda container: [f"{item[3][2]}=w9999" for item in container] if container else [], []
+            "raw", [1, 2, 78, 0], lambda container: [f"{item[3][2]}=w9999" for item in container] if container else [], []
         ),
-        "video": ElementSpec(None, [1, 2, 100, 0, 0, 3, 2]),
-        "videoImage": ElementSpec(None, [1, 2, 100, 1, 0, 3, 2], lambda url: f"{url}=w9999" if url else None),
-        "contentRating": ElementSpec(None, [1, 2, 9, 0]),
-        "contentRatingDescription": ElementSpec(None, [1, 2, 9, 6, 1]),
-        "appId": ElementSpec(None, [1, 2, 1, 0, 0]),
-        "url": ElementSpec(None, [1, 2, 1, 0, 0], lambda app_id: f"https://play.google.com/store/apps/details?id={app_id}" if app_id else None),
-        "adSupported": ElementSpec(None, [1, 2, 48], bool),
-        "containsAds": ElementSpec(None, [1, 2, 48], bool, False),
-        "released": ElementSpec(None, [1, 2, 10, 0]),
-        "lastUpdatedOn": ElementSpec(None, [1, 2, 145, 0, 0]),
-        "updated": ElementSpec(None, [1, 2, 145, 0, 1, 0]),
+        "video": ElementSpec("raw", [1, 2, 100, 0, 0, 3, 2]),
+        "videoImage": ElementSpec("raw", [1, 2, 100, 1, 0, 3, 2], lambda url: f"{url}=w9999" if url else None),
+        "contentRating": ElementSpec("raw", [1, 2, 9, 0]),
+        "contentRatingDescription": ElementSpec("raw", [1, 2, 9, 6, 1]),
+        "appId": ElementSpec("raw", [1, 2, 1, 0, 0]),
+        "adSupported": ElementSpec("raw", [1, 2, 48], bool),
+        "containsAds": ElementSpec("raw", [1, 2, 48], bool, False),
+        "released": ElementSpec("raw", [1, 2, 10, 0]),
+        "lastUpdatedOn": ElementSpec("raw", [1, 2, 145, 0, 0]),
+        "updated": ElementSpec("raw", [1, 2, 145, 0, 1, 0]),
         "version": ElementSpec(
-            None, [1, 2, 140, 0, 0, 0], fallback_value="Varies with device"
+            "raw", [1, 2, 140, 0, 0, 0], fallback_value="Varies with device"
         ),
-        "androidVersion": ElementSpec(None, [1, 11, 0, 1]),
-        "permissions": ElementSpec(None, [1, 2, 74], _process_permissions),
-        "dataSafety": ElementSpec(None, [1, 2, 136], lambda data: [item[1] for item in data[1] if item and len(item) > 1] if data and len(data) > 1 and data[1] else []),
-        "appBundle": ElementSpec(None, [1, 2, 77, 0]),
-        "maxandroidapi": ElementSpec(None, [1, 2, 140, 1, 0, 0, 0]),
-        "minandroidapi": ElementSpec(None, [1, 2, 140, 1, 1, 0, 0, 0]),
-        "whatsNew": ElementSpec(None, [1, 2, 144, 1, 1], lambda x: [line.strip() for line in html.unescape(x).split('<br>') if line.strip()] if x else []),
-        "available": ElementSpec(None, [1, 2, 18, 0], bool, False),
+        "androidVersion": ElementSpec("raw", [1, 11, 0, 1]),
+        "permissions": ElementSpec("raw", [1, 2, 74], lambda perms: {
+            perm[0]: [detail[1] for detail in perm[2]] if perm[2] else []
+            for section in (perms[2] if perms and len(perms) > 2 else [])
+            for perm in section if section and perm and perm[0]
+        } if perms and len(perms) > 2 else {}),
+        "dataSafety": ElementSpec("raw", [1, 2, 136], lambda data: [item[1] for item in data[1] if item and len(item) > 1] if data and len(data) > 1 and data[1] else []),
+        "appBundle": ElementSpec("raw", [1, 2, 77, 0]),
+        "maxandroidapi": ElementSpec("raw", [1, 2, 140, 1, 0, 0, 0]),
+        "minandroidapi": ElementSpec("raw", [1, 2, 140, 1, 1, 0, 0, 0]),
+        "whatsNew": ElementSpec("raw", [1, 2, 144, 1, 1], lambda x: [line.strip() for line in html.unescape(x).split('<br>') if line.strip()] if x else []),
+        "available": ElementSpec("raw", [1, 2, 18, 0], bool, False),
+        "url": ElementSpec("raw", [1, 2, 1, 0, 0], lambda app_id: f"https://play.google.com/store/apps/details?id={app_id}" if app_id else None),
+    }
+    
+    Search = {
+        "title": ElementSpec("raw", [2]),
+        "appId": ElementSpec("raw", [12, 0]),
+        "icon": ElementSpec("raw", [1, 1, 0, 3, 2]),
+        "developer": ElementSpec("raw", [4, 0, 0, 0]),
+        "currency": ElementSpec("raw", [7, 0, 3, 2, 1, 0, 1]),
+        "price": ElementSpec("raw", [7, 0, 3, 2, 1, 0, 0], lambda price: (price / 1000000) if price else 0),
+        "free": ElementSpec("raw", [7, 0, 3, 2, 1, 0, 0], lambda s: s == 0),
+        "summary": ElementSpec("raw", [4, 1, 1, 1, 1], unescape_text),
+        "scoreText": ElementSpec("raw", [6, 0, 2, 1, 0]),
+        "score": ElementSpec("raw", [6, 0, 2, 1, 1]),
+        "url": ElementSpec("raw", [12, 0], lambda app_id: f"https://play.google.com/store/apps/details?id={app_id}" if app_id else None),
+    }
+    
+    Review = {
+        "reviewId": ElementSpec("raw", [0]),
+        "userName": ElementSpec("raw", [1, 0]),
+        "userImage": ElementSpec("raw", [1, 1, 3, 2]),
+        "content": ElementSpec("raw", [4], unescape_text),
+        "score": ElementSpec("raw", [2]),
+        "thumbsUpCount": ElementSpec("raw", [6]),
+        "at": ElementSpec("raw", [5, 0], lambda timestamp: datetime.fromtimestamp(timestamp).isoformat() if timestamp else None),
+        "appVersion": ElementSpec("raw", [10]),
+    }
+    
+    Developer = {
+        "appId": ElementSpec("raw", [0, 0]),
+        "title": ElementSpec("raw", [3]),
+        "icon": ElementSpec("raw", [1, 3, 2]),
+        "developer": ElementSpec("raw", [14]),
+        "description": ElementSpec("raw", [13, 1], unescape_text),
+        "score": ElementSpec("raw", [4, 1]),
+        "scoreText": ElementSpec("raw", [4, 0]),
+        "price": ElementSpec("raw", [8, 1, 0, 0], lambda price: (price / 1000000) if price else 0),
+        "currency": ElementSpec("raw", [8, 1, 0, 1]),
+        "free": ElementSpec("raw", [8, 1, 0, 0], lambda s: s == 0),
+        "url": ElementSpec("raw", [10, 4, 2], lambda path: f"https://play.google.com{path}" if path else None),
+    }
+    
+    Similar = {
+        "appId": ElementSpec("raw", [0, 0]),
+        "title": ElementSpec("raw", [3]),
+        "icon": ElementSpec("raw", [1, 3, 2]),
+        "developer": ElementSpec("raw", [14]),
+        "description": ElementSpec("raw", [13, 1], unescape_text),
+        "score": ElementSpec("raw", [4, 1]),
+        "scoreText": ElementSpec("raw", [4, 0]),
+        "price": ElementSpec("raw", [8, 1, 0, 0], lambda price: (price / 1000000) if price else 0),
+        "currency": ElementSpec("raw", [8, 1, 0, 1]),
+        "free": ElementSpec("raw", [8, 1, 0, 0], lambda s: s == 0),
+        "url": ElementSpec("raw", [10, 4, 2], lambda path: f"https://play.google.com{path}" if path else None),
+    }
+    
+    List = {
+        "title": ElementSpec("raw", [0, 3]),
+        "appId": ElementSpec("raw", [0, 0, 0]),
+        "icon": ElementSpec("raw", [0, 1, 3, 2]),
+        "screenshots": ElementSpec("raw", [0, 2], lambda container: [s[3][2] for s in container if s and len(s) > 3] if container else [], []),
+        "developer": ElementSpec("raw", [0, 14]),
+        "genre": ElementSpec("raw", [0, 5]),
+        "installs": ElementSpec("raw", [0, 15]),
+        "currency": ElementSpec("raw", [0, 8, 1, 0, 1]),
+        "price": ElementSpec("raw", [0, 8, 1, 0, 0], lambda price: (price / 1000000) if price else 0),
+        "free": ElementSpec("raw", [0, 8, 1, 0, 0], lambda s: s == 0),
+        "description": ElementSpec("raw", [0, 13, 1], unescape_text),
+        "scoreText": ElementSpec("raw", [0, 4, 0]),
+        "score": ElementSpec("raw", [0, 4, 1]),
+        "url": ElementSpec("raw", [0, 10, 4, 2], lambda path: f"https://play.google.com{path}" if path else None),
     }
