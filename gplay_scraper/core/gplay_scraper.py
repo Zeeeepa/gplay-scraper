@@ -96,43 +96,88 @@ class SearchScraper:
         if count <= 0:
             return ""
         
-        return self.http_client.fetch_search_page(query, lang, country)
+        return self.http_client.fetch_search_page(query=query, lang=lang, country=country)
 
-    def scrape_play_store_data(self, html_content: str) -> Dict:
-        """Extract datasets from search page HTML.
+    def scrape_play_store_data(self, query: str, count: int = Config.DEFAULT_SEARCH_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> Dict:
+        """Scrape search results with automatic pagination support.
         
         Args:
-            html_content: HTML content of search page
+            query: Search query string
+            count: Total number of results to fetch
+            lang: Language code
+            country: Country code
             
         Returns:
-            Dictionary containing all datasets
+            Dictionary containing all search results
             
         Raises:
-            DataParsingError: If no datasets found
+            DataParsingError: If parsing fails
         """
-        script_regex = re.compile(r"AF_initDataCallback[\s\S]*?</script")
-        key_regex = re.compile(r"(ds:.*?)'")
-        value_regex = re.compile(r"data:([\s\S]*?), sideChannel: {}}\);</")
+        # Get initial search page
+        html_content = self.fetch_playstore_search(query, count, lang, country)
         
-        matches = script_regex.findall(html_content)
-        dataset = {}
+        # Use parser for all parsing operations
+        from .gplay_parser import SearchParser
+        parser = SearchParser()
+        dataset = parser.parse_html_content(html_content)
         
-        for match in matches:
-            key_match = key_regex.findall(match)
-            value_match = value_regex.findall(match)
-            
-            if key_match and value_match:
-                key = key_match[0]
-                try:
-                    value = json.loads(value_match[0])
-                    dataset[key] = value
-                except json.JSONDecodeError:
-                    continue
+        # If count <= 20, return initial results
+        if count <= 20:
+            return dataset
         
-        if not dataset:
-            raise DataParsingError(Config.ERROR_MESSAGES["NO_DS5_DATA"])
+        # Extract pagination token
+        token = parser.extract_pagination_token(dataset)
+        
+        # Collect all results
+        all_results = []
+        initial_results = self._get_nested_value(dataset.get("ds:1", []), [0, 1, 0, 0, 0], [])
+        all_results.extend(initial_results)
+        
+        # Paginate if needed and token exists
+        while len(all_results) < count and token:
+            needed = min(100, count - len(all_results))
+            try:
+                response_text = self.http_client.fetch_search_page(token=token, needed=needed, lang=lang, country=country)
+                data = json.loads(response_text[5:])
+                parsed_data = json.loads(data[0][2])
+                
+                if parsed_data:
+                    paginated_results = self._get_nested_value(parsed_data, [0, 0, 0], [])
+                    all_results.extend(paginated_results)
+                    # Update token for next iteration
+                    token = self._get_nested_value(parsed_data, [0, 0, 7, 1])
+                else:
+                    break
+            except (json.JSONDecodeError, IndexError, KeyError, Exception):
+                break
+        
+        # Update dataset with all results
+        if "ds:1" in dataset:
+            dataset["ds:1"][0][1][0][0][0] = all_results[:count]
         
         return dataset
+    
+
+    
+
+    
+    def _get_nested_value(self, data, path, default=None):
+        """Safely get nested value from data structure.
+        
+        Args:
+            data: Data structure to traverse
+            path: List of keys/indices to follow
+            default: Default value if path not found
+            
+        Returns:
+            Value at path or default
+        """
+        try:
+            for key in path:
+                data = data[key]
+            return data
+        except (KeyError, IndexError, TypeError):
+            return default
 
 
 class ReviewsScraper:

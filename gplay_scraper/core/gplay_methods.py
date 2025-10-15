@@ -142,7 +142,7 @@ class SearchMethods:
         self.parser = SearchParser()
 
     def search_analyze(self, query: str, count: int = Config.DEFAULT_SEARCH_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> List[Dict]:
-        """Search for apps and get complete results.
+        """Search for apps and get complete results with pagination support.
         
         Args:
             query: Search query string
@@ -158,11 +158,11 @@ class SearchMethods:
         """
         if not query or not isinstance(query, str):
             raise InvalidAppIdError(Config.ERROR_MESSAGES["INVALID_QUERY"])
-            
-        html_content = self.scraper.fetch_playstore_search(query, count, lang, country)
-        dataset = self.scraper.scrape_play_store_data(html_content)
-        raw_results = self.parser.parse_search_results(dataset, count)
         
+        # scrape_play_store_data now handles pagination automatically
+        dataset = self.scraper.scrape_play_store_data(query, count, lang, country)
+        
+        raw_results = self.parser.parse_search_results(dataset, count)
         return [self.parser.format_search_result(result) for result in raw_results]
 
     def search_get_field(self, query: str, field: str, count: int = Config.DEFAULT_SEARCH_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> List[Any]:

@@ -78,7 +78,8 @@ class Config:
         "SUGGEST_NOT_FOUND": "Suggestions not found for: {term}",
         "NO_DS3_DATA": "No data found in dataset",
         "DS3_NOT_FOUND": "Could not find data",
-        "DS3_JSON_PARSE_FAILED": "Failed to parse JSON: {error}"
+        "DS3_JSON_PARSE_FAILED": "Failed to parse JSON: {error}",
+        "SEARCH_PAGINATION_FAILED": "Failed to fetch paginated search results: {error}"
     }
     
     @classmethod

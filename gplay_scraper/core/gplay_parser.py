@@ -8,7 +8,7 @@ import json
 import re
 from datetime import datetime, timezone
 from typing import Dict, Any, List, Optional, Tuple
-from ..models.element_specs import ElementSpecs
+from ..models.element_specs import ElementSpecs, nested_lookup
 from ..utils.helpers import clean_json_string, alternative_json_clean, calculate_app_age, calculate_daily_installs, calculate_monthly_installs
 from ..config import Config
 from ..exceptions import DataParsingError
@@ -155,7 +155,6 @@ class SearchParser:
         if "ds:1" not in dataset:
             return []
         
-        from ..models.element_specs import nested_lookup
         search_data = nested_lookup(dataset.get("ds:1", {}), [0, 1, 0, 0, 0])
         
         if not search_data:
@@ -209,6 +208,67 @@ class SearchParser:
             "free": result.get("free"),
             "url": result.get("url"),
         }
+    
+    def extract_pagination_token(self, dataset: Dict) -> str:
+        """Extract pagination token from search dataset.
+        
+        Args:
+            dataset: Search dataset
+            
+        Returns:
+            Pagination token or None
+        """
+        sections = nested_lookup(dataset.get("ds:1", {}), [0, 1, 0, 0])
+        
+        if not sections:
+            return None
+            
+        for section in sections:
+            if isinstance(section, list) and len(section) > 1:
+                potential_token = nested_lookup(section, [1])
+                if isinstance(potential_token, str):
+                    return potential_token
+        return None
+    
+    def parse_html_content(self, html_content: str) -> Dict:
+        """Extract datasets from search page HTML.
+        
+        Args:
+            html_content: HTML content of search page
+            
+        Returns:
+            Dictionary containing all datasets
+            
+        Raises:
+            DataParsingError: If no datasets found
+        """
+        import re
+        script_regex = re.compile(r"AF_initDataCallback[\s\S]*?</script")
+        key_regex = re.compile(r"(ds:.*?)'")
+        value_regex = re.compile(r"data:([\s\S]*?), sideChannel: \{\}\}\);</")
+        
+        matches = script_regex.findall(html_content)
+        dataset = {}
+        
+        for match in matches:
+            key_match = key_regex.findall(match)
+            value_match = value_regex.findall(match)
+            
+            if key_match and value_match:
+                key = key_match[0]
+                try:
+                    import json
+                    value = json.loads(value_match[0])
+                    dataset[key] = value
+                except json.JSONDecodeError:
+                    continue
+        
+        if not dataset:
+            from ..exceptions import DataParsingError
+            from ..config import Config
+            raise DataParsingError("No search data found in HTML")
+        
+        return dataset
 
 
 class ReviewsParser:
@@ -365,7 +425,6 @@ class DeveloperParser:
         else:
             apps_path = [0, 1, 0, 22, 0]
         
-        from ..models.element_specs import nested_lookup
         apps_data = nested_lookup(data.get("data", data), apps_path)
         if not apps_data:
             return []
@@ -438,7 +497,6 @@ class SimilarParser:
             except Exception:
                 return []
 
-        from ..models.element_specs import nested_lookup
         apps_data = nested_lookup(data.get("data", data), [0, 1, 0, 21, 0])
         if not apps_data:
             return []
@@ -501,7 +559,6 @@ class ListParser:
         if not collection_data:
             return []
         
-        from ..models.element_specs import nested_lookup
         apps_data = nested_lookup(collection_data, [0, 1, 0, 28, 0])
         if not apps_data:
             return []

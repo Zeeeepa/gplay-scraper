@@ -160,16 +160,18 @@ class HttpClient:
                 logger.error(Config.ERROR_MESSAGES["APP_FETCH_FAILED"].format(app_id=app_id, error=e))
                 raise NetworkError(Config.ERROR_MESSAGES["APP_FETCH_FAILED"].format(app_id=app_id, error=e))
 
-    def fetch_search_page(self, query: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> str:
-        """Fetch search results page from Google Play Store.
+    def fetch_search_page(self, query: str = None, token: str = None, needed: int = None, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> str:
+        """Fetch search results from Google Play Store (initial or paginated).
         
         Args:
-            query: Search query string
+            query: Search query string (for initial search)
+            token: Pagination token (for paginated search)
+            needed: Number of results needed (for pagination)
             lang: Language code
             country: Country code
             
         Returns:
-            HTML content of search page
+            HTML content (initial) or raw API response (pagination)
             
         Raises:
             AppNotFoundError: If search fails
@@ -177,24 +179,49 @@ class HttpClient:
         """
         self.rate_limit()
         
-        encoded_query = quote(query)
-        url = f"{Config.PLAY_STORE_BASE_URL}/work/search?q={encoded_query}&hl={lang}&gl={country}&price=0"
+        # Pagination request
+        if token and needed:
+            url = f"{Config.PLAY_STORE_BASE_URL}/_/PlayStoreUi/data/batchexecute"
+            params = f"rpcids=qnKhOb&source-path=%2Fwork%2Fsearch&hl={lang}&gl={country}"
+            
+            body = f'f.req=%5B%5B%5B%22qnKhOb%22%2C%22%5B%5Bnull%2C%5B%5B10%2C%5B10%2C{needed}%5D%5D%2Ctrue%2Cnull%2C%5B96%2C27%2C4%2C8%2C57%2C30%2C110%2C79%2C11%2C16%2C49%2C1%2C3%2C9%2C12%2C104%2C55%2C56%2C51%2C10%2C34%2C77%5D%5D%2Cnull%2C%5C%22{token}%5C%22%5D%5D%22%2Cnull%2C%22generic%22%5D%5D%5D'
+            
+            headers = {
+                **self.headers,
+                "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+            }
+            
+            try:
+                response = self._make_request("POST", f"{url}?{params}", data=body, headers=headers)
+                return response.text
+            except Exception as e:
+                logger.error(Config.ERROR_MESSAGES["SEARCH_PAGINATION_FAILED"].format(error=e))
+                raise NetworkError(Config.ERROR_MESSAGES["SEARCH_PAGINATION_FAILED"].format(error=e))
         
-        try:
-            response = self._make_request("GET", url)
-            return response.text
-        except Exception as e:
-            if self._is_404_error(e):
-                raise AppNotFoundError(Config.ERROR_MESSAGES["SEARCH_NOT_FOUND"].format(query=query))
-            url = f"{Config.PLAY_STORE_BASE_URL}/work/search?q={encoded_query}&hl={lang}&price=0"
+        # Initial search request
+        elif query:
+            encoded_query = quote(query)
+            url = f"{Config.PLAY_STORE_BASE_URL}/work/search?q={encoded_query}&hl={lang}&gl={country}&price=0"
+            
             try:
                 response = self._make_request("GET", url)
                 return response.text
-            except Exception as e2:
-                if self._is_404_error(e2):
+            except Exception as e:
+                if self._is_404_error(e):
                     raise AppNotFoundError(Config.ERROR_MESSAGES["SEARCH_NOT_FOUND"].format(query=query))
-                logger.error(Config.ERROR_MESSAGES["SEARCH_FETCH_FAILED"].format(query=query, error=e))
-                raise NetworkError(Config.ERROR_MESSAGES["SEARCH_FETCH_FAILED"].format(query=query, error=e))
+                url = f"{Config.PLAY_STORE_BASE_URL}/work/search?q={encoded_query}&hl={lang}&price=0"
+                try:
+                    response = self._make_request("GET", url)
+                    return response.text
+                except Exception as e2:
+                    if self._is_404_error(e2):
+                        raise AppNotFoundError(Config.ERROR_MESSAGES["SEARCH_NOT_FOUND"].format(query=query))
+                    logger.error(Config.ERROR_MESSAGES["SEARCH_FETCH_FAILED"].format(query=query, error=e))
+                    raise NetworkError(Config.ERROR_MESSAGES["SEARCH_FETCH_FAILED"].format(query=query, error=e))
+        
+        else:
+            raise ValueError("Either query or (token and needed) must be provided")
+
 
     def fetch_reviews_batch(self, app_id: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, 
                            sort: int = Config.DEFAULT_REVIEWS_SORT, batch_count: int = Config.DEFAULT_REVIEWS_BATCH_SIZE, token: str = None) -> str:

@@ -48,7 +48,7 @@
 - Localized pricing and availability
 - Competitive analysis and benchmarking
 
-## 🆕 **What's New in v1.0.2** 
+## 🆕 **What's New in v1.0.3** 
 
 **✅ 7 Method Types:**
 - **App Methods** - Extract 65+ data fields from any app (ratings, installs, pricing, permissions, etc.)

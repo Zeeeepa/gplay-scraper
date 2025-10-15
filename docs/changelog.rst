@@ -3,7 +3,23 @@ Changelog
 
 All notable changes to this project will be documented in this file.
 
-Version 1.0.2 (2025-01-15)
+Version 1.0.3 (2025-10-15)
+---------------------------
+
+**New Features**
+
+- **Enhanced Search Pagination**: Now able to fetch unlimited search results (300+) with automatic pagination, not limited to 50 results anymore
+- **Improved Search Performance**: Optimized search result fetching with better token handling and batch processing
+
+**Bug Fixes & Code Quality Improvements**
+
+- **Code Review**: Addressed security vulnerabilities and code quality issues
+- **Error Handling**: Improved error handling patterns across all modules
+- **Performance**: Optimized JSON parsing and HTTP client fallback logic
+- **Security**: Fixed potential SSRF and injection vulnerabilities
+- **Maintainability**: Enhanced code readability and documentation
+
+Version 1.0.2 (2025-10-15)
 ---------------------------
 
 **Major Release - Complete Library Redesign** 🚀
