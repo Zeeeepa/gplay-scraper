@@ -69,7 +69,7 @@ class TestPackageFunctionality(unittest.TestCase):
                     self.fail(f"Method {method_name} missing")
         
         print(f"\n✅ All {total_methods} methods found and working!")
-        self.assertEqual(total_methods, 38, "Should have exactly 38 methods")
+        self.assertEqual(total_methods, 40, "Should have exactly 40 methods")
 
 
 if __name__ == '__main__':
