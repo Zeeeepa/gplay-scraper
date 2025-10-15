@@ -9,10 +9,10 @@ class TestAppMethods(unittest.TestCase):
     
     @classmethod
     def setUpClass(cls):
-        cls.scraper = GPlayScraper()
-        cls.app_id = "com.whatsapp"
-        cls.lang = "en"
-        cls.country = "us"
+        cls.scraper = GPlayScraper()  # Initialize scraper
+        cls.app_id = "com.whatsapp"  # WhatsApp app ID for testing
+        cls.lang = "en"  # Language
+        cls.country = "us"  # Country
     
     def test_app_analyze(self):
         """Test app_analyze returns dictionary with data or handles errors gracefully"""
@@ -22,6 +22,12 @@ class TestAppMethods(unittest.TestCase):
             self.assertIsInstance(result, dict)
             if result:  # Only check if we got data
                 self.assertIn('title', result)
+                print(f"\n✅ App data retrieved for {self.app_id}:")
+                print(f"Title: {result.get('title', 'N/A')}")
+                print(f"Score: {result.get('score', 'N/A')}")
+                print(f"Installs: {result.get('installs', 'N/A')}")
+                print(f"Developer: {result.get('developer', 'N/A')}")
+                print(f"Total fields: {len(result)}")
         except (NetworkError, RateLimitError, GPlayScraperError) as e:
             warnings.warn(f"Network/Rate limit error in test_app_analyze: {e}")
             self.skipTest(f"Skipping due to network/rate limit: {e}")
@@ -34,6 +40,7 @@ class TestAppMethods(unittest.TestCase):
             if result is not None:
                 self.assertIsInstance(result, str)
                 self.assertTrue(len(result) > 0)
+                print(f"\n✅ Single field 'title': {result}")
         except (NetworkError, RateLimitError, GPlayScraperError) as e:
             warnings.warn(f"Network/Rate limit error in test_app_get_field: {e}")
             self.skipTest(f"Skipping due to network/rate limit: {e}")
@@ -46,6 +53,9 @@ class TestAppMethods(unittest.TestCase):
             result = self.scraper.app_get_fields(self.app_id, fields, lang=self.lang, country=self.country)
             if result:
                 self.assertIsInstance(result, dict)
+                print(f"\n✅ Multiple fields retrieved:")
+                for field, value in result.items():
+                    print(f"  {field}: {value}")
         except (NetworkError, RateLimitError, GPlayScraperError) as e:
             warnings.warn(f"Network/Rate limit error in test_app_get_fields: {e}")
             self.skipTest(f"Skipping due to network/rate limit: {e}")
@@ -54,6 +64,7 @@ class TestAppMethods(unittest.TestCase):
         """Test app_print_field executes without error or handles errors gracefully"""
         time.sleep(2)  # Wait 2 seconds before request
         try:
+            print(f"\n✅ app_print_field output:")
             self.scraper.app_print_field(self.app_id, "title", lang=self.lang, country=self.country)
         except (NetworkError, RateLimitError, GPlayScraperError) as e:
             warnings.warn(f"Network/Rate limit error in test_app_print_field: {e}")
@@ -65,6 +76,7 @@ class TestAppMethods(unittest.TestCase):
         """Test app_print_fields executes without error or handles errors gracefully"""
         time.sleep(2)  # Wait 2 seconds before request
         try:
+            print(f"\n✅ app_print_fields output:")
             self.scraper.app_print_fields(self.app_id, ["title", "score"], lang=self.lang, country=self.country)
         except (NetworkError, RateLimitError, GPlayScraperError) as e:
             warnings.warn(f"Network/Rate limit error in test_app_print_fields: {e}")
@@ -76,6 +88,7 @@ class TestAppMethods(unittest.TestCase):
         """Test app_print_all executes without error or handles errors gracefully"""
         time.sleep(2)  # Wait 2 seconds before request
         try:
+            print(f"\n✅ app_print_all output:")
             self.scraper.app_print_all(self.app_id, lang=self.lang, country=self.country)
         except (NetworkError, RateLimitError, GPlayScraperError) as e:
             warnings.warn(f"Network/Rate limit error in test_app_print_all: {e}")

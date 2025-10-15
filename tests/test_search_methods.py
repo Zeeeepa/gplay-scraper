@@ -13,11 +13,11 @@ class TestSearchMethods(unittest.TestCase):
     
     @classmethod
     def setUpClass(cls):
-        cls.scraper = GPlayScraper()
-        cls.query = "social media"
-        cls.count = 10
-        cls.lang = "en"
-        cls.country = "us"
+        cls.scraper = GPlayScraper()  # Initialize scraper
+        cls.query = "social media"  # Search query
+        cls.count = 10  # Number of items to fetch
+        cls.lang = "en"  # Language
+        cls.country = "us"  # Country
     
     def test_search_analyze(self):
         """Test search_analyze returns list of results"""
@@ -28,6 +28,9 @@ class TestSearchMethods(unittest.TestCase):
             if result:
                 self.assertGreater(len(result), 0)
                 self.assertIn('title', result[0])
+                print(f"\n✅ Search results for '{self.query}' ({len(result)} apps):")
+                for i, app in enumerate(result[:3]):  # Show first 3 results
+                    print(f"  {i+1}. {app.get('title', 'N/A')} - {app.get('developer', 'N/A')}")
         except (NetworkError, RateLimitError, GPlayScraperError) as e:
             warnings.warn(f"Network/Rate limit error in test_search_analyze: {e}")
             self.skipTest(f"Skipping due to network/rate limit: {e}")
@@ -40,6 +43,9 @@ class TestSearchMethods(unittest.TestCase):
             self.assertIsInstance(result, list)
             if result:
                 self.assertGreater(len(result), 0)
+                print(f"\n✅ App titles from search ({len(result)} results):")
+                for i, title in enumerate(result[:3]):
+                    print(f"  {i+1}. {title}")
         except (NetworkError, RateLimitError, GPlayScraperError) as e:
             warnings.warn(f"Network/Rate limit error in test_search_get_field: {e}")
             self.skipTest(f"Skipping due to network/rate limit: {e}")
@@ -55,6 +61,9 @@ class TestSearchMethods(unittest.TestCase):
                 self.assertGreater(len(result), 0)
                 for field in fields:
                     self.assertIn(field, result[0])
+                print(f"\n✅ Multiple fields from search ({len(result)} results):")
+                for i, app in enumerate(result[:3]):
+                    print(f"  {i+1}. {app.get('title', 'N/A')} - Score: {app.get('score', 'N/A')}")
         except (NetworkError, RateLimitError, GPlayScraperError) as e:
             warnings.warn(f"Network/Rate limit error in test_search_get_fields: {e}")
             self.skipTest(f"Skipping due to network/rate limit: {e}")
@@ -63,7 +72,8 @@ class TestSearchMethods(unittest.TestCase):
         """Test search_print_field executes without error"""
         time.sleep(2)
         try:
-            self.scraper.search_print_field(self.query, "title", count=5, lang=self.lang, country=self.country)
+            print(f"\n✅ search_print_field output for '{self.query}':")
+            self.scraper.search_print_field(self.query, "title", count=self.count, lang=self.lang, country=self.country)
         except (NetworkError, RateLimitError, GPlayScraperError) as e:
             warnings.warn(f"Network/Rate limit error in test_search_print_field: {e}")
             self.skipTest(f"Skipping due to network/rate limit: {e}")
@@ -74,7 +84,8 @@ class TestSearchMethods(unittest.TestCase):
         """Test search_print_fields executes without error"""
         time.sleep(2)
         try:
-            self.scraper.search_print_fields(self.query, ["title", "score"], count=5, lang=self.lang, country=self.country)
+            print(f"\n✅ search_print_fields output for '{self.query}':")
+            self.scraper.search_print_fields(self.query, ["title", "score"], count=self.count, lang=self.lang, country=self.country)
         except (NetworkError, RateLimitError, GPlayScraperError) as e:
             warnings.warn(f"Network/Rate limit error in test_search_print_fields: {e}")
             self.skipTest(f"Skipping due to network/rate limit: {e}")
@@ -85,7 +96,8 @@ class TestSearchMethods(unittest.TestCase):
         """Test search_print_all executes without error"""
         time.sleep(2)
         try:
-            self.scraper.search_print_all(self.query, count=5, lang=self.lang, country=self.country)
+            print(f"\n✅ search_print_all output for '{self.query}':")
+            self.scraper.search_print_all(self.query, count=self.count, lang=self.lang, country=self.country)
         except (NetworkError, RateLimitError, GPlayScraperError) as e:
             warnings.warn(f"Network/Rate limit error in test_search_print_all: {e}")
             self.skipTest(f"Skipping due to network/rate limit: {e}")

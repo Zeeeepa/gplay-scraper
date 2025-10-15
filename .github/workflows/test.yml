@@ -28,13 +28,9 @@ jobs:
         pip install -r requirements.txt
         pip install pytest pytest-cov
     
-    - name: Run package functionality test
+    - name: Run package and basic functionality tests
       run: |
-        python test_package.py
-    
-    - name: Run basic unit tests
-      run: |
-        python -m unittest tests.test_basic -v
+        python -m unittest tests.test_package tests.test_basic -v
     
     - name: Run network-dependent tests (optional)
       continue-on-error: true
