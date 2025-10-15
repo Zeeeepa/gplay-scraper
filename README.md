@@ -8,7 +8,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/Mohammedcha/gplay-scraper.svg)](https://github.com/Mohammedcha/gplay-scraper/issues)
 
 <div align="center">
-  <img src="assets/gplay-scraper.png" alt="GPlay Scraper">
+  <img src="https://github.com/Mohammedcha/gplay-scraper/blob/main/assets/gplay-scraper.png" alt="GPlay Scraper">
 </div>
 
 **GPlay Scraper** is a powerful Python library for extracting comprehensive data from the Google Play Store. Built for developers, data analysts, and researchers, it provides easy access to app information, user reviews, search results, top charts, and market intelligence—all without requiring API keys.
@@ -130,13 +130,13 @@ scraper.suggest_print_all("fitness", count=5, lang="en", country="us")
 
 GPlay Scraper provides 7 method types with 42 functions to interact with Google Play Store data:
 
-### 1. [App Methods](README/APP_METHODS.md) - Extract app details (65+ fields)
-### 2. [Search Methods](README/SEARCH_METHODS.md) - Search for apps by keyword
-### 3. [Reviews Methods](README/REVIEWS_METHODS.md) - Get user reviews and ratings
-### 4. [Developer Methods](README/DEVELOPER_METHODS.md) - Get all apps from a developer
-### 5. [List Methods](README/LIST_METHODS.md) - Get top charts (free, paid, grossing)
-### 6. [Similar Methods](README/SIMILAR_METHODS.md) - Find similar/related apps
-### 7. [Suggest Methods](README/SUGGEST_METHODS.md) - Get search suggestions/autocomplete
+### 1. [App Methods](https://github.com/Mohammedcha/gplay-scraper/blob/main/README/APP_METHODS.md) - Extract app details (65+ fields)
+### 2. [Search Methods](https://github.com/Mohammedcha/gplay-scraper/blob/main/README/SEARCH_METHODS.md) - Search for apps by keyword
+### 3. [Reviews Methods](https://github.com/Mohammedcha/gplay-scraper/blob/main/README/REVIEWS_METHODS.md) - Get user reviews and ratings
+### 4. [Developer Methods](https://github.com/Mohammedcha/gplay-scraper/blob/main/README/DEVELOPER_METHODS.md) - Get all apps from a developer
+### 5. [List Methods](https://github.com/Mohammedcha/gplay-scraper/blob/main/README/LIST_METHODS.md) - Get top charts (free, paid, grossing)
+### 6. [Similar Methods](https://github.com/Mohammedcha/gplay-scraper/blob/main/README/SIMILAR_METHODS.md) - Find similar/related apps
+### 7. [Suggest Methods](https://github.com/Mohammedcha/gplay-scraper/blob/main/README/SUGGEST_METHODS.md) - Get search suggestions/autocomplete
 
 Each method type has 6 functions:
 - `analyze()` - Get all data as dictionary/list
@@ -148,10 +148,10 @@ Each method type has 6 functions:
 
 ## 🎯 Method Examples
 
-### 1. [App Methods](README/APP_METHODS.md) - Get App Details
+### 1. [App Methods](https://github.com/Mohammedcha/gplay-scraper/blob/main/README/APP_METHODS.md) - Get App Details
 Extract comprehensive information about any app including ratings, installs, pricing, and 65+ data fields.
 
-📖 **[View detailed documentation →](README/APP_METHODS.md)**
+📖 **[View detailed documentation →](https://github.com/Mohammedcha/gplay-scraper/blob/main/README/APP_METHODS.md)**
 
 ```python
 from gplay_scraper import GPlayScraper
@@ -164,14 +164,14 @@ scraper.app_print_all("com.whatsapp", lang="en", country="us")
 
 **What you get:** Complete app profile with title, developer, ratings, install counts, pricing, screenshots, permissions, and more.
 
-📄 **[View JSON example →](output/app_example.json)**
+📄 **[View JSON example →](https://github.com/Mohammedcha/gplay-scraper/blob/main/output/app_example.json)**
 
 ---
 
-### 2. [Search Methods](README/SEARCH_METHODS.md) - Find Apps by Keyword
+### 2. [Search Methods](https://github.com/Mohammedcha/gplay-scraper/blob/main/README/SEARCH_METHODS.md) - Find Apps by Keyword
 Search the Play Store by keyword, app name, or category to discover apps.
 
-📖 **[View detailed documentation →](README/SEARCH_METHODS.md)**
+📖 **[View detailed documentation →](https://github.com/Mohammedcha/gplay-scraper/blob/main/README/SEARCH_METHODS.md)**
 
 ```python
 from gplay_scraper import GPlayScraper
@@ -184,14 +184,14 @@ scraper.search_print_all("fitness tracker", count=20, lang="en", country="us")
 
 **What you get:** List of apps matching your search with titles, developers, ratings, prices, and Play Store URLs.
 
-📄 **[View JSON example →](output/search_example.json)**
+📄 **[View JSON example →](https://github.com/Mohammedcha/gplay-scraper/blob/main/output/search_example.json)**
 
 ---
 
-### 3. [Reviews Methods](README/REVIEWS_METHODS.md) - Extract User Reviews
+### 3. [Reviews Methods](https://github.com/Mohammedcha/gplay-scraper/blob/main/README/REVIEWS_METHODS.md) - Extract User Reviews
 Get user reviews with ratings, comments, timestamps, and helpful votes for sentiment analysis.
 
-📖 **[View detailed documentation →](README/REVIEWS_METHODS.md)**
+📖 **[View detailed documentation →](https://github.com/Mohammedcha/gplay-scraper/blob/main/README/REVIEWS_METHODS.md)**
 
 ```python
 from gplay_scraper import GPlayScraper
@@ -204,14 +204,14 @@ scraper.reviews_print_all("com.whatsapp", count=100, sort="NEWEST", lang="en", c
 
 **What you get:** User reviews with names, ratings (1-5 stars), review text, timestamps, app versions, and helpful vote counts.
 
-📄 **[View JSON example →](output/reviews_example.json)**
+📄 **[View JSON example →](https://github.com/Mohammedcha/gplay-scraper/blob/main/output/reviews_example.json)**
 
 ---
 
-### 4. [Developer Methods](README/DEVELOPER_METHODS.md) - Get Developer's Apps
+### 4. [Developer Methods](https://github.com/Mohammedcha/gplay-scraper/blob/main/README/DEVELOPER_METHODS.md) - Get Developer's Apps
 Retrieve all apps published by a specific developer using their developer ID.
 
-📖 **[View detailed documentation →](README/DEVELOPER_METHODS.md)**
+📖 **[View detailed documentation →](https://github.com/Mohammedcha/gplay-scraper/blob/main/README/DEVELOPER_METHODS.md)**
 
 ```python
 from gplay_scraper import GPlayScraper
@@ -224,14 +224,14 @@ scraper.developer_print_all("5700313618786177705", count=50, lang="en", country=
 
 **What you get:** Complete portfolio of apps from a developer with titles, ratings, prices, and descriptions.
 
-📄 **[View JSON example →](output/developer_example.json)**
+📄 **[View JSON example →](https://github.com/Mohammedcha/gplay-scraper/blob/main/output/developer_example.json)**
 
 ---
 
-### 5. [List Methods](README/LIST_METHODS.md) - Get Top Charts
+### 5. [List Methods](https://github.com/Mohammedcha/gplay-scraper/blob/main/README/LIST_METHODS.md) - Get Top Charts
 Access Play Store top charts including top free, top paid, and top grossing apps by category.
 
-📖 **[View detailed documentation →](README/LIST_METHODS.md)**
+📖 **[View detailed documentation →](https://github.com/Mohammedcha/gplay-scraper/blob/main/README/LIST_METHODS.md)**
 
 ```python
 from gplay_scraper import GPlayScraper
@@ -244,14 +244,14 @@ scraper.list_print_all("TOP_FREE", "GAME", count=50, lang="en", country="us")
 
 **What you get:** Top-ranked apps with titles, developers, ratings, install counts, prices, and screenshots.
 
-📄 **[View JSON example →](output/list_example.json)**
+📄 **[View JSON example →](https://github.com/Mohammedcha/gplay-scraper/blob/main/output/list_example.json)**
 
 ---
 
-### 6. [Similar Methods](README/SIMILAR_METHODS.md) - Find Related Apps
+### 6. [Similar Methods](https://github.com/Mohammedcha/gplay-scraper/blob/main/README/SIMILAR_METHODS.md) - Find Related Apps
 Discover apps similar to a reference app for competitive analysis and market research.
 
-📖 **[View detailed documentation →](README/SIMILAR_METHODS.md)**
+📖 **[View detailed documentation →](https://github.com/Mohammedcha/gplay-scraper/blob/main/README/SIMILAR_METHODS.md)**
 
 ```python
 from gplay_scraper import GPlayScraper
@@ -264,14 +264,14 @@ scraper.similar_print_all("com.whatsapp", count=30, lang="en", country="us")
 
 **What you get:** List of similar/competitor apps with titles, developers, ratings, and pricing information.
 
-📄 **[View JSON example →](output/similar_example.json)**
+📄 **[View JSON example →](https://github.com/Mohammedcha/gplay-scraper/blob/main/output/similar_example.json)**
 
 ---
 
-### 7. [Suggest Methods](README/SUGGEST_METHODS.md) - Get Search Suggestions
+### 7. [Suggest Methods](https://github.com/Mohammedcha/gplay-scraper/blob/main/README/SUGGEST_METHODS.md) - Get Search Suggestions
 Get autocomplete suggestions and keyword ideas for ASO and market research.
 
-📖 **[View detailed documentation →](README/SUGGEST_METHODS.md)**
+📖 **[View detailed documentation →](https://github.com/Mohammedcha/gplay-scraper/blob/main/README/SUGGEST_METHODS.md)**
 
 ```python
 from gplay_scraper import GPlayScraper
@@ -284,7 +284,7 @@ scraper.suggest_print_all("photo editor", count=10, lang="en", country="us")
 
 **What you get:** List of popular search terms related to your keyword for ASO and keyword research.
 
-📄 **[View JSON example →](output/suggest_example.json)**
+📄 **[View JSON example →](https://github.com/Mohammedcha/gplay-scraper/blob/main/output/suggest_example.json)**
 
 ---
 
