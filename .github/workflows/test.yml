@@ -37,4 +37,10 @@ jobs:
       timeout-minutes: 15
       run: |
         echo "Running network-dependent tests with delays (failures expected due to rate limiting)..."
-        python -m unittest discover -s tests -p "test_*.py" -v --exclude test_basic.py || echo "Network tests completed with expected failures"
+        python -m unittest tests.test_app_methods -v || echo "App methods test completed"
+        python -m unittest tests.test_search_methods -v || echo "Search methods test completed"
+        python -m unittest tests.test_reviews_methods -v || echo "Reviews methods test completed"
+        python -m unittest tests.test_developer_methods -v || echo "Developer methods test completed"
+        python -m unittest tests.test_list_methods -v || echo "List methods test completed"
+        python -m unittest tests.test_similar_methods -v || echo "Similar methods test completed"
+        python -m unittest tests.test_suggest_methods -v || echo "Suggest methods test completed"
