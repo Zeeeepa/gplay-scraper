@@ -8,19 +8,20 @@ import json
 import re
 from datetime import datetime, timezone
 from typing import Dict, Any, List, Optional, Tuple
-from ..models.element_specs import ElementSpecs, nested_lookup
+from ..models.element_specs import ElementSpecs, nested_lookup, format_image_url
 from ..utils.helpers import clean_json_string, alternative_json_clean, calculate_app_age, calculate_daily_installs, calculate_monthly_installs
 from ..config import Config
 from ..exceptions import DataParsingError
 
 class AppParser:
     """Parser for extracting and formatting app data."""
-    def parse_app_data(self, dataset: Dict, app_id: str) -> Dict[str, Any]:
-        """Parse raw app data from dataset.
+    def parse_app_data(self, dataset: Dict, app_id: str, scraper=None, assets: str = None) -> Dict[str, Any]:
+        """Parse raw app data from dataset with fallback for missing release date.
         
         Args:
             dataset: Raw dataset from scraper
             app_id: Google Play app ID
+            scraper: AppScraper instance for fallback requests
             
         Returns:
             Dictionary with parsed app details
@@ -44,10 +45,34 @@ class AppParser:
 
         app_details = {}
         for key, spec in ElementSpecs.App.items():
-            app_details[key] = spec.extract_content(data.get("data", data))
+            value = spec.extract_content(data.get("data", data))
+            # Format image URLs with assets parameter
+            if key in ["icon", "headerImage", "videoImage"] and value:
+                app_details[key] = format_image_url(value, assets)
+            elif key == "screenshots" and value:
+                app_details[key] = [format_image_url(url, assets) for url in value if url]
+            else:
+                app_details[key] = value
 
         app_details['appId'] = app_id
         app_details['url'] = f"{Config.PLAY_STORE_BASE_URL}{Config.APP_DETAILS_ENDPOINT}?id={app_id}"
+
+        # Check if release date is missing and try fallback
+        if not app_details.get("released") and scraper:
+            try:
+                fallback_dataset = scraper.fetch_fallback_data(app_id)
+                if fallback_dataset and fallback_dataset.get("ds:5"):
+                    fallback_cleaned = clean_json_string(fallback_dataset["ds:5"])
+                    try:
+                        fallback_data = json.loads(fallback_cleaned)
+                        released_spec = ElementSpecs.App["released"]
+                        fallback_released = released_spec.extract_content(fallback_data.get("data", fallback_data))
+                        if fallback_released:
+                            app_details["released"] = fallback_released
+                    except:
+                        pass
+            except:
+                pass
 
         current_date = datetime.now(timezone.utc)
         release_date_str = app_details.get("released")

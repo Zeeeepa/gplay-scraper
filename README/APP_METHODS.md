@@ -70,39 +70,55 @@ pip install aiohttp
 
 ## Methods
 
-### `app_analyze(app_id, lang='en', country='us')`
+### `app_analyze(app_id, lang='en', country='us', assets=None)`
 Returns all 65+ fields as a dictionary.
 
 ```python
 data = scraper.app_analyze("com.whatsapp")
 # Returns: {'appId': 'com.whatsapp', 'title': 'WhatsApp Messenger', ...}
+
+# With custom image sizes
+data = scraper.app_analyze("com.whatsapp", assets="LARGE")
+# Returns same data but with larger image URLs (2048px)
 ```
 
-### `app_get_field(app_id, field, lang='en', country='us')`
+### `app_get_field(app_id, field, lang='en', country='us', assets=None)`
 Returns a single field value.
 
 ```python
 score = scraper.app_get_field("com.whatsapp", "score")
 # Returns: 4.2
+
+# Get high-quality icon
+icon = scraper.app_get_field("com.whatsapp", "icon", assets="ORIGINAL")
+# Returns: URL with maximum image quality
 ```
 
-### `app_get_fields(app_id, fields, lang='en', country='us')`
+### `app_get_fields(app_id, fields, lang='en', country='us', assets=None)`
 Returns multiple fields as a dictionary.
 
 ```python
 data = scraper.app_get_fields("com.whatsapp", ["title", "score", "installs"])
 # Returns: {'title': 'WhatsApp Messenger', 'score': 4.2, 'installs': '5,000,000,000+'}
+
+# Get media with custom sizes
+media = scraper.app_get_fields("com.whatsapp", ["icon", "screenshots"], assets="SMALL")
+# Returns: Media URLs with 512px width
 ```
 
-### `app_print_field(app_id, field, lang='en', country='us')`
+### `app_print_field(app_id, field, lang='en', country='us', assets=None)`
 Prints a single field to console.
 
 ```python
 scraper.app_print_field("com.whatsapp", "title")
 # Output: title: WhatsApp Messenger
+
+# Print large icon URL
+scraper.app_print_field("com.whatsapp", "icon", assets="LARGE")
+# Output: icon: https://...=w2048
 ```
 
-### `app_print_fields(app_id, fields, lang='en', country='us')`
+### `app_print_fields(app_id, fields, lang='en', country='us', assets=None)`
 Prints multiple fields to console.
 
 ```python
@@ -110,14 +126,22 @@ scraper.app_print_fields("com.whatsapp", ["title", "score"])
 # Output:
 # title: WhatsApp Messenger
 # score: 4.2
+
+# Print media with original quality
+scraper.app_print_fields("com.whatsapp", ["icon", "screenshots"], assets="ORIGINAL")
+# Output: URLs with maximum image quality
 ```
 
-### `app_print_all(app_id, lang='en', country='us')`
+### `app_print_all(app_id, lang='en', country='us', assets=None)`
 Prints all fields as formatted JSON.
 
 ```python
 scraper.app_print_all("com.whatsapp")
 # Output: Full JSON with all 65+ fields
+
+# Print with high-quality images
+scraper.app_print_all("com.whatsapp", assets="LARGE")
+# Output: Full JSON with 2048px image URLs
 ```
 
 ---
@@ -235,6 +259,19 @@ dev_info = scraper.app_get_fields(app_id, [
 print(dev_info)
 ```
 
+### Get High-Quality Media
+```python
+app_id = "com.whatsapp"
+# Get original quality images
+media = scraper.app_get_fields(app_id, ["icon", "screenshots"], assets="ORIGINAL")
+print(f"Icon: {media['icon']}")  # Maximum quality
+print(f"Screenshots: {len(media['screenshots'])} images")
+
+# Get small thumbnails for faster loading
+thumbnails = scraper.app_get_fields(app_id, ["icon", "headerImage"], assets="SMALL")
+print(f"Small icon: {thumbnails['icon']}")  # 512px
+```
+
 ### Check Monetization
 ```python
 app_id = "com.whatsapp"
@@ -257,8 +294,29 @@ print(f"Has Ads: {money['containsAds']}")
 - `app_id` (str, required) - App package name from Play Store URL
 - `lang` (str, optional) - Language code (default: 'en')
 - `country` (str, optional) - Country code (default: 'us')
+- `assets` (str, optional) - Image size: 'SMALL', 'MEDIUM', 'LARGE', 'ORIGINAL' (default: 'MEDIUM')
 - `field` (str) - Single field name
 - `fields` (List[str]) - List of field names
+
+### Assets Parameter (Image Sizes)
+- **SMALL** - 512px width (`w512`)
+- **MEDIUM** - 1024px width (`w1024`) - Default
+- **LARGE** - 2048px width (`w2048`)
+- **ORIGINAL** - Maximum size (`w9999`)
+
+Affects these fields: `icon`, `headerImage`, `screenshots`, `videoImage`
+
+```python
+# Different image qualities
+small_icon = scraper.app_get_field("com.whatsapp", "icon", assets="SMALL")
+# Returns: https://...=w512
+
+large_icon = scraper.app_get_field("com.whatsapp", "icon", assets="LARGE")
+# Returns: https://...=w2048
+
+original_icon = scraper.app_get_field("com.whatsapp", "icon", assets="ORIGINAL")
+# Returns: https://...=w9999
+```
 
 ### Finding App IDs
 From Play Store URL: `https://play.google.com/store/apps/details?id=com.whatsapp`  

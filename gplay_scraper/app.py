@@ -42,20 +42,21 @@ class GPlayScraper:
 
     # ==================== App Methods ====================
     
-    def app_analyze(self, app_id: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> Dict:
+    def app_analyze(self, app_id: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, assets: str = None) -> Dict:
         """Get complete app data with 65+ fields.
         
         Args:
             app_id: Google Play app ID (e.g., 'com.whatsapp')
             lang: Language code (default: 'en')
             country: Country code (default: 'us')
+            assets: Asset size (SMALL=512px, MEDIUM=1024px, LARGE=2048px, ORIGINAL=max)
             
         Returns:
             Dictionary containing all app data
         """
-        return self.app_methods.app_analyze(app_id, lang, country)
+        return self.app_methods.app_analyze(app_id, lang, country, assets)
 
-    def app_get_field(self, app_id: str, field: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> Any:
+    def app_get_field(self, app_id: str, field: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, assets: str = None) -> Any:
         """Get single field value from app data.
         
         Args:
@@ -63,13 +64,14 @@ class GPlayScraper:
             field: Field name to retrieve
             lang: Language code
             country: Country code
+            assets: Asset size (SMALL, MEDIUM, LARGE, ORIGINAL)
             
         Returns:
             Value of the requested field
         """
-        return self.app_methods.app_get_field(app_id, field, lang, country)
+        return self.app_methods.app_get_field(app_id, field, lang, country, assets)
 
-    def app_get_fields(self, app_id: str, fields: List[str], lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> Dict[str, Any]:
+    def app_get_fields(self, app_id: str, fields: List[str], lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, assets: str = None) -> Dict[str, Any]:
         """Get multiple field values from app data.
         
         Args:
@@ -77,13 +79,14 @@ class GPlayScraper:
             fields: List of field names to retrieve
             lang: Language code
             country: Country code
+            assets: Asset size (SMALL, MEDIUM, LARGE, ORIGINAL)
             
         Returns:
             Dictionary with requested fields and values
         """
-        return self.app_methods.app_get_fields(app_id, fields, lang, country)
+        return self.app_methods.app_get_fields(app_id, fields, lang, country, assets)
 
-    def app_print_field(self, app_id: str, field: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> None:
+    def app_print_field(self, app_id: str, field: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, assets: str = None) -> None:
         """Print single field value to console.
         
         Args:
@@ -91,10 +94,11 @@ class GPlayScraper:
             field: Field name to print
             lang: Language code
             country: Country code
+            assets: Asset size (SMALL, MEDIUM, LARGE, ORIGINAL)
         """
-        return self.app_methods.app_print_field(app_id, field, lang, country)
+        return self.app_methods.app_print_field(app_id, field, lang, country, assets)
 
-    def app_print_fields(self, app_id: str, fields: List[str], lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> None:
+    def app_print_fields(self, app_id: str, fields: List[str], lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, assets: str = None) -> None:
         """Print multiple field values to console.
         
         Args:
@@ -102,18 +106,20 @@ class GPlayScraper:
             fields: List of field names to print
             lang: Language code
             country: Country code
+            assets: Asset size (SMALL, MEDIUM, LARGE, ORIGINAL)
         """
-        return self.app_methods.app_print_fields(app_id, fields, lang, country)
+        return self.app_methods.app_print_fields(app_id, fields, lang, country, assets)
 
-    def app_print_all(self, app_id: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> None:
+    def app_print_all(self, app_id: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, assets: str = None) -> None:
         """Print all app data as JSON to console.
         
         Args:
             app_id: Google Play app ID
             lang: Language code
             country: Country code
+            assets: Asset size (SMALL, MEDIUM, LARGE, ORIGINAL)
         """
-        return self.app_methods.app_print_all(app_id, lang, country)
+        return self.app_methods.app_print_all(app_id, lang, country, assets)
 
     # ==================== Search Methods ====================
     

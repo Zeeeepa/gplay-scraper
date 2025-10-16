@@ -19,6 +19,11 @@ Get essential app details:
    basic_info = scraper.app_get_fields(app_id, [
        "title", "developer", "genre", "score", "free"
    ], lang="en", country="us")
+   
+   # Get high-quality media assets
+   media_info = scraper.app_get_fields(app_id, [
+       "icon", "screenshots", "headerImage"
+   ], assets="LARGE")  # 2048px images
 
    for field, value in basic_info.items():
        print(f"{field}: {value}")
@@ -56,8 +61,8 @@ Compare multiple apps across key metrics:
        try:
            # Use app_get_fields with parameters
            data = scraper.app_get_fields(app_id, [
-               "title", "score", "ratings", "installs"
-           ], lang="en", country="us")
+               "title", "score", "ratings", "installs", "icon"
+           ], lang="en", country="us", assets="SMALL")  # Small icons for faster loading
            data["name"] = name
            results.append(data)
        except Exception as e:
@@ -209,6 +214,44 @@ Find popular search terms:
    for term, related in nested.items():
        print(f"{term}: {related}")
 
+Assets Parameter - Image Sizes
+-------------------------------
+
+Control image quality for icons, screenshots, and media:
+
+.. code-block:: python
+
+   from gplay_scraper import GPlayScraper
+
+   scraper = GPlayScraper()
+   app_id = "com.whatsapp"
+
+   # Get different image sizes
+   small_icon = scraper.app_get_field(app_id, "icon", assets="SMALL")
+   # Returns: https://...=w512
+
+   medium_icon = scraper.app_get_field(app_id, "icon", assets="MEDIUM")
+   # Returns: https://...=w1024 (default)
+
+   large_icon = scraper.app_get_field(app_id, "icon", assets="LARGE")
+   # Returns: https://...=w2048
+
+   original_icon = scraper.app_get_field(app_id, "icon", assets="ORIGINAL")
+   # Returns: https://...=w9999 (maximum quality)
+
+   # Get all media with custom sizes
+   media = scraper.app_get_fields(app_id, [
+       "icon", "screenshots", "headerImage", "videoImage"
+   ], assets="ORIGINAL")
+
+   print(f"Icon: {media['icon']}")
+   print(f"Screenshots: {len(media['screenshots'])} images")
+   print(f"Header: {media['headerImage']}")
+
+   # Print methods also support assets parameter
+   scraper.app_print_field(app_id, "icon", assets="LARGE")
+   scraper.app_print_all(app_id, assets="ORIGINAL")
+
 Multi-Language Support
 ----------------------
 
@@ -272,3 +315,11 @@ Real-World Use Cases
 
 **Competitive Intelligence**
   Monitor competitor updates, ratings, and user feedback.
+
+**Image Quality Control**
+  Use assets parameter to get appropriate image sizes for different use cases:
+  
+  - **SMALL (512px)** - Thumbnails, lists, mobile displays
+  - **MEDIUM (1024px)** - Standard web displays, default quality
+  - **LARGE (2048px)** - High-resolution displays, detailed views
+  - **ORIGINAL (max)** - Print quality, archival purposes

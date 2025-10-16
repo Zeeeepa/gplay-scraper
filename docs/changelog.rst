@@ -3,6 +3,49 @@ Changelog
 
 All notable changes to this project will be documented in this file.
 
+Version 1.0.4 (2025-10-16)
+---------------------------
+
+**New Features**
+
+- **Assets Parameter**: Added configurable image sizes for all app methods
+
+  - **SMALL** (512px width) - ``w512``
+  - **MEDIUM** (1024px width) - ``w1024`` - Default
+  - **LARGE** (2048px width) - ``w2048``
+  - **ORIGINAL** (Maximum size) - ``w9999``
+  - Available in all app methods: ``app_analyze()``, ``app_get_field()``, ``app_get_fields()``, ``app_print_field()``, ``app_print_fields()``, ``app_print_all()``
+  - Affects icon, headerImage, screenshots, and videoImage URLs
+
+**Bug Fixes**
+
+- **Release Date Fallback**: Fixed missing release dates when using language/country parameters
+
+  - Added automatic fallback request without ``hl``/``gl`` parameters when release date is null
+  - Ensures release date extraction for apps in all regions
+
+- **Path Resolution**: Fixed various path-related issues in data extraction
+- **Image URL Processing**: Improved image URL formatting with proper size parameters
+
+**Usage Examples**
+
+.. code-block:: python
+
+   # Use different asset sizes
+   data = scraper.app_analyze("com.whatsapp", assets="LARGE")
+   icon = scraper.app_get_field("com.whatsapp", "icon", assets="SMALL")
+   scraper.app_print_all("com.whatsapp", assets="ORIGINAL")
+
+   # Get different image qualities
+   small_icon = scraper.app_get_field("com.whatsapp", "icon", assets="SMALL")
+   # Returns: https://...=w512
+
+   large_icon = scraper.app_get_field("com.whatsapp", "icon", assets="LARGE")
+   # Returns: https://...=w2048
+
+   original_icon = scraper.app_get_field("com.whatsapp", "icon", assets="ORIGINAL")
+   # Returns: https://...=w9999
+
 Version 1.0.3 (2025-10-15)
 ---------------------------
 

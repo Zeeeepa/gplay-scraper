@@ -34,13 +34,14 @@ class AppMethods:
         self.scraper = AppScraper(http_client=http_client)
         self.parser = AppParser()
 
-    def app_analyze(self, app_id: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> Dict:
+    def app_analyze(self, app_id: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, assets: str = None) -> Dict:
         """Get complete app data with all 65+ fields.
         
         Args:
             app_id: Google Play app ID
             lang: Language code
             country: Country code
+            assets: Asset size (SMALL, MEDIUM, LARGE, ORIGINAL)
             
         Returns:
             Dictionary with all app data
@@ -52,10 +53,10 @@ class AppMethods:
             raise InvalidAppIdError(Config.ERROR_MESSAGES["INVALID_APP_ID"])
             
         dataset = self.scraper.scrape_play_store_data(app_id, lang, country)
-        app_details = self.parser.parse_app_data(dataset, app_id)
+        app_details = self.parser.parse_app_data(dataset, app_id, self.scraper, assets)
         return self.parser.format_app_data(app_details)
 
-    def app_get_field(self, app_id: str, field: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> Any:
+    def app_get_field(self, app_id: str, field: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, assets: str = None) -> Any:
         """Get single field value from app data.
         
         Args:
@@ -63,13 +64,14 @@ class AppMethods:
             field: Field name to retrieve
             lang: Language code
             country: Country code
+            assets: Asset size (SMALL, MEDIUM, LARGE, ORIGINAL)
             
         Returns:
             Value of the requested field
         """
-        return self.app_analyze(app_id, lang, country).get(field)
+        return self.app_analyze(app_id, lang, country, assets).get(field)
 
-    def app_get_fields(self, app_id: str, fields: List[str], lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> Dict[str, Any]:
+    def app_get_fields(self, app_id: str, fields: List[str], lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, assets: str = None) -> Dict[str, Any]:
         """Get multiple field values from app data.
         
         Args:
@@ -77,14 +79,15 @@ class AppMethods:
             fields: List of field names to retrieve
             lang: Language code
             country: Country code
+            assets: Asset size (SMALL, MEDIUM, LARGE, ORIGINAL)
             
         Returns:
             Dictionary with requested fields and values
         """
-        data = self.app_analyze(app_id, lang, country)
+        data = self.app_analyze(app_id, lang, country, assets)
         return {field: data.get(field) for field in fields}
 
-    def app_print_field(self, app_id: str, field: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> None:
+    def app_print_field(self, app_id: str, field: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, assets: str = None) -> None:
         """Print single field value to console.
         
         Args:
@@ -92,14 +95,15 @@ class AppMethods:
             field: Field name to print
             lang: Language code
             country: Country code
+            assets: Asset size (SMALL, MEDIUM, LARGE, ORIGINAL)
         """
-        value = self.app_get_field(app_id, field, lang, country)
+        value = self.app_get_field(app_id, field, lang, country, assets)
         try:
             print(f"{field}: {value}")
         except UnicodeEncodeError:
             print(f"{field}: {repr(value)}")
 
-    def app_print_fields(self, app_id: str, fields: List[str], lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> None:
+    def app_print_fields(self, app_id: str, fields: List[str], lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, assets: str = None) -> None:
         """Print multiple field values to console.
         
         Args:
@@ -107,23 +111,25 @@ class AppMethods:
             fields: List of field names to print
             lang: Language code
             country: Country code
+            assets: Asset size (SMALL, MEDIUM, LARGE, ORIGINAL)
         """
-        data = self.app_get_fields(app_id, fields, lang, country)
+        data = self.app_get_fields(app_id, fields, lang, country, assets)
         for field, value in data.items():
             try:
                 print(f"{field}: {value}")
             except UnicodeEncodeError:
                 print(f"{field}: {repr(value)}")
 
-    def app_print_all(self, app_id: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> None:
+    def app_print_all(self, app_id: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, assets: str = None) -> None:
         """Print all app data as JSON to console.
         
         Args:
             app_id: Google Play app ID
             lang: Language code
             country: Country code
+            assets: Asset size (SMALL, MEDIUM, LARGE, ORIGINAL)
         """
-        data = self.app_analyze(app_id, lang, country)
+        data = self.app_analyze(app_id, lang, country, assets)
         try:
             print(json.dumps(data, indent=2, ensure_ascii=False))
         except UnicodeEncodeError:

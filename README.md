@@ -48,7 +48,14 @@
 - Localized pricing and availability
 - Competitive analysis and benchmarking
 
-## 🆕 **What's New in v1.0.3** 
+## 🆕 **What's New in v1.0.4** 
+
+**✅ Assets Parameter:**
+- **Configurable Image Sizes** - Control image quality for icons, screenshots, and media
+- **4 Size Options** - SMALL (512px), MEDIUM (1024px), LARGE (2048px), ORIGINAL (max)
+- **All App Methods** - Available in app_analyze(), app_get_field(), app_get_fields(), app_print_field(), app_print_fields(), app_print_all()
+- **Release Date Fallback** - Fixed missing release dates with automatic fallback requests
+- **Path Resolution** - Improved data extraction reliability
 
 **✅ 7 Method Types:**
 - **App Methods** - Extract 65+ data fields from any app (ratings, installs, pricing, permissions, etc.)
@@ -103,9 +110,17 @@ from gplay_scraper import GPlayScraper
 # Initialize with HTTP client (curl_cffi recommended for best performance)
 scraper = GPlayScraper(http_client="curl_cffi")
 
-# Get app details
+# Get app details with different image sizes
 app_id = "com.whatsapp"
-scraper.app_print_all(app_id, lang="en", country="us")
+scraper.app_print_all(app_id, lang="en", country="us", assets="LARGE")
+
+# Get high-quality app data
+data = scraper.app_analyze(app_id, assets="ORIGINAL")  # Maximum image quality
+icon_small = scraper.app_get_field(app_id, "icon", assets="SMALL")  # 512px icon
+
+# Print specific fields with custom image sizes
+scraper.app_print_field(app_id, "icon", assets="LARGE")  # Print large icon URL
+scraper.app_print_fields(app_id, ["icon", "screenshots"], assets="ORIGINAL")  # Print multiple fields
 
 # Search for apps
 scraper.search_print_all("social media", count=10, lang="en", country="us")

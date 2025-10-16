@@ -47,6 +47,15 @@ class Config:
     DEFAULT_DEVELOPER_COUNT = 100  # Number of developer apps to fetch
     DEFAULT_SEARCH_COUNT = 100  # Number of search results to fetch
     
+    # Image size configurations
+    IMAGE_SIZES = {
+        "SMALL": "w512",    # 512px width
+        "MEDIUM": "w1024",  # 1024px width  
+        "LARGE": "w2048",   # 2048px width
+        "ORIGINAL": "w9999" # Original/max size
+    }
+    DEFAULT_IMAGE_SIZE = "MEDIUM"  # Default image size
+    
     # Error message templates
     ERROR_MESSAGES = {
         "INVALID_APP_ID": "app_id must be a non-empty string",
@@ -96,3 +105,16 @@ class Config:
         return {
             "User-Agent": user_agent or random.choice(cls.USER_AGENTS)
         }
+    
+    @classmethod
+    def get_image_size(cls, size: str = None) -> str:
+        """Get image size parameter.
+        
+        Args:
+            size: Size name (SMALL, MEDIUM, LARGE, ORIGINAL) or None for default
+            
+        Returns:
+            Image size parameter string
+        """
+        size = size or cls.DEFAULT_IMAGE_SIZE
+        return cls.IMAGE_SIZES.get(size.upper(), cls.IMAGE_SIZES[cls.DEFAULT_IMAGE_SIZE])

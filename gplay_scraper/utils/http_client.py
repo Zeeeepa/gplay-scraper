@@ -159,6 +159,26 @@ class HttpClient:
                     raise AppNotFoundError(Config.ERROR_MESSAGES["APP_NOT_FOUND"].format(app_id=app_id))
                 logger.error(Config.ERROR_MESSAGES["APP_FETCH_FAILED"].format(app_id=app_id, error=e))
                 raise NetworkError(Config.ERROR_MESSAGES["APP_FETCH_FAILED"].format(app_id=app_id, error=e))
+    
+    def fetch_app_page_no_locale(self, app_id: str) -> str:
+        """Fetch app page without hl/gl parameters for fallback data.
+        
+        Args:
+            app_id: Google Play app ID
+            
+        Returns:
+            HTML content of app page
+        """
+        self.rate_limit()
+        
+        url = f"{Config.PLAY_STORE_BASE_URL}{Config.APP_DETAILS_ENDPOINT}?id={app_id}"
+        
+        try:
+            response = self._make_request("GET", url)
+            return response.text
+        except Exception as e:
+            logger.error(f"Fallback fetch failed for {app_id}: {e}")
+            return ""
 
     def fetch_search_page(self, query: str = None, token: str = None, needed: int = None, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> str:
         """Fetch search results from Google Play Store (initial or paginated).

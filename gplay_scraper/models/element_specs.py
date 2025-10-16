@@ -8,9 +8,10 @@ from typing import Any, Callable, List, Optional
 import html
 from datetime import datetime
 from ..utils.helpers import unescape_text
+from ..config import Config
 
 
-def nested_lookup(obj: Any, key_list: List[int]) -> Any:
+def nested_lookup(obj: Any, key_list: List) -> Any:
     """Safely navigate nested dictionary/list structure.
     
     Args:
@@ -29,6 +30,22 @@ def nested_lookup(obj: Any, key_list: List[int]) -> Any:
     return current
 
 
+def format_image_url(url: str, size: str = None) -> str:
+    """Format image URL with size parameter.
+    
+    Args:
+        url: Base image URL
+        size: Size parameter (SMALL, MEDIUM, LARGE, ORIGINAL)
+        
+    Returns:
+        Formatted URL with size parameter
+    """
+    if not url:
+        return None
+    size_param = Config.get_image_size(size)
+    return f"{url}={size_param}"
+
+
 class ElementSpec:
     """Specification for extracting a single field from raw data.
     
@@ -45,18 +62,21 @@ class ElementSpec:
         data_map: List[int],
         post_processor: Callable = None,
         fallback_value: Any = None,
+        assets: str = None,
     ):
         """Initialize ElementSpec with extraction parameters."""
         self.ds_num = ds_num
         self.data_map = data_map
         self.post_processor = post_processor
         self.fallback_value = fallback_value
+        self.assets = assets
 
-    def extract_content(self, source: dict) -> Any:
+    def extract_content(self, source: dict, assets: str = None) -> Any:
         """Extract content from source using data_map.
         
         Args:
             source: Source dictionary/list
+            assets: Override asset size for this extraction
             
         Returns:
             Extracted and processed value
@@ -66,12 +86,19 @@ class ElementSpec:
             
             if self.post_processor is not None:
                 try:
-                    result = self.post_processor(result)
+                    # Pass assets to post_processor if it's an image URL formatter
+                    if hasattr(self.post_processor, '__name__') and 'image' in self.post_processor.__name__:
+                        result = self.post_processor(result, assets or self.assets)
+                    else:
+                        result = self.post_processor(result)
                 except Exception:
                     pass
         except (KeyError, IndexError, TypeError, AttributeError):
+            result = None
+            
+        if result is None and self.fallback_value is not None:
             if isinstance(self.fallback_value, ElementSpec):
-                result = self.fallback_value.extract_content(source)
+                result = self.fallback_value.extract_content(source, assets)
             else:
                 result = self.fallback_value
         return result
@@ -135,25 +162,23 @@ class ElementSpecs:
         "genre": ElementSpec("raw", [1, 2, 79, 0, 0, 0]),
         "genreId": ElementSpec("raw", [1, 2, 79, 0, 0, 2]),
         "categories": ElementSpec("raw", [1, 2, 79, 0, 0, 0], lambda cat: [cat] if cat else [], []),
-        "icon": ElementSpec("raw", [1, 2, 95, 0, 3, 2], lambda url: f"{url}=w9999" if url else None),
-        "headerImage": ElementSpec("raw", [1, 2, 96, 0, 3, 2], lambda url: f"{url}=w9999" if url else None),
-        "screenshots": ElementSpec(
-            "raw", [1, 2, 78, 0], lambda container: [f"{item[3][2]}=w9999" for item in container] if container else [], []
-        ),
+        "icon": ElementSpec("raw", [1, 2, 95, 0, 3, 2]),
+        "headerImage": ElementSpec("raw", [1, 2, 96, 0, 3, 2]),
+        "screenshots": ElementSpec("raw", [1, 2, 78, 0], lambda container: [item[3][2] for item in container] if container else [], []),
         "video": ElementSpec("raw", [1, 2, 100, 0, 0, 3, 2]),
-        "videoImage": ElementSpec("raw", [1, 2, 100, 1, 0, 3, 2], lambda url: f"{url}=w9999" if url else None),
+        "videoImage": ElementSpec("raw", [1, 2, 100, 1, 0, 3, 2]),
         "contentRating": ElementSpec("raw", [1, 2, 9, 0]),
-        "contentRatingDescription": ElementSpec("raw", [1, 2, 9, 6, 1]),
+        "contentRatingDescription": ElementSpec("raw", [1, 2, 9, 6, 1], fallback_value=ElementSpec("raw", [1, 2, 9, 2, 1], fallback_value=ElementSpec("raw", [1, 2, 9, 0]))),
         "appId": ElementSpec("raw", [1, 2, 1, 0, 0]),
         "adSupported": ElementSpec("raw", [1, 2, 48], bool),
         "containsAds": ElementSpec("raw", [1, 2, 48], bool, False),
         "released": ElementSpec("raw", [1, 2, 10, 0]),
-        "lastUpdatedOn": ElementSpec("raw", [1, 2, 145, 0, 0]),
+        "lastUpdatedOn": ElementSpec("raw", [1, 2, 145, 0, 0], fallback_value=ElementSpec("raw", [1, 2, 112, "146", 0, 0])),
         "updated": ElementSpec("raw", [1, 2, 145, 0, 1, 0]),
         "version": ElementSpec(
             "raw", [1, 2, 140, 0, 0, 0], fallback_value="Varies with device"
         ),
-        "androidVersion": ElementSpec("raw", [1, 11, 0, 1]),
+        "androidVersion": ElementSpec("raw", [1, 2, 140, 1, 1, 0, 0, 1], lambda x: int(float(x)) if x else None, fallback_value=ElementSpec("raw", [1, 11, 0, 1])),
         "permissions": ElementSpec("raw", [1, 2, 74], lambda perms: {
             perm[0]: [detail[1] for detail in perm[2]] if perm[2] else []
             for section in (perms[2] if perms and len(perms) > 2 else [])

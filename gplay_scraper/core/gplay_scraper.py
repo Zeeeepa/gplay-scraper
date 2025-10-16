@@ -34,9 +34,33 @@ class AppScraper:
             HTML content of app page
         """
         return self.http_client.fetch_app_page(app_id, lang, country)
+    
+    def fetch_fallback_data(self, app_id: str) -> Dict:
+        """Fetch app data without hl/gl parameters for missing fields.
+        
+        Args:
+            app_id: Google Play app ID
+            
+        Returns:
+            Dictionary containing ds:5 dataset from fallback request
+        """
+        html_content = self.http_client.fetch_app_page_no_locale(app_id)
+        
+        ds_match = re.search(r'AF_initDataCallback\s*\(\s*({\s*key:\s*["\']ds:5["\'][\s\S]*?})\s*\)\s*;', html_content, re.DOTALL)
+        if ds_match:
+            ds5_data = ds_match.group(1)
+        else:
+            all_callbacks = re.findall(r'AF_initDataCallback\s*\(\s*({[\s\S]*?})\s*\)\s*;', html_content, re.DOTALL)
+            ds5_data = ""
+            for callback in all_callbacks:
+                if "'ds:5'" in callback or '"ds:5"' in callback:
+                    ds5_data = callback
+                    break
+        
+        return {"ds:5": ds5_data} if ds5_data else None
 
     def scrape_play_store_data(self, app_id: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> Dict:
-        """Extract dataset from app page HTML.
+        """Extract dataset from app page HTML with fallback for missing release date.
         
         Args:
             app_id: Google Play app ID
@@ -65,7 +89,7 @@ class AppScraper:
         if not ds5_data:
             raise DataParsingError(Config.ERROR_MESSAGES["DS5_NOT_FOUND"])
         
-        return {"ds:5": ds5_data}
+        return {"ds:5": ds5_data, "fallback_needed": False}
 
 
 class SearchScraper:
