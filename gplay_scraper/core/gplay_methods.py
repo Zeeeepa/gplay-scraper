@@ -15,7 +15,8 @@ import logging
 from .gplay_scraper import AppScraper, SearchScraper, ReviewsScraper, DeveloperScraper, SimilarScraper, ListScraper, SuggestScraper
 from .gplay_parser import AppParser, SearchParser, ReviewsParser, DeveloperParser, SimilarParser, ListParser, SuggestParser
 from ..config import Config
-from ..exceptions import InvalidAppIdError 
+from ..exceptions import InvalidAppIdError, AppNotFoundError
+from ..utils.error_handling import comprehensive_error_handler, safe_print 
 
 # Configure logging
 if not logging.getLogger().handlers:
@@ -34,6 +35,7 @@ class AppMethods:
         self.scraper = AppScraper(http_client=http_client)
         self.parser = AppParser()
 
+    @comprehensive_error_handler()
     def app_analyze(self, app_id: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, assets: str = None) -> Dict:
         """Get complete app data with all 65+ fields.
         
@@ -44,18 +46,19 @@ class AppMethods:
             assets: Asset size (SMALL, MEDIUM, LARGE, ORIGINAL)
             
         Returns:
-            Dictionary with all app data
+            Dictionary with all app data or None if app not found after retries
             
         Raises:
             InvalidAppIdError: If app_id is invalid
         """
         if not app_id or not isinstance(app_id, str):
             raise InvalidAppIdError(Config.ERROR_MESSAGES["INVALID_APP_ID"])
-            
+        
         dataset = self.scraper.scrape_play_store_data(app_id, lang, country)
         app_details = self.parser.parse_app_data(dataset, app_id, self.scraper, assets)
         return self.parser.format_app_data(app_details)
 
+    @comprehensive_error_handler()
     def app_get_field(self, app_id: str, field: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, assets: str = None) -> Any:
         """Get single field value from app data.
         
@@ -71,6 +74,7 @@ class AppMethods:
         """
         return self.app_analyze(app_id, lang, country, assets).get(field)
 
+    @comprehensive_error_handler()
     def app_get_fields(self, app_id: str, fields: List[str], lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, assets: str = None) -> Dict[str, Any]:
         """Get multiple field values from app data.
         
@@ -87,6 +91,7 @@ class AppMethods:
         data = self.app_analyze(app_id, lang, country, assets)
         return {field: data.get(field) for field in fields}
 
+    @safe_print()
     def app_print_field(self, app_id: str, field: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, assets: str = None) -> None:
         """Print single field value to console.
         
@@ -103,6 +108,7 @@ class AppMethods:
         except UnicodeEncodeError:
             print(f"{field}: {repr(value)}")
 
+    @safe_print()
     def app_print_fields(self, app_id: str, fields: List[str], lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, assets: str = None) -> None:
         """Print multiple field values to console.
         
@@ -120,6 +126,7 @@ class AppMethods:
             except UnicodeEncodeError:
                 print(f"{field}: {repr(value)}")
 
+    @safe_print()
     def app_print_all(self, app_id: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, assets: str = None) -> None:
         """Print all app data as JSON to console.
         
@@ -147,6 +154,7 @@ class SearchMethods:
         self.scraper = SearchScraper(http_client=http_client)
         self.parser = SearchParser()
 
+    @comprehensive_error_handler(return_empty=True)
     def search_analyze(self, query: str, count: int = Config.DEFAULT_SEARCH_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> List[Dict]:
         """Search for apps and get complete results with pagination support.
         
@@ -165,12 +173,11 @@ class SearchMethods:
         if not query or not isinstance(query, str):
             raise InvalidAppIdError(Config.ERROR_MESSAGES["INVALID_QUERY"])
         
-        # scrape_play_store_data now handles pagination automatically
         dataset = self.scraper.scrape_play_store_data(query, count, lang, country)
-        
         raw_results = self.parser.parse_search_results(dataset, count)
         return [self.parser.format_search_result(result) for result in raw_results]
 
+    @comprehensive_error_handler(return_empty=True)
     def search_get_field(self, query: str, field: str, count: int = Config.DEFAULT_SEARCH_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> List[Any]:
         """Get single field from all search results.
         
@@ -187,6 +194,7 @@ class SearchMethods:
         results = self.search_analyze(query, count, lang, country)
         return [app.get(field) for app in results]
 
+    @comprehensive_error_handler(return_empty=True)
     def search_get_fields(self, query: str, fields: List[str], count: int = Config.DEFAULT_SEARCH_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> List[Dict[str, Any]]:
         """Get multiple fields from all search results.
         
@@ -203,6 +211,7 @@ class SearchMethods:
         results = self.search_analyze(query, count, lang, country)
         return [{field: app.get(field) for field in fields} for app in results]
 
+    @safe_print()
     def search_print_field(self, query: str, field: str, count: int = Config.DEFAULT_SEARCH_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> None:
         """Print single field from all search results.
         
@@ -220,6 +229,7 @@ class SearchMethods:
             except UnicodeEncodeError:
                 print(f"{i}. {field}: {repr(value)}")
 
+    @safe_print()
     def search_print_fields(self, query: str, fields: List[str], count: int = Config.DEFAULT_SEARCH_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> None:
         """Print multiple fields from all search results.
         
@@ -239,6 +249,7 @@ class SearchMethods:
                 field_str = ', '.join(f'{field}: {repr(value)}' for field, value in app_data.items())
                 print(f"{i}. {field_str}")
 
+    @safe_print()
     def search_print_all(self, query: str, count: int = Config.DEFAULT_SEARCH_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> None:
         """Print all search results as JSON.
         
@@ -267,6 +278,7 @@ class ReviewsMethods:
         self.scraper = ReviewsScraper(http_client=http_client)
         self.parser = ReviewsParser()
 
+    @comprehensive_error_handler(return_empty=True)
     def reviews_analyze(self, app_id: str, count: int = Config.DEFAULT_REVIEWS_COUNT, lang: str = Config.DEFAULT_LANGUAGE, 
                        country: str = Config.DEFAULT_COUNTRY, sort: str = Config.DEFAULT_REVIEWS_SORT) -> List[Dict]:
         """Get user reviews for an app.
@@ -299,6 +311,7 @@ class ReviewsMethods:
 
         return self.parser.format_reviews_data(reviews_data)
 
+    @comprehensive_error_handler(return_empty=True)
     def reviews_get_field(self, app_id: str, field: str, count: int = Config.DEFAULT_REVIEWS_COUNT, 
                          lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, sort: str = Config.DEFAULT_REVIEWS_SORT) -> List[Any]:
         """Get single field from all reviews.
@@ -317,6 +330,7 @@ class ReviewsMethods:
         reviews_data = self.reviews_analyze(app_id, count, lang, country, sort)
         return [review.get(field) for review in reviews_data]
 
+    @comprehensive_error_handler(return_empty=True)
     def reviews_get_fields(self, app_id: str, fields: List[str], count: int = Config.DEFAULT_REVIEWS_COUNT,
                           lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, sort: str = Config.DEFAULT_REVIEWS_SORT) -> List[Dict[str, Any]]:
         """Get multiple fields from all reviews.
@@ -335,6 +349,7 @@ class ReviewsMethods:
         reviews_data = self.reviews_analyze(app_id, count, lang, country, sort)
         return [{field: review.get(field) for field in fields} for review in reviews_data]
 
+    @safe_print()
     def reviews_print_field(self, app_id: str, field: str, count: int = Config.DEFAULT_REVIEWS_COUNT,
                            lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, sort: str = Config.DEFAULT_REVIEWS_SORT) -> None:
         """Print single field from all reviews.
@@ -354,6 +369,7 @@ class ReviewsMethods:
             except UnicodeEncodeError:
                 print(f"{i+1}. {field}: {repr(value)}")
 
+    @safe_print()
     def reviews_print_fields(self, app_id: str, fields: List[str], count: int = Config.DEFAULT_REVIEWS_COUNT,
                             lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY, sort: str = Config.DEFAULT_REVIEWS_SORT) -> None:
         """Print multiple fields from all reviews.
@@ -374,6 +390,7 @@ class ReviewsMethods:
                 except UnicodeEncodeError:
                     print(f"{field}: {repr(value)}")
 
+    @safe_print()
     def reviews_print_all(self, app_id: str, count: int = Config.DEFAULT_REVIEWS_COUNT, lang: str = Config.DEFAULT_LANGUAGE,
                          country: str = Config.DEFAULT_COUNTRY, sort: str = Config.DEFAULT_REVIEWS_SORT) -> None:
         """Print all reviews as JSON.
@@ -403,6 +420,7 @@ class DeveloperMethods:
         self.scraper = DeveloperScraper(http_client=http_client)
         self.parser = DeveloperParser()
 
+    @comprehensive_error_handler(return_empty=True)
     def developer_analyze(self, dev_id: str, count: int = Config.DEFAULT_DEVELOPER_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> List[Dict]:
         """Get all apps from a developer.
         
@@ -425,6 +443,7 @@ class DeveloperMethods:
         apps_data = self.parser.parse_developer_data(dataset, dev_id)
         return self.parser.format_developer_data(apps_data)[:count]
 
+    @comprehensive_error_handler(return_empty=True)
     def developer_get_field(self, dev_id: str, field: str, count: int = Config.DEFAULT_DEVELOPER_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> List[Any]:
         """Get single field from all developer apps.
         
@@ -441,6 +460,7 @@ class DeveloperMethods:
         results = self.developer_analyze(dev_id, count, lang, country)
         return [app.get(field) for app in results]
 
+    @comprehensive_error_handler(return_empty=True)
     def developer_get_fields(self, dev_id: str, fields: List[str], count: int = Config.DEFAULT_DEVELOPER_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> List[Dict[str, Any]]:
         """Get multiple fields from all developer apps.
         
@@ -457,6 +477,7 @@ class DeveloperMethods:
         results = self.developer_analyze(dev_id, count, lang, country)
         return [{field: app.get(field) for field in fields} for app in results]
 
+    @safe_print()
     def developer_print_field(self, dev_id: str, field: str, count: int = Config.DEFAULT_DEVELOPER_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> None:
         """Print single field from all developer apps.
         
@@ -474,6 +495,7 @@ class DeveloperMethods:
             except UnicodeEncodeError:
                 print(f"{i+1}. {field}: {repr(value)}")
 
+    @safe_print()
     def developer_print_fields(self, dev_id: str, fields: List[str], count: int = Config.DEFAULT_DEVELOPER_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> None:
         """Print multiple fields from all developer apps.
         
@@ -493,6 +515,7 @@ class DeveloperMethods:
                 field_str = ', '.join(f'{field}: {repr(value)}' for field, value in app_data.items())
                 print(f"{i+1}. {field_str}")
 
+    @safe_print()
     def developer_print_all(self, dev_id: str, count: int = Config.DEFAULT_DEVELOPER_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> None:
         """Print all developer apps as JSON.
         
@@ -520,6 +543,7 @@ class SimilarMethods:
         self.scraper = SimilarScraper(http_client=http_client)
         self.parser = SimilarParser()
 
+    @comprehensive_error_handler(return_empty=True)
     def similar_analyze(self, app_id: str, count: int = Config.DEFAULT_SIMILAR_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> List[Dict]:
         """Get similar/competitor apps.
         
@@ -542,6 +566,7 @@ class SimilarMethods:
         apps_data = self.parser.parse_similar_data(dataset)
         return self.parser.format_similar_data(apps_data)[:count]
 
+    @comprehensive_error_handler(return_empty=True)
     def similar_get_field(self, app_id: str, field: str, count: int = Config.DEFAULT_SIMILAR_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> List[Any]:
         """Get single field from all similar apps.
         
@@ -558,6 +583,7 @@ class SimilarMethods:
         results = self.similar_analyze(app_id, count, lang, country)
         return [app.get(field) for app in results]
 
+    @comprehensive_error_handler(return_empty=True)
     def similar_get_fields(self, app_id: str, fields: List[str], count: int = Config.DEFAULT_SIMILAR_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> List[Dict[str, Any]]:
         """Get multiple fields from all similar apps.
         
@@ -574,6 +600,7 @@ class SimilarMethods:
         results = self.similar_analyze(app_id, count, lang, country)
         return [{field: app.get(field) for field in fields} for app in results]
 
+    @safe_print()
     def similar_print_field(self, app_id: str, field: str, count: int = Config.DEFAULT_SIMILAR_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> None:
         """Print single field from all similar apps.
         
@@ -591,6 +618,7 @@ class SimilarMethods:
             except UnicodeEncodeError:
                 print(f"{i+1}. {field}: {repr(value)}")
 
+    @safe_print()
     def similar_print_fields(self, app_id: str, fields: List[str], count: int = Config.DEFAULT_SIMILAR_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> None:
         """Print multiple fields from all similar apps.
         
@@ -610,6 +638,7 @@ class SimilarMethods:
                 field_str = ', '.join(f'{field}: {repr(value)}' for field, value in app_data.items())
                 print(f"{i+1}. {field_str}")
 
+    @safe_print()
     def similar_print_all(self, app_id: str, count: int = Config.DEFAULT_SIMILAR_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> None:
         """Print all similar apps as JSON.
         
@@ -637,6 +666,7 @@ class ListMethods:
         self.scraper = ListScraper(http_client=http_client)
         self.parser = ListParser()
 
+    @comprehensive_error_handler(return_empty=True)
     def list_analyze(self, collection: str = Config.DEFAULT_LIST_COLLECTION, category: str = Config.DEFAULT_LIST_CATEGORY, count: int = Config.DEFAULT_LIST_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> List[Dict]:
         """Get top charts (top free, top paid, top grossing).
         
@@ -654,6 +684,7 @@ class ListMethods:
         apps_data = self.parser.parse_list_data(dataset, count)
         return self.parser.format_list_data(apps_data)
 
+    @comprehensive_error_handler(return_empty=True)
     def list_get_field(self, collection: str, field: str, category: str = Config.DEFAULT_LIST_CATEGORY, count: int = Config.DEFAULT_LIST_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> List[Any]:
         """Get single field from all list apps.
         
@@ -671,6 +702,7 @@ class ListMethods:
         results = self.list_analyze(collection, category, count, lang, country)
         return [app.get(field) for app in results]
 
+    @comprehensive_error_handler(return_empty=True)
     def list_get_fields(self, collection: str, fields: List[str], category: str = Config.DEFAULT_LIST_CATEGORY, count: int = Config.DEFAULT_LIST_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> List[Dict[str, Any]]:
         """Get multiple fields from all list apps.
         
@@ -688,6 +720,7 @@ class ListMethods:
         results = self.list_analyze(collection, category, count, lang, country)
         return [{field: app.get(field) for field in fields} for app in results]
 
+    @safe_print()
     def list_print_field(self, collection: str, field: str, category: str = Config.DEFAULT_LIST_CATEGORY, count: int = Config.DEFAULT_LIST_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> None:
         """Print single field from all list apps.
         
@@ -706,6 +739,7 @@ class ListMethods:
             except UnicodeEncodeError:
                 print(f"{i+1}. {field}: {repr(value)}")
 
+    @safe_print()
     def list_print_fields(self, collection: str, fields: List[str], category: str = Config.DEFAULT_LIST_CATEGORY, count: int = Config.DEFAULT_LIST_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> None:
         """Print multiple fields from all list apps.
         
@@ -726,6 +760,7 @@ class ListMethods:
                 field_str = ', '.join(f'{field}: {repr(value)}' for field, value in app_data.items())
                 print(f"{i+1}. {field_str}")
 
+    @safe_print()
     def list_print_all(self, collection: str = Config.DEFAULT_LIST_COLLECTION, category: str = Config.DEFAULT_LIST_CATEGORY, count: int = Config.DEFAULT_LIST_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> None:
         """Print all list apps as JSON.
         
@@ -754,6 +789,7 @@ class SuggestMethods:
         self.scraper = SuggestScraper(http_client=http_client)
         self.parser = SuggestParser()
 
+    @comprehensive_error_handler(return_empty=True)
     def suggest_analyze(self, term: str, count: int = Config.DEFAULT_SUGGEST_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> List[str]:
         """Get search suggestions for a term.
         
@@ -776,6 +812,7 @@ class SuggestMethods:
         suggestions = self.parser.parse_suggestions(dataset)
         return self.parser.format_suggestions(suggestions[:count])
 
+    @comprehensive_error_handler()
     def suggest_nested(self, term: str, count: int = Config.DEFAULT_SUGGEST_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> Dict[str, List[str]]:
         """Get nested suggestions (suggestions for suggestions).
         
@@ -801,6 +838,7 @@ class SuggestMethods:
             results[suggestion] = second_level
         return results
 
+    @safe_print()
     def suggest_print_all(self, term: str, count: int = Config.DEFAULT_SUGGEST_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> None:
         """Print all suggestions as JSON.
         
@@ -816,6 +854,7 @@ class SuggestMethods:
         except UnicodeEncodeError:
             print(json.dumps(suggestions, indent=2, ensure_ascii=True))
 
+    @safe_print()
     def suggest_print_nested(self, term: str, count: int = Config.DEFAULT_SUGGEST_COUNT, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> None:
         """Print nested suggestions as JSON.
         

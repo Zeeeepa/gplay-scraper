@@ -9,12 +9,15 @@ import re
 from datetime import datetime, timezone
 from typing import Dict, Any, List, Optional, Tuple
 from ..models.element_specs import ElementSpecs, nested_lookup, format_image_url
-from ..utils.helpers import clean_json_string, alternative_json_clean, calculate_app_age, calculate_daily_installs, calculate_monthly_installs
+from ..utils.helpers import clean_json_string, alternative_json_clean, calculate_app_age, calculate_daily_installs, calculate_monthly_installs, tamp_to_date, get_publisher_country
 from ..config import Config
 from ..exceptions import DataParsingError
+from ..utils.error_handling import handle_parsing_errors
+from ..utils.helpers import pho_count, add_count
 
 class AppParser:
     """Parser for extracting and formatting app data."""
+    @handle_parsing_errors()
     def parse_app_data(self, dataset: Dict, app_id: str, scraper=None, assets: str = None) -> Dict[str, Any]:
         """Parse raw app data from dataset with fallback for missing release date.
         
@@ -46,7 +49,6 @@ class AppParser:
         app_details = {}
         for key, spec in ElementSpecs.App.items():
             value = spec.extract_content(data.get("data", data))
-            # Format image URLs with assets parameter
             if key in ["icon", "headerImage", "videoImage"] and value:
                 app_details[key] = format_image_url(value, assets)
             elif key == "screenshots" and value:
@@ -56,23 +58,65 @@ class AppParser:
 
         app_details['appId'] = app_id
         app_details['url'] = f"{Config.PLAY_STORE_BASE_URL}{Config.APP_DETAILS_ENDPOINT}?id={app_id}"
+        app_details['publisherCountry'] = get_publisher_country(app_details.get('developerPhone'), app_details.get('developerAddress'))
+        
 
-        # Check if release date is missing and try fallback
-        if not app_details.get("released") and scraper:
+
+        rating_fields = ["released", "score", "ratings", "reviews", "histogram"]
+        missing_rating_fields = []
+        for key in rating_fields:
+            value = app_details.get(key)
+            if key == "histogram":
+                if not value or (isinstance(value, list) and all(x == 0 for x in value)):
+                    missing_rating_fields.append(key)
+            elif not value:
+                missing_rating_fields.append(key)
+        
+        if missing_rating_fields and scraper:
             try:
-                fallback_dataset = scraper.fetch_fallback_data(app_id)
+                country_code = None
+                phone = app_details.get("developerPhone")
+                if phone:
+                    country_code = pho_count(phone)
+                
+                if not country_code:
+                    address = app_details.get("developerAddress")
+                    if address:
+                        country_code = add_count(address)
+                
+                if country_code:
+                    fallback_dataset = scraper.fetch_fallback_data(app_id, gl=country_code)
+                    suffix = f"fallback_{country_code}"
+                else:
+                    fallback_dataset = scraper.fetch_fallback_data(app_id, no_locale=True)
+                    suffix = "fallback_no_locale"
+                
                 if fallback_dataset and fallback_dataset.get("ds:5"):
                     fallback_cleaned = clean_json_string(fallback_dataset["ds:5"])
                     try:
                         fallback_data = json.loads(fallback_cleaned)
-                        released_spec = ElementSpecs.App["released"]
-                        fallback_released = released_spec.extract_content(fallback_data.get("data", fallback_data))
-                        if fallback_released:
-                            app_details["released"] = fallback_released
+                        
+                        for field in missing_rating_fields:
+                            if field in ElementSpecs.App:
+                                spec = ElementSpecs.App[field]
+                                fallback_value = spec.extract_content(fallback_data.get("data", fallback_data))
+                                if fallback_value:
+                                    app_details[field] = fallback_value
                     except:
                         pass
             except:
                 pass
+
+        if not app_details.get("score"):
+            app_details["score"] = 0
+        if not app_details.get("ratings"):
+            app_details["ratings"] = 0
+        if not app_details.get("reviews"):
+            app_details["reviews"] = 0
+        if not app_details.get("installs"):
+            app_details["installs"] = 0
+        if not app_details.get("minInstalls"):
+            app_details["minInstalls"] = 0
 
         current_date = datetime.now(timezone.utc)
         release_date_str = app_details.get("released")
@@ -90,10 +134,11 @@ class AppParser:
                 "monthlyInstalls", "minMonthlyInstalls", "realMonthlyInstalls"
             ]
             for key in metric_keys:
-                app_details[key] = None
+                app_details[key] = 0
 
         return app_details
 
+    @handle_parsing_errors()
     def format_app_data(self, details: dict) -> dict:
         """Format parsed app data into final structure.
         
@@ -114,8 +159,7 @@ class AppParser:
             "available": details.get("available"),
             "released": details.get("released"),
             "appAgeDays": details.get("appAge"),
-            "lastUpdated": details.get("lastUpdatedOn"),
-            "updatedTimestamp": details.get("updated"),
+            "lastUpdated": tamp_to_date(details.get("updated")),
             "icon": details.get("icon"),
             "headerImage": details.get("headerImage"),
             "screenshots": details.get("screenshots"),
@@ -159,6 +203,7 @@ class AppParser:
             "developerWebsite": details.get("developerWebsite"),
             "developerAddress": details.get("developerAddress"),
             "developerPhone": details.get("developerPhone"),
+            "publisherCountry": details.get("publisherCountry"),
             "privacyPolicy": details.get("privacyPolicy"),
             "appUrl": details.get("url"),
         }
@@ -167,6 +212,7 @@ class AppParser:
 class SearchParser:
     """Parser for extracting and formatting search results."""
     
+    @handle_parsing_errors(return_empty=True)
     def parse_search_results(self, dataset: Dict, count: int) -> List[Dict]:
         """Parse search results from dataset.
         
@@ -194,6 +240,7 @@ class SearchParser:
         
         return results[:count]
 
+    @handle_parsing_errors()
     def extract_search_result(self, data) -> Dict:
         """Extract single search result from raw data.
         
@@ -211,6 +258,7 @@ class SearchParser:
         except Exception:
             return None
 
+    @handle_parsing_errors()
     def format_search_result(self, result: dict) -> dict:
         """Format parsed search result into final structure.
         
@@ -234,6 +282,7 @@ class SearchParser:
             "url": result.get("url"),
         }
     
+    @handle_parsing_errors()
     def extract_pagination_token(self, dataset: Dict) -> str:
         """Extract pagination token from search dataset.
         
@@ -255,6 +304,7 @@ class SearchParser:
                     return potential_token
         return None
     
+    @handle_parsing_errors()
     def parse_html_content(self, html_content: str) -> Dict:
         """Extract datasets from search page HTML.
         
@@ -267,7 +317,6 @@ class SearchParser:
         Raises:
             DataParsingError: If no datasets found
         """
-        import re
         script_regex = re.compile(r"AF_initDataCallback[\s\S]*?</script")
         key_regex = re.compile(r"(ds:.*?)'")
         value_regex = re.compile(r"data:([\s\S]*?), sideChannel: \{\}\}\);</")
@@ -282,15 +331,12 @@ class SearchParser:
             if key_match and value_match:
                 key = key_match[0]
                 try:
-                    import json
                     value = json.loads(value_match[0])
                     dataset[key] = value
                 except json.JSONDecodeError:
                     continue
         
         if not dataset:
-            from ..exceptions import DataParsingError
-            from ..config import Config
             raise DataParsingError("No search data found in HTML")
         
         return dataset
@@ -299,6 +345,7 @@ class SearchParser:
 class ReviewsParser:
     """Parser for extracting and formatting user reviews."""
     
+    @handle_parsing_errors(return_empty=True)
     def parse_reviews_response(self, content: str) -> Tuple[List[Dict], Optional[str]]:
         """Parse reviews from API response content.
         
@@ -338,6 +385,7 @@ class ReviewsParser:
         except (json.JSONDecodeError, IndexError, KeyError):
             return [], None
 
+    @handle_parsing_errors()
     def extract_review_data(self, review_raw) -> Optional[Dict]:
         """Extract single review from raw data.
         
@@ -367,6 +415,7 @@ class ReviewsParser:
         except Exception:
             return None
 
+    @handle_parsing_errors(return_empty=True)
     def parse_multiple_responses(self, dataset: Dict) -> List[Dict]:
         """Parse multiple review responses.
         
@@ -385,6 +434,7 @@ class ReviewsParser:
         
         return all_reviews
 
+    @handle_parsing_errors(return_empty=True)
     def format_reviews_data(self, reviews_data: List[Dict]) -> List[Dict]:
         """Format parsed reviews into final structure.
         
@@ -415,6 +465,7 @@ class ReviewsParser:
 class DeveloperParser:
     """Parser for extracting and formatting developer apps."""
     
+    @handle_parsing_errors(return_empty=True)
     def parse_developer_data(self, dataset: Dict, dev_id: str) -> List[Dict]:
         """Parse developer apps from dataset.
         
@@ -432,7 +483,6 @@ class DeveloperParser:
         if not ds3_data:
             raise DataParsingError(Config.ERROR_MESSAGES["NO_DS3_DATA"])
         
-        from ..utils.helpers import clean_json_string, alternative_json_clean
         json_str_cleaned = clean_json_string(ds3_data)
         try:
             data = json.loads(json_str_cleaned)
@@ -465,6 +515,7 @@ class DeveloperParser:
         
         return apps
 
+    @handle_parsing_errors(return_empty=True)
     def format_developer_data(self, apps_data: List[Dict]) -> List[Dict]:
         """Format parsed developer apps into final structure.
         
@@ -498,6 +549,7 @@ class DeveloperParser:
 class SimilarParser:
     """Parser for extracting and formatting similar apps."""
     
+    @handle_parsing_errors(return_empty=True)
     def parse_similar_data(self, dataset: Dict) -> List[Dict]:
         """Parse similar apps from dataset.
         
@@ -511,7 +563,6 @@ class SimilarParser:
         if not ds3_data:
             return []
         
-        from ..utils.helpers import clean_json_string, alternative_json_clean
         json_str_cleaned = clean_json_string(ds3_data)
         try:
             data = json.loads(json_str_cleaned)
@@ -537,6 +588,7 @@ class SimilarParser:
         
         return apps
 
+    @handle_parsing_errors(return_empty=True)
     def format_similar_data(self, apps_data: List[Dict]) -> List[Dict]:
         """Format parsed similar apps into final structure.
         
@@ -570,6 +622,7 @@ class SimilarParser:
 class ListParser:
     """Parser for extracting and formatting top chart apps."""
     
+    @handle_parsing_errors(return_empty=True)
     def parse_list_data(self, dataset: Dict, count: int) -> List[Dict]:
         """Parse top chart apps from dataset.
         
@@ -599,6 +652,7 @@ class ListParser:
         
         return apps
 
+    @handle_parsing_errors(return_empty=True)
     def format_list_data(self, apps_data: List[Dict]) -> List[Dict]:
         """Format parsed list apps into final structure.
         
@@ -635,6 +689,7 @@ class ListParser:
 class SuggestParser:
     """Parser for extracting and formatting search suggestions."""
     
+    @handle_parsing_errors(return_empty=True)
     def parse_suggestions(self, dataset: Dict) -> List[str]:
         """Parse suggestions from dataset.
         
@@ -646,6 +701,7 @@ class SuggestParser:
         """
         return dataset.get("suggestions", [])
 
+    @handle_parsing_errors(return_empty=True)
     def format_suggestions(self, suggestions: List[str]) -> List[str]:
         """Format suggestions (pass-through for strings).
         

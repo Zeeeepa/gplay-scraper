@@ -3,6 +3,42 @@ Changelog
 
 All notable changes to this project will be documented in this file.
 
+Version 1.0.5 (2025-10-18)
+---------------------------
+
+**New Features**
+
+- **Publisher Country Detection**: Added ``publisherCountry`` field to app data
+
+  - Automatically detects developer's country from phone number and address
+  - Uses international phone prefixes and address parsing
+  - Returns country names like "United States", "Germany", "Japan", etc.
+  - Handles multiple countries when phone and address differ (e.g., "United States/Germany")
+
+**Removed Features**
+
+- **Removed updatedTimestamp**: Removed deprecated timestamp field that was causing confusion
+
+**Bug Fixes**
+
+- **Enhanced Error Handling**: Improved error handling and retry mechanisms
+
+  - Better HTTP client fallback when requests fail
+  - More robust JSON parsing with multiple fallback strategies
+  - Improved handling of network timeouts and connection errors
+
+- **Retry Mechanism**: Fixed automatic retry logic for failed requests
+
+  - Exponential backoff for rate limiting
+  - Automatic HTTP client switching on failures
+  - Better error recovery for temporary network issues
+
+- **General Bug Fixes**: Fixed various edge cases and improved stability
+
+  - Better handling of malformed JSON responses
+  - Improved data extraction for apps with missing fields
+  - Enhanced Unicode handling for international app data
+
 Version 1.0.4 (2025-10-16)
 ---------------------------
 

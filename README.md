@@ -48,14 +48,24 @@
 - Localized pricing and availability
 - Competitive analysis and benchmarking
 
-## 🆕 **What's New in v1.0.4** 
+## 🆕 **What's New in v1.0.5** 
 
-**✅ Assets Parameter:**
-- **Configurable Image Sizes** - Control image quality for icons, screenshots, and media
-- **4 Size Options** - SMALL (512px), MEDIUM (1024px), LARGE (2048px), ORIGINAL (max)
-- **All App Methods** - Available in app_analyze(), app_get_field(), app_get_fields(), app_print_field(), app_print_fields(), app_print_all()
-- **Release Date Fallback** - Fixed missing release dates with automatic fallback requests
-- **Path Resolution** - Improved data extraction reliability
+**✅ Publisher Country Detection:**
+- **Automatic Country Detection** - Detects developer's country from phone number and address
+- **International Phone Prefixes** - Uses phone number prefixes to identify countries
+- **Address Parsing** - Analyzes developer addresses for country information
+- **Multi-Country Support** - Handles cases where phone and address differ (e.g., "United States/Germany")
+- **Enhanced Developer Intelligence** - Adds `publisherCountry` field to app data
+
+**✅ Enhanced Error Handling:**
+- **Better HTTP Client Fallback** - Improved reliability when requests fail
+- **Robust JSON Parsing** - Multiple fallback strategies for malformed responses
+- **Network Timeout Handling** - Better handling of connection errors
+- **Automatic Retry Logic** - Exponential backoff for rate limiting
+- **Error Recovery** - Better recovery from temporary network issues
+
+**✅ Removed Features:**
+- **Removed updatedTimestamp** - Removed deprecated timestamp field that was causing confusion
 
 **✅ 7 Method Types:**
 - **App Methods** - Extract 65+ data fields from any app (ratings, installs, pricing, permissions, etc.)

@@ -3,6 +3,7 @@
 Contains all constants, default values, URLs, and error messages.
 """
 
+import random
 from typing import Dict, Any
 
 
@@ -11,6 +12,7 @@ class Config:
     # HTTP request settings
     DEFAULT_TIMEOUT = 30  # Request timeout in seconds
     RATE_LIMIT_DELAY = 1.0  # Delay between requests in seconds
+    DEFAULT_RETRY_COUNT = 3  # Number of retries for failed requests
     
     # User agent strings for HTTP requests
     USER_AGENTS = [
@@ -30,7 +32,7 @@ class Config:
     
     # Default parameters
     DEFAULT_LANGUAGE = "en"  # Default language code
-    DEFAULT_COUNTRY = "us"  # Default country code
+    DEFAULT_COUNTRY = ""  # Default country code
     DEFAULT_REVIEWS_SORT = "NEWEST"  # Options: NEWEST, RELEVANT, RATING
     DEFAULT_HTTP_CLIENT = "requests"  # Options: requests, httpx, curl-cffi, tls-client, aiohttp, urllib3, cloudscraper
     
@@ -101,7 +103,6 @@ class Config:
         Returns:
             Dictionary containing HTTP headers
         """
-        import random
         return {
             "User-Agent": user_agent or random.choice(cls.USER_AGENTS)
         }

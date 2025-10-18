@@ -196,6 +196,7 @@ scraper.app_print_all("com.whatsapp", assets="LARGE")
 - `developerAddress` - Physical address
 - `developerPhone` - Contact phone
 - `privacyPolicy` - Privacy policy URL
+- `publisherCountry` - Developer's country
 
 ### Category
 - `genre` - Primary category (e.g., "Communication")
@@ -213,7 +214,6 @@ scraper.app_print_all("com.whatsapp", assets="LARGE")
 - `released` - Release date (e.g., "Feb 24, 2009")
 - `appAgeDays` - Age in days
 - `lastUpdated` - Last update date
-- `updatedTimestamp` - Update timestamp
 
 ### Content
 - `contentRating` - Age rating (e.g., "Everyone")

@@ -23,23 +23,61 @@ from ..exceptions import AppNotFoundError, NetworkError
 logger = logging.getLogger(__name__)
 
 class HttpClient:
-    """HTTP client with automatic fallback support for 7 libraries."""
+    """HTTP client with automatic fallback support for 7 libraries.
+    
+    Provides a unified interface for making HTTP requests using various client libraries.
+    Automatically falls back to alternative clients if the preferred one fails or is unavailable.
+    
+    Supported Clients:
+        - requests: Most compatible, widely used
+        - curl_cffi: Best for bypassing anti-bot protections
+        - tls_client: Advanced TLS fingerprinting
+        - urllib3: Low-level HTTP with connection pooling
+        - cloudscraper: Automatic Cloudflare bypass
+        - aiohttp: Asynchronous HTTP operations
+        - httpx: Modern HTTP client with HTTP/2 support
+    
+    Features:
+        - Automatic client fallback on failures
+        - Rate limiting to prevent blocks
+        - Browser impersonation capabilities
+        - Connection pooling and reuse
+        - Comprehensive error handling
+    """
     def __init__(self, rate_limit_delay: float = None, client_type: str = None):
         """Initialize HTTP client with specified or default client type.
         
         Args:
-            rate_limit_delay: Delay between requests in seconds
-            client_type: HTTP client to use (requests, curl_cffi, tls_client, etc.)
+            rate_limit_delay: Delay between requests in seconds (default: 1.0)
+            client_type: HTTP client to use - options:
+                        'requests', 'curl_cffi', 'tls_client', 'urllib3',
+                        'cloudscraper', 'aiohttp', 'httpx' (default: 'requests')
         """
         self.headers = Config.get_headers()
         self.timeout = Config.DEFAULT_TIMEOUT
         self.rate_limit_delay = rate_limit_delay or Config.RATE_LIMIT_DELAY
         self.last_request_time = 0
         self.client_type = client_type or Config.DEFAULT_HTTP_CLIENT
+        self.available_clients = ["requests", "curl_cffi", "tls_client", "urllib3", "cloudscraper", "aiohttp", "httpx"]
+        self.current_client_index = 0
         self._setup_client()
     
     def _setup_client(self):
-        """Setup HTTP client based on client_type with automatic fallback."""
+        """Setup HTTP client based on client_type with automatic fallback.
+        
+        Initializes the specified HTTP client library. If the requested client
+        is not available, automatically falls back to the next available client
+        in the priority order.
+        
+        Priority Order:
+            1. requests (default, most compatible)
+            2. curl_cffi (best for bypassing blocks)
+            3. tls_client (advanced TLS fingerprinting)
+            4. urllib3 (low-level HTTP)
+            5. cloudscraper (anti-bot protection)
+            6. aiohttp (async support)
+            7. httpx (modern HTTP client)
+        """
         # Try to initialize the specified client, fallback to next if unavailable
         if self.client_type == "requests" or self.client_type is None:
             self._try_requests()
@@ -56,88 +94,183 @@ class HttpClient:
         elif self.client_type == "httpx":
             self._try_httpx()
         else:
+            # Default fallback to requests
             self._try_requests()
     
     def _try_requests(self):
-        """Try to initialize requests client, fallback to curl_cffi if unavailable."""
+        """Try to initialize requests client, fallback to curl_cffi if unavailable.
+        
+        Requests is the most widely used HTTP library for Python, providing
+        simple and reliable HTTP functionality. Used as the default client.
+        
+        Fallback: curl_cffi (if requests unavailable)
+        """
         try:
             import requests
             self.client = requests
             self.client_type = "requests"
         except ImportError:
+            # Fallback to next available client
             self._try_curl_cffi()
     
     def _try_curl_cffi(self):
-        """Try to initialize curl_cffi client, fallback to tls_client if unavailable."""
+        """Try to initialize curl_cffi client, fallback to tls_client if unavailable.
+        
+        curl_cffi provides libcurl bindings with browser impersonation capabilities,
+        making it excellent for bypassing anti-bot protections by mimicking real browsers.
+        
+        Features:
+            - Browser impersonation (Chrome 110)
+            - Advanced TLS fingerprinting
+            - Better success rate against blocks
+        
+        Fallback: tls_client (if curl_cffi unavailable)
+        """
         try:
             from curl_cffi import requests as curl_requests
+            # Impersonate Chrome 110 for better compatibility
             self.client = curl_requests.Session(impersonate="chrome110")
             self.client_type = "curl_cffi"
         except ImportError:
+            # Fallback to next available client
             self._try_tls_client()
     
     def _try_tls_client(self):
-        """Try to initialize tls_client, fallback to urllib3 if unavailable."""
+        """Try to initialize tls_client, fallback to urllib3 if unavailable.
+        
+        tls_client provides advanced TLS fingerprinting and browser simulation
+        capabilities, useful for bypassing sophisticated detection systems.
+        
+        Features:
+            - Chrome 112 client identifier
+            - Random TLS extension ordering
+            - Advanced fingerprint randomization
+        
+        Fallback: urllib3 (if tls_client unavailable)
+        """
         try:
             import tls_client
             self.client = tls_client.Session(
-                client_identifier="chrome112",
-                random_tls_extension_order=True
+                client_identifier="chrome112",  # Simulate Chrome 112
+                random_tls_extension_order=True  # Randomize TLS fingerprint
             )
             self.client_type = "tls_client"
         except ImportError:
+            # Fallback to next available client
             self._try_urllib3()
     
     def _try_urllib3(self):
-        """Try to initialize urllib3 client, fallback to cloudscraper if unavailable."""
+        """Try to initialize urllib3 client, fallback to cloudscraper if unavailable.
+        
+        urllib3 is a powerful HTTP client library that provides connection pooling,
+        thread safety, and many other features. It's the foundation for requests.
+        
+        Features:
+            - Connection pooling for better performance
+            - Thread-safe operations
+            - Low-level HTTP control
+        
+        Fallback: cloudscraper (if urllib3 unavailable)
+        """
         try:
             import urllib3
+            # Use PoolManager for connection pooling
             self.client = urllib3.PoolManager()
             self.client_type = "urllib3"
         except ImportError:
+            # Fallback to next available client
             self._try_cloudscraper()
     
     def _try_cloudscraper(self):
-        """Try to initialize cloudscraper client, fallback to aiohttp if unavailable."""
+        """Try to initialize cloudscraper client, fallback to aiohttp if unavailable.
+        
+        cloudscraper is designed to bypass Cloudflare's anti-bot protection
+        and other similar security measures automatically.
+        
+        Features:
+            - Automatic Cloudflare bypass
+            - JavaScript challenge solving
+            - Anti-bot protection circumvention
+        
+        Fallback: aiohttp (if cloudscraper unavailable)
+        """
         try:
             import cloudscraper
+            # Create scraper with automatic anti-bot bypass
             self.client = cloudscraper.create_scraper()
             self.client_type = "cloudscraper"
         except ImportError:
+            # Fallback to next available client
             self._try_aiohttp()
 
     def _try_aiohttp(self):
-        """Try to initialize aiohttp client, fallback to httpx if unavailable."""
+        """Try to initialize aiohttp client, fallback to httpx if unavailable.
+        
+        aiohttp provides asynchronous HTTP client/server functionality,
+        allowing for better performance with concurrent requests.
+        
+        Features:
+            - Asynchronous operations
+            - Better performance for multiple requests
+            - WebSocket support
+        
+        Note: Used synchronously via asyncio.run() in this implementation
+        
+        Fallback: httpx (if aiohttp unavailable)
+        """
         try:
             import aiohttp
+            # Store aiohttp module for async operations
             self.client = aiohttp
             self.client_type = "aiohttp"
         except ImportError:
+            # Fallback to next available client
             self._try_httpx()
     
     def _try_httpx(self):
-        """Try to initialize httpx client, raise error if unavailable."""
+        """Try to initialize httpx client, raise error if unavailable.
+        
+        httpx is a modern HTTP client library with async support and HTTP/2 capabilities.
+        It provides a requests-compatible API with additional features.
+        
+        Features:
+            - HTTP/2 support
+            - Async and sync APIs
+            - Modern Python features
+            - Requests-compatible interface
+        
+        Raises:
+            ImportError: If no HTTP client libraries are available
+        """
         try:
             import httpx
+            # Create client with configured timeout
             self.client = httpx.Client(timeout=self.timeout)
             self.client_type = "httpx"
         except ImportError:
+            # No more fallback options available
             raise ImportError(Config.ERROR_MESSAGES["NO_HTTP_CLIENT"])
     
     def fetch_app_page(self, app_id: str, lang: str = Config.DEFAULT_LANGUAGE, country: str = Config.DEFAULT_COUNTRY) -> str:
         """Fetch app details page from Google Play Store.
         
+        Retrieves the HTML content of an app's details page, which contains
+        all the app information including ratings, reviews, description, etc.
+        
         Args:
-            app_id: Google Play app ID
-            lang: Language code
-            country: Country code
+            app_id: Google Play app ID (e.g., 'com.whatsapp')
+            lang: Language code for localization (e.g., 'en', 'es')
+            country: Country code for regional content (e.g., 'us', 'uk')
             
         Returns:
-            HTML content of app page
+            HTML content of app page containing embedded JSON data
             
         Raises:
-            AppNotFoundError: If app not found
-            NetworkError: If request fails
+            AppNotFoundError: If app not found (404 error)
+            NetworkError: If request fails due to network issues
+            
+        Example:
+            html = client.fetch_app_page('com.whatsapp', 'en', 'us')
         """
         self.rate_limit()
         
@@ -430,20 +563,30 @@ class HttpClient:
     def _make_request(self, method: str, url: str, **kwargs):
         """Make HTTP request with automatic client fallback.
         
+        Attempts to make an HTTP request using the configured client. If the request
+        fails, automatically tries other available HTTP clients in priority order
+        until one succeeds or all clients are exhausted.
+        
         Args:
             method: HTTP method (GET or POST)
             url: Request URL
-            **kwargs: Additional request parameters
+            **kwargs: Additional request parameters (data, headers, etc.)
             
         Returns:
-            Response object
+            Response object with .text attribute
             
         Raises:
-            Exception: If all clients fail
+            Exception: If all HTTP clients fail to make the request
+            
+        Example:
+            response = self._make_request("GET", "https://example.com")
+            content = response.text
         """
         # Build list of clients to try, starting with preferred client
         clients_to_try = [self.client_type]
         all_clients = ["requests", "curl_cffi", "tls_client", "urllib3", "cloudscraper", "aiohttp", "httpx"]
+        
+        # Add remaining clients as fallback options
         for client in all_clients:
             if client != self.client_type:
                 clients_to_try.append(client)
@@ -459,22 +602,30 @@ class HttpClient:
                 logger.warning(Config.ERROR_MESSAGES["CLIENT_FAILED_TRYING_NEXT"].format(client_type=client_type, error=e))
                 continue
         
+        # All clients failed, raise the last error
         raise last_error
     
     def _try_request_with_client(self, client_type: str, method: str, url: str, **kwargs):
         """Attempt request with specific HTTP client.
         
+        Tries to make an HTTP request using the specified client library.
+        Each client has its own implementation details and capabilities.
+        
         Args:
-            client_type: HTTP client name
+            client_type: HTTP client name (requests, curl_cffi, etc.)
             method: HTTP method (GET or POST)
             url: Request URL
-            **kwargs: Additional request parameters
+            **kwargs: Additional request parameters (data, headers, timeout)
             
         Returns:
-            Response object
+            Response object with .text attribute and .status_code
             
         Raises:
             Exception: If client unavailable or request fails
+            
+        Note:
+            Different clients may have different response object structures,
+            so this method normalizes them to a common interface.
         """
         headers = kwargs.get('headers', self.headers)
         
@@ -612,23 +763,70 @@ class HttpClient:
     def _is_404_error(self, error: Exception) -> bool:
         """Check if error is a 404 not found error.
         
+        Analyzes exception messages to determine if the error indicates
+        that the requested resource (app, developer, etc.) was not found.
+        
         Args:
             error: Exception to check
             
         Returns:
             True if 404 error, False otherwise
+            
+        Example:
+            if self._is_404_error(exception):
+                raise AppNotFoundError("App not found")
         """
         error_str = str(error).lower()
+        # Check for common 404 error indicators
         return "404" in error_str or "not found" in error_str
     
+    def _try_next_client(self):
+        """Switch to next available HTTP client for retry.
+        
+        Cycles through available HTTP clients when the current one fails,
+        providing automatic fallback functionality for improved reliability.
+        
+        Process:
+            1. Move to next client in the list
+            2. Log the client switch
+            3. Reinitialize with new client
+            
+        Note:
+            Called automatically by error handling decorators when retries are needed
+        """
+        # Cycle to next available client
+        self.current_client_index = (self.current_client_index + 1) % len(self.available_clients)
+        next_client = self.available_clients[self.current_client_index]
+        
+        logger.info(f"Switching to HTTP client: {next_client}")
+        
+        # Update client type and reinitialize
+        self.client_type = next_client
+        self._setup_client()
+    
     def rate_limit(self):
-        """Apply rate limiting delay between requests."""
+        """Apply rate limiting delay between requests.
+        
+        Implements rate limiting to prevent overwhelming the Google Play Store
+        servers and avoid getting blocked. Calculates the time since the last
+        request and sleeps if necessary to maintain the configured delay.
+        
+        Rate Limiting Strategy:
+            - Tracks time of last request
+            - Enforces minimum delay between requests
+            - Prevents rapid-fire requests that could trigger blocks
+            
+        Note:
+            Called automatically before each HTTP request
+        """
         current_time = time.time()
         time_since_last = current_time - self.last_request_time
         
+        # Check if we need to wait before making the next request
         if time_since_last < self.rate_limit_delay:
             sleep_time = self.rate_limit_delay - time_since_last
             logger.debug(Config.ERROR_MESSAGES["RATE_LIMIT_SLEEP"].format(sleep_time=sleep_time))
             time.sleep(sleep_time)
         
+        # Update last request time
         self.last_request_time = time.time()
